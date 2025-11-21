@@ -11,10 +11,9 @@
             --card-bg: #ffffff;
             --text: #111;
             --meta: #666;
-            --accent: #0056b3;
+            --accent: #0056b3; /* Unified Blue */
             --badge-bg: #eef3f8;
             --badge-text: #0056b3;
-            --badge-purple: #7e22ce;
         }
 
         body {
@@ -45,7 +44,7 @@
             font-size: 1.0rem; 
             margin-top: 10px; 
             font-weight: 300; 
-            min-height: 20px; /* Keeps the spacing even if empty */
+            min-height: 20px; 
         }
 
         /* Grid Container */
@@ -87,11 +86,6 @@
             color: var(--accent);
             font-weight: 700;
             margin-bottom: 10px;
-        }
-
-        /* PURPLE BADGE for Proof Assistants */
-        .card[data-type="Proof assistant"] .card-type {
-            color: var(--badge-purple);
         }
 
         .card-title {
@@ -189,11 +183,11 @@
             },
             { 
                 type: "Proof assistant", 
-                title: "The Lean 4 Theorem Prover", 
-                authors: "Leonardo de Moura, Sebastian Ullrich", 
-                date: "2021", 
-                link: "https://arxiv.org/abs/2104.04056",
-                quote: "Lean 4 acts as a bridge between interactive theorem proving and automated reasoning, attempting to create a system where the programming language and the proof language are one and the same.",
+                title: "Lean", 
+                // Authors removed
+                // Date removed
+                link: "https://lean-lang.org/",
+                quote: "[Lean] is the best and perhaps the only technology… for achieving meaningful progress with regard to the fundamental goal of liberating mathematical truth from the yoke of social and political dynamics. (Shinichi Mochizuki)",
                 summary: "" 
             }
         ];
@@ -206,6 +200,11 @@
             div.className = 'card';
             div.setAttribute('data-type', item.type);
 
+            // Conditional Rendering: Only show if data exists
+            const authorsHTML = item.authors 
+                ? `<div class="card-authors">${item.authors}</div>` 
+                : '';
+
             const quoteHTML = item.quote 
                 ? `<div class="card-quote">"${item.quote}"</div>` 
                 : '';
@@ -214,17 +213,19 @@
                 ? `<a href="${item.summary}" class="summary-link" target="_blank">Summary PDF</a>`
                 : `<span></span>`;
 
+            const dateText = item.date ? item.date : '';
+
             div.innerHTML = `
                 <div class="card-top">
                     <div class="card-type">${item.type}</div>
                     <h3 class="card-title">
                         <a href="${item.link}" target="_blank">${item.title}</a>
                     </h3>
-                    <div class="card-authors">${item.authors}</div> 
+                    ${authorsHTML}
                     ${quoteHTML}
                 </div>
                 <div class="card-meta">
-                    <span>${item.date}</span>
+                    <span>${dateText}</span>
                     ${summaryHTML}
                 </div>
             `;
