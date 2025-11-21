@@ -11,7 +11,7 @@
             --card-bg: #ffffff;
             --text: #111;
             --meta: #666;
-            --accent: #2563eb;
+            --accent: #0056b3;
         }
 
         body {
@@ -20,18 +20,17 @@
             background-color: var(--bg);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text);
-            overflow-y: scroll; /* Always show scrollbar to prevent jumps */
+            overflow-y: scroll;
         }
 
-        /* Header */
         header {
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
             background: var(--bg);
         }
 
-        h1 { margin: 0; font-size: 1.8rem; letter-spacing: -0.03em; }
-        .subtitle { color: var(--meta); font-size: 0.9rem; margin-top: 8px; }
+        h1 { margin: 0; font-size: 2.0rem; letter-spacing: -0.03em; font-weight: 700; }
+        .subtitle { color: var(--meta); font-size: 1.0rem; margin-top: 10px; font-weight: 300; }
 
         /* Grid Container */
         #feed {
@@ -47,14 +46,14 @@
         .card {
             background: var(--card-bg);
             padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            height: 200px; /* Fixed height for uniform look, or remove for masonry */
+            height: 220px;
             text-decoration: none;
             color: inherit;
             border: 1px solid transparent;
@@ -62,59 +61,73 @@
 
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            border-color: #ddd;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-color: #e0e0e0;
         }
 
-        .card-type {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            font-weight: 700;
+        .card-top {
             margin-bottom: 10px;
         }
 
+        .card-type {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            line-height: 1.3;
-            margin: 0 0 10px 0;
+            line-height: 1.35;
+            margin: 0 0 8px 0;
+        }
+
+        /* This is the style that was missing for the authors */
+        .card-authors {
+            font-size: 0.9rem;
+            color: #444;
+            margin-bottom: 10px;
+            font-weight: 400;
+            font-style: italic;
         }
 
         .card-meta {
-            font-size: 0.85rem;
-            color: var(--meta);
-            margin-top: auto; /* Pushes this to bottom */
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: auto;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        /* Loading Spinner */
         #loader {
             text-align: center;
             padding: 40px;
             color: var(--meta);
+            font-size: 0.9rem;
             opacity: 0;
             transition: opacity 0.3s;
         }
         #loader.visible { opacity: 1; }
-
     </style>
 </head>
 <body>
 
     <header>
         <h1>Automated Discovery</h1>
-        <div class="subtitle">Patience must in the work be shown</div>
+        <div class="subtitle"></div>
     </header>
 
     <div id="feed"></div>
 
-    <div id="loader">Loading more discoveries...</div>
+    <div id="loader">Loading archive...</div>
 
     <script>
-        // --- 2. THE DATA ---
-        // Add your papers and tools here.
-        // Use links like "papers/my-paper.pdf" or "tools/visualization.html"
+        // --- DATA SECTION ---
         const database = [
             { 
                 type: "Paper", 
@@ -132,37 +145,37 @@
             }
         ];
 
-        // --- 3. THE ENGINE ---
+        // --- ENGINE SECTION ---
         const feed = document.getElementById('feed');
         const loader = document.getElementById('loader');
         let loadedCount = 0;
-        const batchSize = 6; // How many cards to load at once
+        const batchSize = 6;
 
-        // Function to create a single HTML card
         function createCard(item) {
             const a = document.createElement('a');
             a.href = item.link;
             a.className = 'card';
+            // This block injects the HTML structure, including the author div
             a.innerHTML = `
-                <div>
+                <div class="card-top">
                     <div class="card-type">${item.type}</div>
                     <h3 class="card-title">${item.title}</h3>
+                    <div class="card-authors">${item.authors}</div> 
                 </div>
-                <div class="card-meta">${item.date}</div>
+                <div class="card-meta">
+                    <span>${item.date}</span>
+                    <span>&rarr;</span>
+                </div>
             `;
             return a;
         }
 
-        // Function to load a batch of items
         function loadBatch() {
-            // If we have shown everything, stop.
             if (loadedCount >= database.length) {
-                loader.innerHTML = "End of Archive";
-                loader.classList.add('visible');
+                loader.innerHTML = ""; // Hides loader when done
                 return;
             }
 
-            // Simulate a tiny network delay for the "feel" of infinite scroll
             loader.classList.add('visible');
             setTimeout(() => {
                 const end = Math.min(loadedCount + batchSize, database.length);
@@ -171,23 +184,10 @@
                 }
                 loadedCount = end;
                 loader.classList.remove('visible');
-                
-                // Check if we need to load more immediately (if screen is huge)
-                if (document.body.scrollHeight <= window.innerHeight) {
-                    loadBatch();
-                }
-            }, 400);
+            }, 300);
         }
 
-        // Initial Load
         loadBatch();
-
-        // Scroll Event Listener (Infinite Scroll Logic)
-        window.addEventListener('scroll', () => {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-                loadBatch();
-            }
-        });
     </script>
 </body>
 </html>
