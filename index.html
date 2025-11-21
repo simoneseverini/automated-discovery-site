@@ -11,7 +11,7 @@
             --card-bg: #ffffff;
             --text: #111;
             --meta: #666;
-            --accent: #0056b3;
+            --accent: #0056b3; /* Default Blue */
             --badge-bg: #eef3f8;
             --badge-text: #0056b3;
         }
@@ -57,7 +57,7 @@
             padding: 20px;
         }
 
-        /* Card Style - Changed from <a> to <div> */
+        /* Card Style */
         .card {
             background: var(--card-bg);
             padding: 24px;
@@ -83,12 +83,16 @@
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            color: var(--accent);
+            color: var(--accent); /* Default to Blue */
             font-weight: 700;
             margin-bottom: 10px;
         }
 
-        /* The Title is now the main link */
+        /* Custom Color for Proof assistant */
+        .card[data-type="Proof assistant"] .card-type {
+            color: #7e22ce; /* Purple */
+        }
+
         .card-title {
             margin: 0 0 8px 0;
             font-size: 1.2rem;
@@ -137,7 +141,6 @@
             align-items: center;
         }
 
-        /* Summary Button Style */
         .summary-link {
             background-color: var(--badge-bg);
             color: var(--badge-text);
@@ -179,7 +182,7 @@
                 title: "The Shape of Math To Come", 
                 authors: "Alex Kontorovich", 
                 date: "Oct 2025", 
-                link: "https://arxiv.org/abs/2510.15924", // <--- Added comma here
+                link: "https://arxiv.org/abs/2510.15924",
                 quote: "If we succeed in building AI that amplifies mathematical intuition—handling the mechanical aspects while preserving human creativity—we may witness not the end of pure mathematics, but its transformation into something more powerful and beautiful.",
                 summary: "summaries/kontorovich-summary.pdf" 
             },
@@ -191,6 +194,14 @@
                 link: "https://arxiv.org/abs/2310.00865",
                 quote: "There is a singularity (= new superpower) but not in AI. It’s a superpower allowing us to do research faster and better. It’s not dangerous. You’ll just be hearing more and more frequently about advances, because research goes faster and faster.",
                 summary: "summaries/donoho-summary.pdf" 
+            },
+            { 
+                type: "Proof assistant", 
+                title: "Lean", 
+                authors: ,
+                date: ,
+                link: "https://lean-lang.org/",
+                quote: "[Lean] is the best and perhaps the only technology for achieving meaningful progress with regard to the fundamental goal of liberating mathematical truth from the yoke of social and political dynamics. (Shinichi Mochizuki)" 
             }
         ];
 
@@ -200,15 +211,17 @@
         function createCard(item) {
             const div = document.createElement('div');
             div.className = 'card';
+            
+            // This attribute allows the CSS to target specific types (Paper vs Theorem Prover)
+            div.setAttribute('data-type', item.type); 
 
             const quoteHTML = item.quote 
                 ? `<div class="card-quote">"${item.quote}"</div>` 
                 : '';
 
-            // Logic: If a summary exists, show the button. If not, show nothing.
             const summaryHTML = item.summary
                 ? `<a href="${item.summary}" class="summary-link" target="_blank">Summary PDF</a>`
-                : `<span></span>`; // Empty span to keep the date on the left
+                : `<span></span>`;
 
             div.innerHTML = `
                 <div class="card-top">
