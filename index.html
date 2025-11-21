@@ -34,7 +34,6 @@
             font-size: 2.0rem; 
             letter-spacing: -0.03em; 
             font-weight: 700;
-            /* Optional: makes it look more like code/terminal text */
             font-family: "Courier New", Courier, monospace; 
         }
 
@@ -43,7 +42,7 @@
             font-size: 1.0rem; 
             margin-top: 10px; 
             font-weight: 300; 
-            min-height: 20px; /* Keeps spacing even if empty */
+            min-height: 20px; 
         }
 
         /* Grid Container */
@@ -106,15 +105,16 @@
             font-style: italic;
         }
 
+        /* UPDATED QUOTE STYLE: No border line */
         .card-quote {
             background: #f9f9f9;
-            border-left: 3px solid var(--accent);
-            padding: 12px;
+            padding: 15px;
             font-size: 0.85rem;
             color: #555;
             line-height: 1.5;
             margin-bottom: 15px;
-            border-radius: 0 4px 4px 0;
+            border-radius: 6px;
+            font-style: italic;
         }
 
         .card-meta {
