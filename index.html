@@ -12,6 +12,8 @@
             --text: #111;
             --meta: #666;
             --accent: #0056b3;
+            --badge-bg: #eef3f8;
+            --badge-text: #0056b3;
         }
 
         body {
@@ -55,20 +57,18 @@
             padding: 20px;
         }
 
-        /* Card Style */
+        /* Card Style - Changed from <a> to <div> */
         .card {
             background: var(--card-bg);
             padding: 24px;
             border-radius: 6px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
             display: flex;
             flex-direction: column;
             min-height: 200px; 
-            text-decoration: none;
-            color: inherit;
             border: 1px solid transparent;
+            position: relative;
         }
 
         .card:hover {
@@ -77,9 +77,7 @@
             border-color: #e0e0e0;
         }
 
-        .card-top {
-            margin-bottom: 15px;
-        }
+        .card-top { margin-bottom: 15px; }
 
         .card-type {
             font-size: 0.65rem;
@@ -90,11 +88,22 @@
             margin-bottom: 10px;
         }
 
+        /* The Title is now the main link */
         .card-title {
+            margin: 0 0 8px 0;
             font-size: 1.2rem;
             font-weight: 600;
             line-height: 1.3;
-            margin: 0 0 8px 0;
+        }
+        
+        .card-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .card-title a:hover {
+            color: var(--accent);
+            text-decoration: underline;
         }
 
         .card-authors {
@@ -105,7 +114,6 @@
             font-style: italic;
         }
 
-        /* UPDATED QUOTE STYLE: No border line */
         .card-quote {
             background: #f9f9f9;
             padding: 15px;
@@ -117,6 +125,7 @@
             font-style: italic;
         }
 
+        /* Footer Layout */
         .card-meta {
             font-size: 0.8rem;
             color: #888;
@@ -125,6 +134,23 @@
             padding-top: 12px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Summary Button Style */
+        .summary-link {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: background 0.2s;
+        }
+
+        .summary-link:hover {
+            background-color: #dbeafe;
         }
 
         #loader {
@@ -154,6 +180,7 @@
                 authors: "Alex Kontorovich", 
                 date: "Oct 2025", 
                 link: "https://arxiv.org/abs/2510.15924" 
+                // No summary link for this one yet
             },
             { 
                 type: "Paper", 
@@ -161,7 +188,8 @@
                 authors: "David Donoho", 
                 date: "Oct 2023", 
                 link: "https://arxiv.org/abs/2310.00865",
-                quote: "There is a singularity (= new superpower) but not in AI. It’s a superpower allowing us to do research faster and better. It’s not dangerous. You’ll just be hearing more and more frequently about advances, because research goes faster and faster."
+                quote: "There is a singularity (= new superpower) but not in AI. It’s a superpower allowing us to do research faster and better. It’s not dangerous. You’ll just be hearing more and more frequently about advances, because research goes faster and faster.",
+                summary: "summaries/donoho-summary.pdf" // <--- HERE IS THE NEW LINK
             }
         ];
 
@@ -169,27 +197,33 @@
         const feed = document.getElementById('feed');
         
         function createCard(item) {
-            const a = document.createElement('a');
-            a.href = item.link;
-            a.className = 'card';
+            const div = document.createElement('div');
+            div.className = 'card';
 
             const quoteHTML = item.quote 
                 ? `<div class="card-quote">"${item.quote}"</div>` 
                 : '';
 
-            a.innerHTML = `
+            // Logic: If a summary exists, show the button. If not, show nothing.
+            const summaryHTML = item.summary
+                ? `<a href="${item.summary}" class="summary-link" target="_blank">Summary PDF</a>`
+                : `<span></span>`; // Empty span to keep the date on the left
+
+            div.innerHTML = `
                 <div class="card-top">
                     <div class="card-type">${item.type}</div>
-                    <h3 class="card-title">${item.title}</h3>
+                    <h3 class="card-title">
+                        <a href="${item.link}" target="_blank">${item.title}</a>
+                    </h3>
                     <div class="card-authors">${item.authors}</div> 
                     ${quoteHTML}
                 </div>
                 <div class="card-meta">
                     <span>${item.date}</span>
-                    <span>&rarr;</span>
+                    ${summaryHTML}
                 </div>
             `;
-            return a;
+            return div;
         }
 
         database.forEach(item => {
