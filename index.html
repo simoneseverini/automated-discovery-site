@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>automated-discovery</title>
     <style>
-        /* --- 1. VISUAL STYLE --- */
+        /* --- VISUAL STYLE --- */
         :root {
             --bg: #f4f4f4;
             --card-bg: #ffffff;
             --text: #111;
             --meta: #666;
-            --accent: #0056b3; /* Default Blue */
+            --accent: #0056b3;
             --badge-bg: #eef3f8;
             --badge-text: #0056b3;
+            --badge-purple: #7e22ce;
         }
 
         body {
@@ -44,7 +45,7 @@
             font-size: 1.0rem; 
             margin-top: 10px; 
             font-weight: 300; 
-            min-height: 20px; 
+            min-height: 20px; /* Keeps the spacing even if empty */
         }
 
         /* Grid Container */
@@ -83,14 +84,14 @@
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            color: var(--accent); /* Default to Blue */
+            color: var(--accent);
             font-weight: 700;
             margin-bottom: 10px;
         }
 
-        /* Custom Color for Proof assistant */
+        /* PURPLE BADGE for Proof Assistants */
         .card[data-type="Proof assistant"] .card-type {
-            color: #7e22ce; /* Purple */
+            color: var(--badge-purple);
         }
 
         .card-title {
@@ -129,7 +130,6 @@
             font-style: italic;
         }
 
-        /* Footer Layout */
         .card-meta {
             font-size: 0.8rem;
             color: #888;
@@ -155,13 +155,6 @@
         .summary-link:hover {
             background-color: #dbeafe;
         }
-
-        #loader {
-            text-align: center;
-            padding: 40px;
-            color: var(--meta);
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
@@ -172,7 +165,6 @@
     </header>
 
     <div id="feed"></div>
-    <div id="loader"></div>
 
     <script>
         // --- DATA SECTION ---
@@ -197,11 +189,12 @@
             },
             { 
                 type: "Proof assistant", 
-                title: "Lean", 
-                authors: ,
-                date: ,
-                link: "https://lean-lang.org/",
-                quote: "[Lean] is the best and perhaps the only technology for achieving meaningful progress with regard to the fundamental goal of liberating mathematical truth from the yoke of social and political dynamics. (Shinichi Mochizuki)" 
+                title: "The Lean 4 Theorem Prover", 
+                authors: "Leonardo de Moura, Sebastian Ullrich", 
+                date: "2021", 
+                link: "https://arxiv.org/abs/2104.04056",
+                quote: "Lean 4 acts as a bridge between interactive theorem proving and automated reasoning, attempting to create a system where the programming language and the proof language are one and the same.",
+                summary: "" 
             }
         ];
 
@@ -211,9 +204,7 @@
         function createCard(item) {
             const div = document.createElement('div');
             div.className = 'card';
-            
-            // This attribute allows the CSS to target specific types (Paper vs Theorem Prover)
-            div.setAttribute('data-type', item.type); 
+            div.setAttribute('data-type', item.type);
 
             const quoteHTML = item.quote 
                 ? `<div class="card-quote">"${item.quote}"</div>` 
