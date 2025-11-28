@@ -240,9 +240,9 @@
                 authors: "Shanghua Gao, Marinka Zitnik, et al.", 
                 date: "Sep 2025", 
                 link: "https://aiscientist.tools/",
-                quote: "ToolUniverse addresses provides a standardized ecosystem that transforms any AI model into a powerful research scientist, integrating more than 600 machine learning models, datasets, and APIs.",
+                quote: "ToolUniverse addresses this challenge by providing a standardized ecosystem that transforms any AI model into a powerful research scientist... integrating more than 600 machine learning models, datasets, and APIs.",
                 summary: "" 
-            }
+            },
             { 
                 type: "Book", 
                 title: "Science Ltd", 
@@ -262,7 +262,6 @@
             div.className = 'card';
             div.setAttribute('data-type', item.type);
 
-            // Conditional Rendering
             const authorsHTML = item.authors 
                 ? `<div class="card-authors">${item.authors}</div>` 
                 : '';
@@ -275,7 +274,6 @@
                 ? `<a href="${item.summary}" class="summary-link" target="_blank">Summary PDF</a>`
                 : `<span></span>`;
 
-            // Default to empty string if date is missing
             const dateText = item.date ? item.date : '';
 
             div.innerHTML = `
