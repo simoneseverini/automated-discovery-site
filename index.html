@@ -105,9 +105,12 @@
             color: #be123c; /* Rose */
         }
 
-        /* Gold Badge for System */
         .card[data-type="System"] .card-type {
-            color: #d97706; 
+            color: #d97706; /* Gold/Amber */
+        }
+
+        .card[data-type="Benchmark"] .card-type {
+            color: #db2777; /* Pink */
         }
 
         .card-title {
@@ -133,6 +136,17 @@
             margin-bottom: 15px;
             font-weight: 400;
             font-style: italic;
+        }
+
+        .card-authors a {
+            color: inherit; 
+            text-decoration: none;
+            border-bottom: 1px dotted #999;
+        }
+
+        .card-authors a:hover {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
         }
 
         .card-quote {
@@ -213,7 +227,7 @@
                 summary: "" 
             },
             { 
-                type: "Paper", 
+                type: "Essay", 
                 title: "How to be a wise optimist about science and technology?", 
                 authors: "Michael Nielsen", 
                 date: "Dec 2024", 
@@ -224,7 +238,7 @@
             { 
                 type: "Multi-agent System", 
                 title: "The AI Scientist", 
-                authors: "Chris Lu, et al.", 
+                authors: "Chris Lu, et al. (<a href='https://sakana.ai/ai-scientist/' target='_blank'>Sakana AI</a>)", 
                 date: "Aug 2024", 
                 link: "https://arxiv.org/abs/2408.06292",
                 quote: "We propose The AI Scientist, the first comprehensive framework for fully automatic scientific discovery... capable of independently generating novel research ideas, designing and executing experiments, and writing full scientific papers.",
@@ -245,7 +259,7 @@
                 authors: "Shanghua Gao, Marinka Zitnik, et al.", 
                 date: "Sep 2025", 
                 link: "https://aiscientist.tools/",
-                quote: "ToolUniverse provides a standardized ecosystem that transforms any AI model into a powerful research scientist... integrating more than 600 machine learning models, datasets, and APIs.",
+                quote: "ToolUniverse addresses this challenge by providing a standardized ecosystem that transforms any AI model into a powerful research scientist... integrating more than 600 machine learning models, datasets, and APIs.",
                 summary: "" 
             },
             { 
@@ -260,8 +274,8 @@
             { 
                 type: "System", 
                 title: "The Ramanujan Machine", 
-                authors: "Ido Kaminer, et al.", 
-                date: "Feb 2021", 
+                authors: "Ido Kaminer, et al. (Technion)", 
+                date: "2021", 
                 link: "https://www.ramanujanmachine.com/",
                 quote: "Here we propose a systematic approach that leverages algorithms to discover mathematical formulas for fundamental constants and helps to reveal the underlying structure of the constants. We call this approach ‘the Ramanujan Machine’. Our algorithms find dozens of well known formulas as well as previously unknown ones, such as continued fraction representations of π, e, Catalan’s constant, and values of the Riemann zeta function.",
                 summary: "" 
@@ -273,6 +287,15 @@
                 date: "July 2025", 
                 link: "https://harmonic.fun/",
                 quote: "Aristotle is architected to be hallucination-free in the domain of mathematics. It achieves this by combining informal reasoning with formal verification using the Lean 4 programming language.",
+                summary: "" 
+            },
+            { 
+                type: "Benchmark", 
+                title: "PutnamBench", 
+                authors: "George Tsoukalas, et al. (Trishul Lab)", 
+                date: "July 2024", 
+                link: "https://trishullab.github.io/PutnamBench/",
+                quote: "PutnamBench consists of 1692 hand-constructed formalizations of 640 theorems sourced from the William Lowell Putnam Mathematical Competition... [evaluating] the ability of neural theorem-provers to solve competition mathematics problems.",
                 summary: "" 
             }
         ];
