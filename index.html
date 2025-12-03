@@ -108,7 +108,7 @@
         .card[data-type="System"] .card-type {
             color: #d97706; /* Gold/Amber */
         }
-
+        
         .card[data-type="Benchmark"] .card-type {
             color: #db2777; /* Pink */
         }
@@ -137,13 +137,13 @@
             font-weight: 400;
             font-style: italic;
         }
-
+        
         .card-authors a {
-            color: inherit; 
+            color: inherit;
             text-decoration: none;
             border-bottom: 1px dotted #999;
         }
-
+        
         .card-authors a:hover {
             color: var(--accent);
             border-bottom: 1px solid var(--accent);
@@ -297,6 +297,24 @@
                 link: "https://trishullab.github.io/PutnamBench/",
                 quote: "PutnamBench consists of 1692 hand-constructed formalizations of 640 theorems sourced from the William Lowell Putnam Mathematical Competition... [evaluating] the ability of neural theorem-provers to solve competition mathematics problems.",
                 summary: "" 
+            },
+            { 
+                type: "System", 
+                title: "Elicit", 
+                authors: "Andreas Stuhlmüller, Jungwon Byun", 
+                date: "2021", 
+                link: "https://elicit.com/",
+                quote: "Elicit utilizes natural language processing to automate research workflows by summarizing academic papers, extracting data, and synthesizing findings.",
+                summary: "" 
+            },
+            { 
+                type: "System", 
+                title: "Undermind", 
+                authors: "Thomas Hartke, Joshua Ramette", 
+                date: "Mar 2025", 
+                link: "https://www.undermind.ai/",
+                quote: "Undermind employs high-quality LLMs to adaptively explore a database, mimicking how a human researcher carefully discovers information.",
+                summary: "" 
             }
         ];
 
@@ -308,6 +326,7 @@
             div.className = 'card';
             div.setAttribute('data-type', item.type);
 
+            // Conditional Rendering
             const authorsHTML = item.authors 
                 ? `<div class="card-authors">${item.authors}</div>` 
                 : '';
