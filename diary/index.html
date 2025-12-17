@@ -1,1 +1,68 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faust Science Diary</title>
+    
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            max-width: 700px; 
+            margin: 50px auto; 
+            padding: 0 20px; 
+            color: #111;
+        }
+        
+        a { color: #333; text-decoration: underline; }
+        a:hover { color: #000; }
 
+        .nav { margin-bottom: 60px; font-size: 0.9em; }
+
+        /* The Entry Container */
+        .entry { margin-bottom: 80px; }
+        
+        /* The Date Header */
+        .date { 
+            font-weight: bold; 
+            font-size: 1.1em;
+            border-bottom: 2px solid #000; 
+            margin-bottom: 20px; 
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* The Content Area */
+        .content { 
+            font-size: 1.05em; 
+            line-height: 1.6;
+            /* This allows you to just hit 'enter' in code to make new lines */
+            white-space: pre-line; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="/">faust.science</a> / diary
+    </div>
+
+    <div class="entry">
+        <div class="date">December 17, 2025</div>
+        <div class="content">
+            Today I was thinking about the Hamiltonian simulation problem.
+            
+            If we define the operator as:
+            $$ H = \sum_{i} \sigma_z^{(i)} \otimes \sigma_z^{(i+1)} $$
+            
+            We can observe that the evolution $e^{-iHt}$ acts trivially on the subspace.
+            
+            This is a simple test of the rendering.
+        </div>
+    </div>
+    </body>
+</html>
