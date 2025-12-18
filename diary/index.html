@@ -56,14 +56,19 @@
     <div class="entry">
         <div class="date">December 17, 2025</div>
         <div class="content">
-            Today I was thinking about the Hamiltonian simulation problem.
-            
-            If we define the operator as:
-            $$ H = \sum_{i} \sigma_z^{(i)} \otimes \sigma_z^{(i+1)} $$
-            
-            We can observe that the evolution $e^{-iHt}$ acts trivially on the subspace.
-            
-            This is a simple test of the rendering.
+         <div class="content">
+    Today I was reading about the Shannon capacity of the 7-cycle graph, $C_7$.
+    
+    If we define the Shannon capacity of a graph $G$ as:
+    $$ \Theta(G) = \lim_{d \to \infty} \left( \alpha(G^d) \right)^{1/d} $$
+    
+    where $\alpha(G^d)$ is the size of the maximum independent set in the $d$-th strong power of $G$.
+    
+    This paper improves the lower bound by finding an independent set of size 367 in the fifth power, yielding:
+    $$ \Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578 $$
+    
+    You can read the full detail in the paper here: <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a>.
+</div>
         </div>
     </div>
     </body>
