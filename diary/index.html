@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +45,6 @@
         .content { 
             font-size: 1.05em; 
             line-height: 1.6;
-            white-space: pre-line; 
         }
     </style>
 </head>
@@ -56,20 +57,11 @@
     <div class="entry">
         <div class="date">December 17, 2025</div>
         <div class="content">
-         <div class="content">
-    Today I was reading about the Shannon capacity of the 7-cycle graph, $C_7$.
-    
-    If we define the Shannon capacity of a graph $G$ as:
-    $$ \Theta(G) = \lim_{d \to \infty} \left( \alpha(G^d) \right)^{1/d} $$
-    
-    where $\alpha(G^d)$ is the size of the maximum independent set in the $d$-th strong power of $G$.
-    
-    This paper improves the lower bound by finding an independent set of size 367 in the fifth power, yielding:
-    $$ \Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578 $$
-    
-    You can read the full detail in the paper here: <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a>.
-</div>
+            Regarding the Shannon capacity $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}$, this paper improves the lower bound for $C_7$ by finding an independent set of size 367 in the fifth power. This yields:
+            $$ \Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578 $$
+            See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details.
         </div>
     </div>
-    </body>
+    
+</body>
 </html>
