@@ -12,7 +12,6 @@
       }
     };
     </script>
-
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
@@ -46,6 +45,48 @@
             font-size: 1.05em; 
             line-height: 1.6;
         }
+
+        /* Code Block Styling */
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+
+        /* Collapsible Section Styling */
+        details {
+            margin-top: 25px;
+            padding: 15px;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        summary {
+            font-weight: bold;
+            color: #444;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .visualization {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .visualization img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -57,11 +98,28 @@
     <div class="entry">
         <div class="date">December 17, 2025</div>
         <div class="content">
-            Regarding the Shannon capacity $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}$, this paper improves the lower bound for $C_7$ by finding an independent set of size 367 in the fifth power. This yields:
+            <p>
+                Regarding the Shannon capacity $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}$, this paper improves the lower bound for $C_7$ by finding an independent set of size 367 in the fifth power. This yields:
+            </p>
             $$ \Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578 $$
-            See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details.
-        </div>
-    </div>
-    
-</body>
-</html>
+            <p>
+                See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details.
+            </p>
+
+            <details>
+                <summary>View Construction Algorithm (Python)</summary>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                    This script uses an iterated greedy approach with Metropolis-Hastings inspired perturbation to find large independent sets in the 5th strong product power of $C_7$.
+                </p>
+<pre><code>import random
+import time
+import itertools
+
+_NEIGHBORS_CACHE = None
+
+def to_index(t):
+    return t[0] + 7 * (t[1] + 7 * (t[2] + 7 * (t[3] + 7 * t[4])))
+
+def to_tuple(idx):
+    x0 = idx % 7; idx //= 7
+    x1 = idx % 7; idx //= 7
