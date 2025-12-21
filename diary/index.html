@@ -115,11 +115,102 @@
 import time
 import itertools
 
+# Global cache to persist neighbors across function calls
 _NEIGHBORS_CACHE = None
 
 def to_index(t):
+    """Convert a 5-tuple coordinate (base 7) to a scalar index."""
     return t[0] + 7 * (t[1] + 7 * (t[2] + 7 * (t[3] + 7 * t[4])))
 
 def to_tuple(idx):
-    x0 = idx % 7; idx //= 7
-    x1 = idx % 7; idx //= 7
+    """Convert a scalar index back to a 5-tuple coordinate."""
+    x0 = idx % 7
+    idx //= 7
+    x1 = idx % 7
+    idx //= 7
+    x2 = idx % 7
+    idx //= 7
+    x3 = idx % 7
+    x4 = idx // 7
+    return (x0, x1, x2, x3, x4)
+
+def find_independent_set_c7_5(time_limit_seconds, starting_set):
+    """
+    Search for a Maximum Independent Set in C7^5 using Iterated Greedy optimization.
+    """
+    start_time = time.time()
+    N = 7**5  # 16807 vertices
+
+    # --- Lazy Neighbor Initialization ---
+    # Vertices u, v are connected if for all coords i: (u_i - v_i) % 7 in {-1, 0, 1}
+    global _NEIGHBORS_CACHE
+    if _NEIGHBORS_CACHE is None:
+        diffs = [d for d in itertools.product((-1, 0, 1), repeat=5) if d != (0, 0, 0, 0, 0)]
+        _NEIGHBORS_CACHE = [[] for _ in range(N)]
+        for idx in range(N):
+            t = to_tuple(idx)
+            neighs = []
+            for d in diffs:
+                nt = (
+                    (t[0] + d[0]) % 7,
+                    (t[1] + d[1]) % 7,
+                    (t[2] + d[2]) % 7,
+                    (t[3] + d[3]) % 7,
+                    (t[4] + d[4]) % 7
+                )
+                neighs.append(to_index(nt))
+            _NEIGHBORS_CACHE[idx] = neighs
+
+    # --- Search Logic ---
+    conflicts = [0] * N
+    current_set_s = set()
+    
+    def add_node(u):
+        current_set_s.add(u)
+        for v in _NEIGHBORS_CACHE[u]:
+            conflicts[v] += 1
+
+    def remove_node(u):
+        current_set_s.remove(u)
+        for v in _NEIGHBORS_CACHE[u]:
+            conflicts[v] -= 1
+
+    # Initialize with starting set
+    for t in starting_set:
+        idx = to_index(t)
+        if idx not in current_set_s:
+            add_node(idx)
+            
+    best_set = list(current_set_s)
+    time_limit = start_time + time_limit_seconds * 0.98
+
+    # Main Optimization Loop
+    while time.time() < time_limit:
+        # 1. Greedy Fill
+        # Shuffle nodes to explore different greedy paths
+        shuffled_nodes = list(range(N)) 
+        random.shuffle(shuffled_nodes)
+        
+        for u in shuffled_nodes:
+            # Add node if it has 0 neighbors in the current set
+            if u not in current_set_s and conflicts[u] == 0:
+                add_node(u)
+        
+        # Check for improvement
+        if len(current_set_s) > len(best_set):
+            best_set = list(current_set_s)
+
+        # 2. Perturbation
+        # Remove a random ~5% of nodes to escape local optima
+        if current_set_s:
+            perturb_size = max(1, len(current_set_s) // 20)
+            to_remove = random.sample(list(current_set_s), min(perturb_size, len(current_set_s)))
+            for r in to_remove:
+                remove_node(r)
+
+    return [to_tuple(idx) for idx in best_set]</code></pre>
+            </details>
+
+            <div class="visualization">
+                <p><strong>Independent Set Projection (First 2 Dimensions)</strong></p>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgsAAAIjCAYAAACNoFiVAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjAsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvlHJYcgAAAAlwSFlzAAAPYQAAD2EBqD+naQABAABJREFUeJzsnXd4VMfVuN97t686kkANCTUQYErcbUCY6prEsYkrjok/x/wcd8fJl+RLPgenOI4xrgmxU5yYYuNgp3526AhwtwnVBqSVBKihitpq653fH2KXXWlXWgmVXem+z8PzoLt3786Ze2bmzJkzZyQhhEBFRUVFRUVFJQjycBdARUVFRUVFJbxRjQUVFRUVFRWVHlGNBRUVFRUVFZUeUY0FFRUVFRUVlR5RjQUVFRUVFRWVHlGNBRUVFRUVFZUeUY0FFRUVFRUVlR5RjQUVFRUVFRWVHlGNBRUVFRUVFZUeUY0FlZCYMGECy5YtG/Lf/dOf/oQkSZSXlw/5b/eFp59+mpycHDQaDTNnzhzS346UOgqVkSbPQKIoCueddx4///nP+/X94WrH4cYtt9zCTTfdNNzFiChUYyGC8XSqnn9Go5GJEydy//33c+rUqeEuXp/4xS9+wd/+9rfhLka/2Lx5M9/73veYNWsWr776Kr/4xS+C3rts2TKio6OHsHQqgbBarfzkJz9h586dIX+nvLycb37zm+Tm5mI0GklJSaGwsJDHH3+8X2V45513+MlPftKn77z++uucPHmS+++/3+/6wYMHWbJkCVlZWRiNRtLT01m0aBEvvvhiv8o22FRVVbF06VImTZpETEwM8fHxXHzxxfz5z38m2AkEGzZs4LLLLiMqKor4+Hguv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW4XQ6OXToEJWVld57CgsLWbNmTbffevbZZ9m/fz8LFizwXvvSl77EhRdeyDPPPMNrr702eIKOJIRKxPLqq68KQHzyySd+1x999FEBiPXr1wf9bltb22AXr09ERUWJO++8c7iL0S+++c1viqioqJDuvfPOO0O+N1Q8elBWVjagzx0uhkKeuro6AYjHH388pPu//e1vC61WK8rLy7t9durUqX6V4b777hN96YL37t0rALF161a/69dcc41ITk4WTU1NA1a24eK6664TUVFRwuVyea998MEHQpIksWrVqj4/z2q1ipiYGLFo0aJun61cuVJERUWJ1tbWcyrzaGH4TUyVAWf+/PkAlJWVAWdd3xaLhWuuuYaYmBhuv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW4XQ6OXToEJWVld57CgsLWbNmTbffevbZZ9m/fz8LFizwXvvSl77EhRdeyDPPPMNrr702eIKOJIRKxPLqq68KQHzyySd+1x999FEBiPXr1wf9bltb22AXr09ERUWJO++8c7iL0S+++c1viqioqJDuvfPOO0O+N1Q8elBWVjagzx0uhkKeuro6AYjHH388pPu//e1vC61WK8rLy7t9durUqX6V4b777hN96YL37t0rALF161a/69dcc41ITk4WTU1NA1a24eK6664TUVFRwuVyea998MEHQpIksWrVqj4/z2q1ipiYGLFo0aJun61cuVJERUWJ1tbWcyrzaGH4TUyVAWf+/PkAlJWVAWdd3xaLhWuuuYaYmBhuv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW4XQ6OXToEJWVld57CgsLWbNmTbffevbZZ9m/fz8LFizwXvvSl77EhRdeyDPPPMNrr702eIKOJIRKxPLqq68KQHzyySd+1x999FEBiPXr1wf9bltb22AXr09ERUWJO++8c7iL0S+++c1viqioqJDuvfPOO0O+N1Q8elBWVjagzx0uhkKeuro6AYjHH388pPu//e1vC61WK8rLy7t9durUqX6V4b777hN96YL37t0rALF161a/69dcc41ITk4WTU1NA1a24eK6664TUVFRwuVyea998MEHQpIksWrVqj4/z2q1ipiYGLFo0aJun61cuVJERUWJ1tbWcyrzaGH4TUyVAWf+/PkAlJWVAWdd3xaLhWuuuYaYmBhuv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW4XQ6OXToEJWVld57CgsLWbNmTbffevbZZ9m/fz8LFizwXvvSl77EhRdeyDPPPMNrr702eIKOJIRKxPLqq68KQHzyySd+1x999FEBiPXr1wf9bltb22AXr09ERUWJO++8c7iL0S+++c1viqioqJDuvfPOO0O+N1Q8elBWVjagzx0uhkKeuro6AYjHH388pPu//e1vC61WK8rLy7t9durUqX6V4b777hN96YL37t0rALF161a/69dcc41ITk4WTU1NA1a24eK6664TUVFRwuVyea998MEHQpIksWrVqj4/z2q1ipiYGLFo0aJun61cuVJERUWJ1tbWcyrzaGH4TUyVAWf+/PkAlJWVAWdd3xaLhWuuuYaYmBhuv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW4XQ6OXToEJWVld57CgsLWbNmTbffevbZZ9m/fz8LFizwXvvSl77EhRdeyDPPPMNrr702eIKOJIRKxPLqq68KQHzyySd+1x999FEBiPXr1wf9bltb22AXr09ERUWJO++8c7iL0S+++c1viqioqJDuvfPOO0O+N1Q8elBWVjagzx0uhkKeuro6AYjHH388pPu//e1vC61WK8rLy7t9durUqX6V4b777hN96YL37t0rALF161a/69dcc41ITk4WTU1NA1a24eK6664TUVFRwuVyea998MEHQpIksWrVqj4/z2q1ipiYGLFo0aJun61cuVJERUWJ1tbWcyrzaGH4TUyVAWf+/PkAlJWVAWdd3xaLhWuuuYaYmBhuv/xytm/f7v28a3/Y9d+6deu89/73f/83b731Fvv37x90WUcK2uEugMq588QTT5CdnY3NZmPPnj2sXr2ad955h0OHDmE2mwfkN44ePYosD55t+Ytf/IIlS5Zw/fXX+12/4447uOWWWzAYDIP22+fK9u3bkWWZP/zhD+j1+uEujkoIWK1WVqxYAcAVV1zR6/0lJSVcdNFFmEwm7rrrLiZMmEB1dTV79+7lqaee8j6rL7zzzjv8+te/7pPB8PTTT3PLLbcQFxfnvfb+++8zb948MjMz+da3vkVKSgonT57kww8/5Pnnn+eBBx7w3jvY7ThU6uvrqaioYMmSJWRmZuJ0OtmyZQvLli3j6NGj3Qzun/zkJzzxxBMsWbKEZcuW
