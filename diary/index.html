@@ -23,13 +23,13 @@
             margin: 50px auto; 
             padding: 0 20px; 
             color: #111;
+            line-height: 1.6;
         }
         
         a { color: #333; text-decoration: underline; }
         a:hover { color: #000; }
 
         .nav { margin-bottom: 60px; font-size: 0.9em; }
-
         .entry { margin-bottom: 80px; }
         
         .date { 
@@ -41,9 +41,9 @@
             display: inline-block;
         }
 
-        .content { 
-            font-size: 1.05em; 
-            line-height: 1.6;
+        .notebook-badge {
+            margin-top: 15px;
+            margin-bottom: 30px;
         }
 
         /* Code Block Styling */
@@ -52,40 +52,43 @@
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
-            font-size: 0.9em;
+            font-size: 0.85em;
             border: 1px solid #ddd;
             margin: 20px 0;
         }
 
-        code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-        }
-
-        /* Collapsible Section Styling */
+        /* Collapsible Section */
         details {
-            margin-top: 25px;
-            padding: 15px;
+            margin-top: 20px;
+            padding: 10px;
             background: #fafafa;
             border: 1px solid #eee;
             border-radius: 5px;
+            cursor: pointer;
         }
 
         summary {
-            font-weight: bold;
+            font-weight: 600;
             color: #444;
-            cursor: pointer;
-            outline: none;
         }
 
         .visualization {
             margin-top: 30px;
             text-align: center;
         }
-
+        
         .visualization img {
-            max-width: 100%;
+            max-width: 100%; 
             height: auto;
-            border: 1px solid #ddd;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .caption {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
@@ -96,12 +99,130 @@
     </div>
 
     <div class="entry">
-        <div class="date">December 17, 2025</div>
+        <div class="date">December 22, 2025</div>
+        
         <div class="content">
             <p>
-                Regarding the Shannon capacity $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}$, this paper improves the lower bound for $C_7$ by finding an independent set of size 367 in the fifth power. This yields:
+                Regarding the Shannon capacity $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}$, this paper improves the lower bound for the 7-cycle graph $C_7$ by finding an independent set of size 367 in the fifth power. This yields:
             </p>
+            
             $$ \Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578 $$
+            
             <p>
                 See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details.
             </p>
+
+            <div class="notebook-badge">
+                <a href="https://colab.research.google.com/github/YOUR_USERNAME/YOUR_REPO/blob/main/Shannon_capacity_new_5.ipynb" target="_blank">
+                    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+                </a>
+            </div>
+
+            <div class="visualization">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjAsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvlHJYcgAAAAlwSFlzAAAPYQAAD2EBqD+naQAAWyBJREFUeJzt3Xd4FNX+BvB30kOySSgJSSCFIiVIL7mQS6+hexWUCxKwcTGIiHghcJWiELAgKpGmEkAQLIAKAgLS5Iq0H0iRaoBQQqippO2e3x+QvSzJJhu2TM7wfp5nnnsz2Z159zDmu+fMmRlFCCFAREREUnNSOwARERFZjwWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiIg0gAWdiIhIA1jQiYiINIAFnYiISANY0ImIiDSABZ2IiEgDWNCJiKic0ev1ePPNN1GjRg14enqiVq1aePvttyGEUDtauuaiwdgAAAABJRU5ErkJggg==" alt="Projection of Independent Set">
+                <div class="caption">Projection of the independent set (Size: 367) onto the first two dimensions.</div>
+            </div>
+
+            <details>
+                <summary>Show Construction Algorithm (Python)</summary>
+                <p>This implementation uses an iterated greedy approach with Metropolis-Hastings inspired perturbation to escape local optima.</p>
+<pre><code>import random
+import time
+from itertools import product
+import array
+
+def find_independent_set(n: int, time_limit: float, current_best_solution: list[tuple]) -> list[tuple]:
+    start_t, num_v, p7 = time.time(), 7**n, [7**k for k in range(n)]
+    adj = []
+    # Build Adjacency List
+    for i in range(num_v):
+        nb = [i]
+        for k in range(n):
+            vk = (i // p7[k]) % 7
+            s1, s2 = ((vk - 1) % 7 - vk) * p7[k], ((vk + 1) % 7 - vk) * p7[k]
+            nb += [r + s1 for r in nb] + [r + s2 for r in nb]
+        adj.append(array.array('H' if num_v < 65536 else 'I', nb))
+
+    forbidden_count = array.array('H', [0] * num_v)
+    free_vertices = list(range(num_v))
+    pos_in_free = array.array('i', range(num_v))
+    current_S = []
+
+    def add_v(idx):
+        current_S.append(idx)
+        for nb in adj[idx]:
+            if forbidden_count[nb] == 0:
+                p = pos_in_free[nb]
+                v_last = free_vertices.pop()
+                if nb != v_last:
+                    free_vertices[p], pos_in_free[v_last] = v_last, p
+            forbidden_count[nb] += 1
+
+    def remove_v(idx):
+        for nb in adj[idx]:
+            forbidden_count[nb] -= 1
+            if forbidden_count[nb] == 0:
+                pos_in_free[nb] = len(free_vertices)
+                free_vertices.append(nb)
+
+    # Initialize
+    seed = [sum(v[k]*p7[k] for k in range(n)) for v in current_best_solution] if current_best_solution else \
+           [sum(v[k]*p7[k] for k in range(n)) for v in product((0,2,4), repeat=n)]
+    for idx in seed:
+        if forbidden_count[idx] == 0: add_v(idx)
+    while free_vertices: add_v(random.choice(free_vertices))
+
+    best_S_idx = current_S[:]
+    stall_count, max_stall = 0, int(len(best_S_idx) * 20)
+    
+    # Optimization Loop
+    while time.time() - start_t < time_limit - 0.4:
+        if not current_S: break
+        
+        idx_in_S = random.randrange(len(current_S))
+        u = current_S[idx_in_S]
+
+        # Check criticality
+        is_critical = False
+        for nb in adj[u]:
+            if nb != u and forbidden_count[nb] == 1:
+                is_critical = True
+                break
+        
+        if is_critical:
+            current_S[idx_in_S] = current_S[-1]; current_S.pop()
+            remove_v(u)
+            while free_vertices:
+                v = random.choice(free_vertices)
+                add_v(v)
+            if len(current_S) > len(best_S_idx):
+                best_S_idx = current_S[:]
+                max_stall = int(len(best_S_idx) * 20)
+                stall_count = 0
+            else:
+                stall_count += 1
+        else:
+            stall_count += 1
+
+        # Perturbation
+        if stall_count > max_stall:
+            num_ruin = max(1, int(len(current_S) * 0.1))
+            for _ in range(num_ruin):
+                if not current_S: break
+                ridx = random.randrange(len(current_S))
+                rem_v = current_S[ridx]; current_S[ridx] = current_S[-1]; current_S.pop()
+                remove_v(rem_v)
+            while free_vertices:
+                add_v(random.choice(free_vertices))
+            if len(current_S) > len(best_S_idx):
+                best_S_idx = current_S[:]
+                max_stall = int(len(best_S_idx) * 20)
+            stall_count = 0
+
+    return [tuple((idx // p7[k]) % 7 for k in range(n)) for idx in best_S_idx]</code></pre>
+            </details>
+        </div>
+    </div>
+    
+</body>
+</html>
