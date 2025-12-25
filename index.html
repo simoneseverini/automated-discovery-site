@@ -26,7 +26,7 @@
         }
 
         header {
-            padding: 40px 20px 20px 20px;
+            padding: 50px 20px;
             text-align: center;
             background: var(--bg);
         }
@@ -47,54 +47,14 @@
             min-height: 20px; 
         }
 
-        /* --- LAYOUT & SIDEBAR --- */
-        .layout-container {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            align-items: start;
-        }
-
-        .sidebar {
-            position: sticky;
-            top: 40px;
-            padding-right: 20px;
-            border-right: 1px solid #e0e0e0;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .sidebar h3 {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--meta);
-            margin: 0 0 10px 0;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 0.95rem;
-            padding: 5px 0;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-
-        .nav-link:hover {
-            color: var(--accent);
-        }
-
-        /* --- FEED --- */
+        /* Grid Container */
         #feed {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         /* Card Style */
@@ -129,12 +89,29 @@
         }
 
         /* --- Custom Badge Colors --- */
-        .card[data-type="Essay"] .card-type { color: #059669; /* Teal */ }
-        .card[data-type="Multi-agent System"] .card-type { color: #ea580c; /* Dark Orange */ }
-        .card[data-type="Infrastructure"] .card-type { color: #4f46e5; /* Indigo */ }
-        .card[data-type="Book"] .card-type { color: #be123c; /* Rose */ }
-        .card[data-type="System"] .card-type { color: #d97706; /* Gold/Amber */ }
-        .card[data-type="Benchmark"] .card-type { color: #db2777; /* Pink */ }
+        .card[data-type="Essay"] .card-type {
+            color: #059669; /* Teal */
+        }
+        
+        .card[data-type="Multi-agent System"] .card-type {
+            color: #ea580c; /* Dark Orange */
+        }
+
+        .card[data-type="Infrastructure"] .card-type {
+            color: #4f46e5; /* Indigo */
+        }
+
+        .card[data-type="Book"] .card-type {
+            color: #be123c; /* Rose */
+        }
+
+        .card[data-type="System"] .card-type {
+            color: #d97706; /* Gold/Amber */
+        }
+
+        .card[data-type="Benchmark"] .card-type {
+            color: #db2777; /* Pink */
+        }
 
         .card-title {
             margin: 0 0 8px 0;
@@ -165,6 +142,11 @@
             color: inherit; 
             text-decoration: none;
             border-bottom: 1px dotted #999;
+        }
+
+        .card-authors a:hover {
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent);
         }
 
         .card-quote {
@@ -203,43 +185,20 @@
         .summary-link:hover {
             background-color: #dbeafe;
         }
-
-        /* Responsive */
-        @media (max-width: 800px) {
-            .layout-container { grid-template-columns: 1fr; }
-            .sidebar { display: none; } /* Hide sidebar on small screens or make it a top menu */
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>automated-discovery</h1>
-        <div class="subtitle">A curated feed of systems and papers</div>
+        <h1></h1>
+        <div class="subtitle"></div>
     </header>
 
-    <div class="layout-container">
-        
-        <aside class="sidebar" id="sidebar">
-            <h3>Timeline</h3>
-            </aside>
-
-        <div id="feed"></div>
-
-    </div>
+    <div id="feed"></div>
 
     <script>
         // --- DATA SECTION ---
-        const rawDatabase = [
-            { 
-                type: "Paper", 
-                title: "Introduction to Markoff Numbers", 
-                authors: "Michel Waldschmidt", 
-                date: "Dec 24, 2025", 
-                link: "https://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/Markoff-en.pdf",
-                quote: "A comprehensive introduction to the theory of Markoff numbers, Diophantine approximation, and related topics.",
-                summary: "" 
-            },
+        const database = [
             { 
                 type: "Paper", 
                 title: "The Shape of Math To Come", 
@@ -261,6 +220,7 @@
             { 
                 type: "Proof assistant", 
                 title: "Lean", 
+                // Authors removed
                 date: "Nov 2025",
                 link: "https://lean-lang.org/",
                 quote: "[Lean] is the best and perhaps the only technology… for achieving meaningful progress with regard to the fundamental goal of liberating mathematical truth from the yoke of social and political dynamics. (Shinichi Mochizuki)",
@@ -317,7 +277,7 @@
                 authors: "Ido Kaminer, et al. (Technion)", 
                 date: "2021", 
                 link: "https://www.ramanujanmachine.com/",
-                quote: "Here we propose a systematic approach that leverages algorithms to discover mathematical formulas for fundamental constants and helps to reveal the underlying structure of the constants.",
+                quote: "Here we propose a systematic approach that leverages algorithms to discover mathematical formulas for fundamental constants and helps to reveal the underlying structure of the constants. We call this approach ‘the Ramanujan Machine’. Our algorithms find dozens of well known formulas as well as previously unknown ones, such as continued fraction representations of π, e, Catalan’s constant, and values of the Riemann zeta function.",
                 summary: "" 
             },
             { 
@@ -335,7 +295,7 @@
                 authors: "George Tsoukalas, et al. (Trishul Lab)", 
                 date: "July 2024", 
                 link: "https://trishullab.github.io/PutnamBench/",
-                quote: "PutnamBench consists of 1692 hand-constructed formalizations of 640 theorems sourced from the William Lowell Putnam Mathematical Competition.",
+                quote: "PutnamBench consists of 1692 hand-constructed formalizations of 640 theorems sourced from the William Lowell Putnam Mathematical Competition... [evaluating] the ability of neural theorem-provers to solve competition mathematics problems.",
                 summary: "" 
             },
             { 
@@ -358,7 +318,7 @@
             },
             { 
                 type: "Infrastructure", 
-                title: "SciPy 1.0", 
+                title: "SciPy 1.0: fundamental algorithms for scientific computing in Python", 
                 authors: "Pauli Virtanen, Ralf Gommers, et al.", 
                 date: "Feb 2020", 
                 link: "https://www.nature.com/articles/s41592-019-0686-2",
@@ -375,103 +335,56 @@
                 summary: "" 
             },
             { 
-                type: "Paper", 
-                title: "In Reverie Together", 
-                authors: "Randy Davila, Boris Brimkov, Ryan Pepper", 
-                date: "July 2025", 
-                link: "https://arxiv.org/abs/2507.17780",
-                quote: "They are not only mathematical challenges but creative expressions—born of symbolic pattern recognition and mathematician-defined heuristics.",
-                summary: "" 
-            },
+    type: "Paper", 
+    title: "In Reverie Together: Ten Years of Mathematical Discovery with a Machine Collaborator", 
+    authors: "Randy Davila, Boris Brimkov, Ryan Pepper", 
+    date: "July 2025", 
+    link: "https://arxiv.org/abs/2507.17780",
+    quote: "They are not only mathematical challenges but creative expressions—born of symbolic pattern recognition and mathematician-defined heuristics, refined through years of human dialogue, and now offered back to the community as collaborative artifacts.",
+    summary: "" 
+},
             { 
                 type: "System", 
                 title: "SciSpace", 
                 authors: "Saikiran Chandha, Shanu Kumar", 
                 date: "2015", 
                 link: "https://scispace.com/",
-                quote: "SciSpace is the easiest way to find, understand, and learn any research paper.",
+                quote: "SciSpace is the easiest way to find, understand, and learn any research paper. For every paper you read, get simple explanations and answers from AI and discover a network of connected and relevant papers.",
                 summary: "" 
             },
             {
-                type: "System",
-                title: "Gauss",
-                authors: "Math Inc.",
-                date: "2025",
-                link: "https://www.math.inc/gauss",
-                quote: "Using Gauss we produced ~25,000 lines of Lean code, comprising over 1,000 theorems and definitions.",
-                summary: ""
-            }
+    type: "System",
+    title: "Gauss",
+    authors: "Math Inc.",
+    date: "2025",
+    link: "https://www.math.inc/gauss",
+    quote: "Using Gauss we produced ~25,000 lines of Lean code, comprising over 1,000 theorems and definitions. Formal proofs of this scale have historically been major milestones, often the culmination of multi-year efforts. The largest singular formalization projects in history — career-defining efforts, which can span more than a decade — are only an order of magnitude larger at up to 500,000 lines of code. Lean’s standard mathematical library, Mathlib, is an order of magnitude beyond that, at around 2,000,000 lines of code, comprising 350,000 Lean theorems and definitions, and developed by over 600 human contributors over eight years.",
+    summary: ""
+}
         ];
 
-        // --- PROCESSING SECTION ---
-
-        // 1. Helper to parse loose date strings into Sortable Integers
-        function parseDate(dateStr) {
-            if (!dateStr) return 0;
-            const d = new Date(dateStr);
-            if (!isNaN(d)) return d.getTime();
-            // Fallback for just years like "2025"
-            const yearOnly = new Date(dateStr + "-01-01");
-            return yearOnly.getTime();
-        }
-
-        // 2. Helper to get clean "Month Year" string for display
-        function getMonthYear(dateStr) {
-            if (!dateStr) return "Unknown";
-            const d = new Date(dateStr);
-            if (isNaN(d)) {
-                // Handle year-only inputs
-                if(dateStr.length === 4) return dateStr; 
-                return "Misc";
-            }
-            return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-        }
-
-        // 3. Sort Database (Newest First)
-        const database = rawDatabase.sort((a, b) => {
-            return parseDate(b.date) - parseDate(a.date);
-        });
-
-        // --- RENDER SECTION ---
+        // --- ENGINE SECTION ---
         const feed = document.getElementById('feed');
-        const sidebar = document.getElementById('sidebar');
         
-        let currentGroup = "";
-        
-        // Loop through sorted database
-        database.forEach((item, index) => {
-            
-            // Check for Month Change for Navigation
-            const group = getMonthYear(item.date);
-            let anchorId = "";
-
-            if (group !== currentGroup) {
-                currentGroup = group;
-                // Create unique ID for the first card of the month
-                anchorId = "group-" + index; 
-                
-                // Add link to sidebar
-                const link = document.createElement('a');
-                link.className = "nav-link";
-                link.innerText = group;
-                link.href = "#" + anchorId; // Scrolls to the card
-                sidebar.appendChild(link);
-            }
-
-            feed.appendChild(createCard(item, anchorId));
-        });
-
-        function createCard(item, id) {
+        function createCard(item) {
             const div = document.createElement('div');
             div.className = 'card';
             div.setAttribute('data-type', item.type);
-            if(id) div.id = id; // Set ID for scrolling
 
-            const authorsHTML = item.authors ? `<div class="card-authors">${item.authors}</div>` : '';
-            const quoteHTML = item.quote ? `<div class="card-quote">"${item.quote}"</div>` : '';
+            // Conditional Rendering
+            const authorsHTML = item.authors 
+                ? `<div class="card-authors">${item.authors}</div>` 
+                : '';
+
+            const quoteHTML = item.quote 
+                ? `<div class="card-quote">"${item.quote}"</div>` 
+                : '';
+
             const summaryHTML = item.summary
                 ? `<a href="${item.summary}" class="summary-link" target="_blank">Summary PDF</a>`
                 : `<span></span>`;
+
+            const dateText = item.date ? item.date : '';
 
             div.innerHTML = `
                 <div class="card-top">
@@ -483,12 +396,16 @@
                     ${quoteHTML}
                 </div>
                 <div class="card-meta">
-                    <span>${item.date}</span>
+                    <span>${dateText}</span>
                     ${summaryHTML}
                 </div>
             `;
             return div;
         }
+
+        database.forEach(item => {
+            feed.appendChild(createCard(item));
+        });
     </script>
 </body>
 </html>
