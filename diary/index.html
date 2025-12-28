@@ -20,57 +20,73 @@
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             max-width: 900px; 
-            margin: 50px auto; 
+            margin: 30px auto; 
             padding: 0 20px; 
             color: #111;
-            line-height: 1.7;
-            font-size: 18px;
+            /* COMPACT STYLING: Standard size, tighter leading */
+            font-size: 16px; 
+            line-height: 1.5; 
         }
         
         @media (max-width: 600px) {
             body {
-                margin: 20px auto;
+                margin: 15px auto;
                 padding: 0 15px;
-                font-size: 16px; 
-                line-height: 1.6;
+                font-size: 15px; 
             }
-            .nav { margin-bottom: 40px; }
-            .entry { margin-bottom: 60px; }
         }
         
-        a { color: #333; text-decoration: underline; }
-        a:hover { color: #000; }
+        a { color: #0056b3; text-decoration: none; border-bottom: 1px solid #0056b3; }
+        a:hover { background-color: #f0f7ff; }
 
-        .nav { margin-bottom: 60px; font-size: 0.9em; }
-        .entry { margin-bottom: 80px; border-bottom: 1px solid #eee; padding-bottom: 40px; }
+        .nav { 
+            margin-bottom: 30px; 
+            font-size: 0.9em; 
+            color: #555;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* Compact Entry Styling */
+        .entry { 
+            margin-bottom: 30px; 
+            padding-bottom: 25px; 
+            border-bottom: 1px solid #eee; 
+        }
         .entry:last-child { border-bottom: none; }
         
+        /* Tighter Paragraphs */
+        p { margin: 0.6em 0; }
+        
         .date { 
-            font-weight: bold; 
-            font-size: 1.1em;
-            margin-bottom: 20px; 
-            padding-bottom: 5px;
+            font-weight: 700; 
+            font-size: 1em;
+            margin-bottom: 10px; 
             display: inline-block;
-            border-bottom: 2px solid #000;
+            color: #000;
         }
 
-        .notebook-badge {
-            margin-top: 15px;
-            margin-bottom: 30px;
-        }
+        ul { margin: 0.5em 0; padding-left: 25px; }
+        li { margin-bottom: 0.2em; }
 
+        /* Compact Code Blocks */
         pre {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
             overflow-x: auto;
             font-size: 0.85em;
             border: 1px solid #ddd;
-            margin: 20px 0;
+            margin: 10px 0;
         }
 
+        .notebook-badge {
+            margin-top: 10px;
+            text-align: left;
+        }
+        
         .visualization {
-            margin-top: 30px;
+            margin-top: 15px;
             text-align: center;
         }
         
@@ -78,14 +94,16 @@
             max-width: 100%; 
             height: auto;
             border: 1px solid #eee;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            /* Tighter border radius */
+            border-radius: 4px; 
         }
         
         .caption {
-            margin-top: 10px;
+            margin-top: 5px;
             font-size: 0.9em;
-            color: #666;
-            font-style: italic;
+            color: #555;
+            text-align: left;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -98,76 +116,77 @@
     <div class="entry">
         <div class="date">December 26, 2025</div>
         <div class="content">
-    <p>
-      A <em>Markov triple</em> is a triple of positive integers $(x,y,z)$ satisfying
-      $$x^2+y^2+z^2 = 3xyz.$$
-      The integers that occur in Markov triples are the <em>Markov numbers</em>.
-      The usual way to navigate the set of solutions is the Vieta move: if $(x,y,z)$ is a solution, then so is
-      $$(x,y,3xy-z),$$
-      and similarly by cycling coordinates. Iterating these involutions (and permuting) generates the Markov tree.
-    </p>
+            <p>
+              A <em>Markov triple</em> is a triple of positive integers $(x,y,z)$ satisfying
+              $$x^2+y^2+z^2 = 3xyz.$$
+              The integers that occur in Markov triples are the <em>Markov numbers</em>.
+              The usual way to navigate the set of solutions is the Vieta move: if $(x,y,z)$ is a solution, then so is
+              $$(x,y,3xy-z),$$
+              and similarly by cycling coordinates. Iterating these involutions (and permuting) generates the Markov tree.
+            </p>
 
-    <p>
-      Fibonacci numbers are slower creatures: $F_0=0$, $F_1=1$, and $F_{n+1}=F_n+F_{n-1}$.
-    </p>
+            <p>
+              Fibonacci numbers are slower creatures: $F_0=0$, $F_1=1$, and $F_{n+1}=F_n+F_{n-1}$.
+            </p>
 
-    <p>
-      The question for today is simple: <em>which Markov triples have a Fibonacci number as their largest entry?</em>
-      There is one branch where Fibonacci numbers show up for free: the branch of triples that contain a $1$.
-      This is not an “observation”; it is a quick computation.
-    </p>
+            <p>
+              The question for today is simple: <em>which Markov triples have a Fibonacci number as their largest entry?</em>
+              There is one branch where Fibonacci numbers show up for free: the branch of triples that contain a $1$.
+              This is not an “observation”; it is a quick computation.
+            </p>
 
-    <p>
-      If $x=1$, the Markov equation becomes
-      $$y^2+z^2+1 = 3yz.$$
-      Solving for $z$ gives
-      $$z=\frac{3y\pm\sqrt{5y^2-4}}{2},$$
-      so integrality forces $5y^2-4$ to be a square (a Pell-type constraint). The resulting positive solutions are exactly
-      $$(1, F_{2n-1}, F_{2n+1}) \qquad (n\ge 1),$$
-      e.g.
-    </p>
+            <p>
+              If $x=1$, the Markov equation becomes
+              $$y^2+z^2+1 = 3yz.$$
+              Solving for $z$ gives
+              $$z=\frac{3y\pm\sqrt{5y^2-4}}{2},$$
+              so integrality forces $5y^2-4$ to be a square (a Pell-type constraint). The resulting positive solutions are exactly
+              $$(1, F_{2n-1}, F_{2n+1}) \qquad (n\ge 1),$$
+              e.g.
+            </p>
 
-    <ul>
-      <li>$(1,F_1,F_3)=(1,1,2)$</li>
-      <li>$(1,F_3,F_5)=(1,2,5)$</li>
-      <li>$(1,F_5,F_7)=(1,5,13)$</li>
-    </ul>
+            <ul>
+              <li>$(1,F_1,F_3)=(1,1,2)$</li>
+              <li>$(1,F_3,F_5)=(1,2,5)$</li>
+              <li>$(1,F_5,F_7)=(1,5,13)$</li>
+            </ul>
 
-    <p>
-      Moreover this branch is generated by a deterministic Vieta step that preserves the $1$:
-      $$(1,a,b)\longmapsto (1,b,3b-a),$$
-      and the identity $F_{2n+3}=3F_{2n+1}-F_{2n-1}$ makes the Fibonacci indexing explicit.
-      This is the “Fibonacci spine”.
-    </p>
+            <p>
+              Moreover this branch is generated by a deterministic Vieta step that preserves the $1$:
+              $$(1,a,b)\longmapsto (1,b,3b-a),$$
+              and the identity $F_{2n+3}=3F_{2n+1}-F_{2n-1}$ makes the Fibonacci indexing explicit.
+              This is the “Fibonacci spine”.
+            </p>
 
-    <p>
-      The conjecture is the sharp one, namely, no other Markov triple has a Fibonacci maximum.
-      This is a special case of Markov uniqueness (Frobenius): each Markov number should be the maximal entry of a unique triple (up to permutation).
-    </p>
+            <p>
+              The conjecture is the sharp one, namely, no other Markov triple has a Fibonacci maximum.
+              This is a special case of Markov uniqueness (Frobenius): each Markov number should be the maximal entry of a unique triple (up to permutation).
+            </p>
 
-    <p>
-      I added a Colab notebook on GitHub that draws the tree with this spine highlighted. Off the spine, the Vieta update is typically multiplicative ($z'\approx 3xy$ once both $x$ and $y$ grow),
-      so along rays the numbers blow up at a rate that is “exponential in an exponential” (because the logarithms satisfy a Fibonacci-like recursion).
-      Fibonacci numbers, in comparison, stay unreasonably close together.
-    </p>
-  </div>
+            <p>
+              I added a Colab notebook on GitHub that draws the tree with this spine highlighted. Off the spine, the Vieta update is typically multiplicative ($z'\approx 3xy$ once both $x$ and $y$ grow),
+              so along rays the numbers blow up at a rate that is “exponential in an exponential” (because the logarithms satisfy a Fibonacci-like recursion).
+              Fibonacci numbers, in comparison, stay unreasonably close together.
+            </p>
+        </div>
 
-  <div class="visualization">
-    <img
-      src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/Fibonacci_Markov_spine_3.png"
-      alt="Markov tree layout with the Fibonacci spine highlighted in red and symmetric side branches in blue"
-      loading="lazy"
-    />
-    <div class="caption">
-      <strong>Figure 1:</strong> The Fibonacci spine (red) and the side branches (blue). Once you leave the spine, the magnitudes accelerate so fast that hitting a Fibonacci value starts to feel like a category error.
+        <div class="visualization">
+            <img
+              src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/Fibonacci_Markov_spine_3.png"
+              alt="Markov tree layout with the Fibonacci spine highlighted in red and symmetric side branches in blue"
+              loading="lazy"
+            />
+            <div class="caption">
+                <strong>Figure 1:</strong> The Fibonacci spine (red) and the side branches (blue). Once you leave the spine, the magnitudes accelerate so fast that hitting a Fibonacci value starts to feel like a category error.
+            </div>
+        </div>
+
+        <div class="notebook-badge">
+            <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/Markov_Fibonacci_drawing_Dec_26.ipynb" target="_blank">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+            </a>
+        </div>
     </div>
-</div>
-
-<div class="notebook-badge">
-    <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/Markov_Fibonacci_drawing_Dec_26.ipynb" target="_blank">
-        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-    </a>
-</div>
 
     <div class="entry">
         <div class="date">December 24, 2025</div>
