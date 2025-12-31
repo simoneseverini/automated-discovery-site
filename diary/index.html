@@ -315,22 +315,22 @@
                 <li><strong>Perturbation (Ruin and Recreate):</strong> If the solution size stagnates, the algorithm randomly removes approximately 10% of the vertices (Ruin) and refills the set using the Greedy Construction (Recreate).</li>
             </ol>
 
-            <figure style="text-align: center; margin-top: 30px;">
-                <!-- Replace 'your_image_path.png' with the actual path to your image -->
-                <img src="https://github.com/simoneseverini/automated-discovery-site/blob/main/C_7_5_independent.png" alt="Visualization of Independent Set Structure" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
-                <figcaption style="font-style: italic; color: #555; margin-top: 10px; text-align: left;">
-                    <strong>Figure 1:</strong> The image is a 5x5 matrix of plots visualizing the structure of the Independent Set (IS) found in the 5-dimensional space ($C_7^5$). Here's how to read it:
+            <div class="visualization">
+                <img
+                  src="your_image_path.png"
+                  alt="Independent Set Structure Matrix"
+                  loading="lazy"
+                />
+                <div class="caption">
+                    <strong>Structure of the Independent Set ($C_7^5$).</strong> The image is a $5 \times 5$ matrix of plots visualizing the structure of the Independent Set (IS) found in the 5-dimensional space ($C_7^5$). Here's how to read it:
                     <br><br>
-                    <strong>Diagonal Plots (Top-Left to Bottom-Right):</strong> These are histograms for each of the 5 dimensions. They show the frequency of each coordinate value (0 through 6). For example, if you see taller bars at 0, 2, and 4, it means those values appear more frequently in that specific dimension, hinting that the solution might be built around a specific pattern like {0, 2, 4}.
+                    <strong>Diagonal Plots (Top-Left to Bottom-Right):</strong> These are histograms for each of the 5 dimensions. They show the frequency of each coordinate value (0 through 6). For example, if you see taller bars at 0, 2, and 4, it means those values appear more frequently in that specific dimension, hinting that the solution might be built around a specific pattern like $\{0, 2, 4\}$.
                     <br><br>
-                    <strong>Off-Diagonal Plots:</strong> These are 2D heatmaps showing the relationship between pairs of dimensions (e.g., Row 0, Column 1 shows Dimension 0 vs. Dimension 1). The color intensity (purple to yellow) represents the number of points at that specific (x, y) coordinate pair. These projections reveal correlations. For an Independent Set in a strong product graph, you often see specific sparse patterns or "holes" because certain combinations of coordinates are forbidden to maintain the non-adjacency constraint.
+                    <strong>Off-Diagonal Plots:</strong> These are 2D heatmaps showing the relationship between pairs of dimensions (e.g., Row 0, Column 1 shows Dimension 0 vs. Dimension 1). The color intensity (purple to yellow) represents the number of points at that specific $(x, y)$ coordinate pair. These projections reveal correlations. For an Independent Set in a strong product graph, you often see specific sparse patterns or "holes" because certain combinations of coordinates are forbidden to maintain the non-adjacency constraint.
                     <br><br>
                     Overall, this visualization helps verify if the solution is a structured product (e.g., looks like a clean grid) or a more random packing.
-                </figcaption>
-            </figure>
-        </div>
-    </div>
-</div>
+                </div>
+            </div>
 
     </div>
 
