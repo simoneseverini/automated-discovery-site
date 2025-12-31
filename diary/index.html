@@ -274,19 +274,63 @@
         </div>
 
         <!-- Entry: Dec 17 -->
-        <div class="entry">
-            <span class="date">December 17, 2025</span>
-            <div class="content">
-                <p>
-                    The <i>Shannon capacity</i> of a graph $G$ is defined as $$\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}.$$ The best lower bound for 7-cycle graph $C_7$ was obtained by finding an independent set of size 367 in the fifth power. This yields: $$\Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578.$$ See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details. Below is a Colab notebook generated with AlphaEvolve. It gives the same result. 
-                </p>
-                <div class="notebook-badge">
-                    <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/C_7_Shannon_capacity_lower_bound.ipynb" target="_blank">
-                        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-                    </a>
-                </div>
-            </div>
+<div class="entry">
+    <span class="date">December 17, 2025</span>
+    <div class="content">
+        <p>
+            The <i>Shannon capacity</i> of a graph $G$ is defined as $$\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}.$$ The best lower bound for 7-cycle graph $C_7$ was obtained by finding an independent set of size 367 in the fifth power. This yields: $$\Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578.$$ See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details. Below is a Colab notebook generated with AlphaEvolve. It gives the same result. 
+        </p>
+        <div class="notebook-badge">
+            <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/C_7_Shannon_capacity_lower_bound.ipynb" target="_blank">
+                <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+            </a>
         </div>
+
+        <!-- Added Algorithm Description and Visualization -->
+        <div class="algorithm-description" style="margin-top: 20px;">
+            <h3>Algorithm for Lower Bounding the Shannon Capacity of $C_7$</h3>
+
+            <h4>Problem Definition</h4>
+            <p>
+                The algorithm searches for the Maximum Independent Set (MIS) in the graph $G = C_7^n$, which is the strong product of $n$ copies of the 7-cycle.
+            </p>
+            <ul>
+                <li><strong>Vertex Set:</strong> $V = \mathbb{Z}_7^n = \{0, 1, \dots, 6\}^n$.</li>
+                <li><strong>Adjacency:</strong> Two vertices $u, v \in V$ are adjacent if and only if:
+                $$ \forall i \in \{1, \dots, n\}, \quad (u_i - v_i) \pmod 7 \in \{0, 1, 6\}. $$
+                (Note: $6 \equiv -1 \pmod 7$).</li>
+            </ul>
+            <p>
+                An independent set $S \subseteq V$ requires that for any distinct pair $u, v \in S$, they are non-adjacent. The size of this set establishes a lower bound for the Shannon capacity: $\Theta(C_7) \geq |S|^{1/n}$.
+            </p>
+
+            <h4>Methodology: Randomized Iterated Local Search</h4>
+            <p>
+                The approach implements a <i>Ruin and Recreate</i> strategy combined with greedy construction and local optimization.
+            </p>
+            <ol>
+                <li><strong>Initialization:</strong> The search is seeded either with a known structured subset (e.g., based on the pattern $\{0, 2, 4\}^n$) or a previous best solution.</li>
+                <li><strong>Greedy Construction:</strong> The algorithm maintains an array of "forbidden counts" for every vertex. It iteratively selects random valid vertices (count = 0) and updates the counts of their neighbors.</li>
+                <li><strong>Local Search (1-Swaps):</strong> Once the set is maximal, the algorithm attempts to escape local optima. It selects a vertex $u \in S$ and checks if it is "critical" (i.e., removing it liberates new vertices blocked <em>only</em> by $u$). If so, $u$ is removed, and the greedy process immediately fills the gap, effectively performing a $(1, k)$-swap optimization.</li>
+                <li><strong>Perturbation (Ruin and Recreate):</strong> If the solution size stagnates, the algorithm randomly removes approximately 10% of the vertices (Ruin) and refills the set using the Greedy Construction (Recreate).</li>
+            </ol>
+
+            <figure style="text-align: center; margin-top: 30px;">
+                <!-- Replace 'your_image_path.png' with the actual path to your image -->
+                <img src="your_image_path.png" alt="Visualization of Independent Set Structure" style="max-width: 100%; height: auto; border: 1px solid #ddd; padding: 5px;">
+                <figcaption style="font-style: italic; color: #555; margin-top: 10px; text-align: left;">
+                    <strong>Figure 1:</strong> The image is a 5x5 matrix of plots visualizing the structure of the Independent Set (IS) found in the 5-dimensional space ($C_7^5$). Here's how to read it:
+                    <br><br>
+                    <strong>Diagonal Plots (Top-Left to Bottom-Right):</strong> These are histograms for each of the 5 dimensions. They show the frequency of each coordinate value (0 through 6). For example, if you see taller bars at 0, 2, and 4, it means those values appear more frequently in that specific dimension, hinting that the solution might be built around a specific pattern like {0, 2, 4}.
+                    <br><br>
+                    <strong>Off-Diagonal Plots:</strong> These are 2D heatmaps showing the relationship between pairs of dimensions (e.g., Row 0, Column 1 shows Dimension 0 vs. Dimension 1). The color intensity (purple to yellow) represents the number of points at that specific (x, y) coordinate pair. These projections reveal correlations. For an Independent Set in a strong product graph, you often see specific sparse patterns or "holes" because certain combinations of coordinates are forbidden to maintain the non-adjacency constraint.
+                    <br><br>
+                    Overall, this visualization helps verify if the solution is a structured product (e.g., looks like a clean grid) or a more random packing.
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
 
     </div>
 
