@@ -179,6 +179,40 @@
 
     <div class="diary-container">
 
+        <!-- Entry: Dec 31 -->
+        <div class="entry">
+            <span class="date">December 31, 2025</span>
+            <div class="content">
+                <p>
+                  A <i>Moore graph</i> of diameter $2$ and degree $k$ is a regular graph with the theoretical maximum number of vertices allowed by the degree-diameter bound. 
+                  Counting neighbors layer by layer, we have $1$ root, $k$ neighbors, and $k(k-1)$ vertices at distance 2. Thus, the total number of vertices is
+                  $$n = 1 + k + k(k-1) = k^2 + 1.$$
+                </p>
+
+                <p>
+                  Hoffman and Singleton (1960) proved a stunning spectral constraint: for such a graph to exist, $k$ must belong to the set $\{2, 3, 7, 57\}$.
+                  The first three are known:
+                </p>
+
+                <ul>
+                  <li>$k=2$: The pentagon ($5$ vertices).</li>
+                  <li>$k=3$: The Petersen graph ($10$ vertices).</li>
+                  <li>$k=7$: The Hoffman-Singleton graph ($50$ vertices).</li>
+                </ul>
+
+                <p>
+                  The case $k=57$ requires a graph with $57^2+1 = 3250$ vertices. Its existence has been an open problem for over 60 years.
+                  In <a href="https://doi.org/10.1016/j.ejco.2023.100060"><i>The missing Moore graph as an optimization problem</i></a> (2023), Smith and Montemanni attack this construction not via algebra, but as a massive optimization task.
+                </p>
+
+                <p>
+                  They attempt to minimize the <i>deficit</i>—the number of missing edges required to satisfy the Moore constraints.
+                  Despite running parallelized hill-climbing algorithms for 18 months, they converged to a solution with a deficit of $41,482$ edges (missing nearly half the required edges). 
+                  While they suggest this points to non-existence, the rugged landscape of high-girth graphs makes it a fascinating testbed for evolutionary algorithms.
+                </p>
+            </div>
+        </div>
+
         <!-- Entry: Dec 26 -->
         <div class="entry">
             <span class="date">December 26, 2025</span>
