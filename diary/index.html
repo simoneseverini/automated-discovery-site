@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    
+
     <!-- MathJax for LaTeX Support -->
     <script>
     window.MathJax = {
@@ -16,7 +16,7 @@
     <script type="text/javascript" id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
     </script>
-    
+
     <style>
         /* --- UNIFIED STYLE (Matches Main Page) --- */
         :root {
@@ -59,7 +59,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .nav a { 
             color: var(--accent); 
             text-decoration: none; 
@@ -100,7 +100,7 @@
 
         /* --- TYPOGRAPHY --- */
         p { margin: 0 0 1.2em 0; }
-        
+
         em { color: #333; font-weight: 500; }
 
         a { 
@@ -109,7 +109,7 @@
             border-bottom: 1px dotted #ccc; 
             transition: border-bottom 0.2s;
         }
-        
+
         a:hover { 
             border-bottom: 1px solid var(--accent);
             background-color: #f0f7ff;
@@ -133,7 +133,7 @@
             line-height: 1.8;
             margin-top: 20px;
         }
-        
+
         .refs a { border-bottom: none; color: var(--accent); font-weight: 500; }
         .refs a:hover { text-decoration: underline; }
 
@@ -146,13 +146,13 @@
             border: 1px solid #eee;
             text-align: center;
         }
-        
+
         .visualization img {
             max-width: 100%; 
             height: auto;
             border-radius: 4px; 
         }
-        
+
         .caption {
             margin-top: 12px;
             font-size: 0.85rem;
@@ -175,6 +175,60 @@
     </style>
 </head>
 <body>
+
+
+    <div class="diary-container">
+
+        <!-- Entry: Jan 1 -->
+        <div class="entry">
+            <span class="date">January 1, 2026</span>
+            <div class="content">
+                <p>
+                    A curated list of essential databases for mathematical objects.
+                </p>
+                
+                <div class="refs">
+                    <strong>Sequences and Numbers</strong>
+                    <ul>
+                        <li><a href="https://oeis.org" target="_blank">OEIS</a> — Integer sequences</li>
+                        <li><a href="https://www.lmfdb.org" target="_blank">LMFDB</a> — L-functions, modular forms, and fields</li>
+                    </ul>
+                    
+                    <strong>Graphs</strong>
+                    <ul>
+                        <li><a href="https://houseofgraphs.org" target="_blank">House of Graphs</a> — Searchable database</li>
+                        <li><a href="https://discretezoo.xyz" target="_blank">DiscreteZOO</a> — Graph fingerprints and maniplexes</li>
+                        <li><a href="https://phoeg.umons.ac.be" target="_blank">PHOEG</a> — Extremal graph theory</li>
+                        <li><a href="http://atlas.gregas.eu" target="_blank">Encyclopedia of Graphs</a> — Small graphs atlas</li>
+                        <li><a href="https://users.cecs.anu.edu.au/~bdm/data/" target="_blank">McKay’s Data</a> — Regular, Ramsey, and other graphs</li>
+                    </ul>
+
+                    <strong>Topology (Knots and Manifolds)</strong>
+                    <ul>
+                        <li><a href="https://topology.pi-base.org/" target="_blank">$\pi$-Base</a> — Topological counterexamples</li>
+                        <li><a href="http://www.map.mpim-bonn.mpg.de/Main_Page" target="_blank">The Manifold Atlas</a> — Manifold encyclopedia</li>
+                        <li><a href="https://knotinfo.math.indiana.edu" target="_blank">KnotInfo</a> — Knot invariants</li>
+                        <li><a href="https://regina-normal.github.io" target="_blank">Regina</a> — 3-manifold census</li>
+                    </ul>
+
+                    <strong>Algebra and Geometry</strong>
+                    <ul>
+                        <li><a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/" target="_blank">GroupNames</a> — Finite groups</li>
+                        <li><a href="http://brauer.maths.qmul.ac.uk/Atlas/v3/" target="_blank">ATLAS</a> — Finite simple group representations</li>
+                        <li><a href="http://grdb.co.uk" target="_blank">GRDB</a> — Graded Ring Database</li>
+                        <li><a href="http://hep.itp.tuwien.ac.at/~kreuzer/CY/" target="_blank">PALP</a> — Calabi-Yau polytopes</li>
+                    </ul>
+
+                    <strong>Combinatorics</strong>
+                    <ul>
+                        <li><a href="https://ljcr.dmgordon.org" target="_blank">La Jolla Repository</a> — Covering designs</li>
+                        <li><a href="http://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/" target="_blank">Lattices Catalogue</a> — Nebe-Sloane catalogue</li>
+                        <li><a href="https://www.findstat.org" target="_blank">FindStat</a> — Combinatorial statistics</li>
+                        <li><a href="https://www-imai.is.s.u-tokyo.ac.jp/~yMDitroid/" target="_blank">Matroid Atlas</a> — Small matroids</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <!-- Entry: Dec 31 -->
         <div class="entry">
@@ -278,7 +332,7 @@
                 <p>
                     These slides by Michel Waldschmidt are an introduction to <a href="https://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/Markoff-en.pdf">Markoff Numbers</a>.
                 </p>
-                
+
                 <div class="refs">
                     <strong>Selected References:</strong><br>
                     • <a href="https://www.cambridge.org/core/journals/canadian-mathematical-bulletin/article/on-the-unicity-conjecture-for-markoff-numbers/88B0E426FFCBEA8B3A345C1074B8CC59" target="_blank">Baragar (1996), On the Unicity Conjecture</a><br>
