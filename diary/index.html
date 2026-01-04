@@ -309,57 +309,117 @@
     </ul>
 </div>
 
-        <!-- Entry: Jan 1 -->
-        <div class="entry">
-            <span class="date">January 1, 2026</span>
-            <div class="content">
-                <p>
-                    Here is a curated list of databases for mathematical objects:
-                </p>
-                
-                <div class="refs">
-                    <strong>Sequences and Numbers</strong>
-                    <ul>
-                        <li><a href="https://oeis.org" target="_blank">OEIS</a> — Integer sequences</li>
-                        <li><a href="https://www.lmfdb.org" target="_blank">LMFDB</a> — L-functions, modular forms, and fields</li>
-                    </ul>
-                    
-                    <strong>Graphs</strong>
-                    <ul>
-                        <li><a href="https://houseofgraphs.org" target="_blank">House of Graphs</a> — Searchable database</li>
-                        <li><a href="https://discretezoo.xyz" target="_blank">DiscreteZOO</a> — Graph fingerprints and maniplexes</li>
-                        <li><a href="https://phoeg.umons.ac.be" target="_blank">PHOEG</a> — Extremal graph theory</li>
-                        <li><a href="http://atlas.gregas.eu" target="_blank">Encyclopedia of Graphs</a> — Small graphs atlas</li>
-                        <li><a href="https://users.cecs.anu.edu.au/~bdm/data/" target="_blank">McKay’s Data</a> — Regular, Ramsey, and other graphs</li>
-                    </ul>
+      <!-- Entry: Jan 1 -->
+<style>
+    /* Compact Grid for Databases */
+    .db-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 25px;
+        margin-top: 15px;
+    }
+    
+    .db-cat {
+        break-inside: avoid;
+    }
 
-                    <strong>Topology (Knots and Manifolds)</strong>
-                    <ul>
-                        <li><a href="https://topology.pi-base.org/" target="_blank">$\pi$-Base</a> — Topological counterexamples</li>
-                        <li><a href="http://www.map.mpim-bonn.mpg.de/Main_Page" target="_blank">The Manifold Atlas</a> — Manifold encyclopedia</li>
-                        <li><a href="https://knotinfo.math.indiana.edu" target="_blank">KnotInfo</a> — Knot invariants</li>
-                        <li><a href="https://regina-normal.github.io" target="_blank">Regina</a> — 3-manifold census</li>
-                    </ul>
+    .db-cat strong {
+        display: block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--meta);
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+        margin-bottom: 8px;
+    }
 
-                    <strong>Algebra and Geometry</strong>
-                    <ul>
-                        <li><a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/" target="_blank">GroupNames</a> — Finite groups</li>
-                        <li><a href="http://brauer.maths.qmul.ac.uk/Atlas/v3/" target="_blank">ATLAS</a> — Finite simple group representations</li>
-                        <li><a href="http://grdb.co.uk" target="_blank">GRDB</a> — Graded Ring Database</li>
-                        <li><a href="http://hep.itp.tuwien.ac.at/~kreuzer/CY/" target="_blank">PALP</a> — Calabi-Yau polytopes</li>
-                    </ul>
+    .db-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-                    <strong>Combinatorics</strong>
-                    <ul>
-                        <li><a href="https://ljcr.dmgordon.org" target="_blank">La Jolla Repository</a> — Covering designs</li>
-                        <li><a href="http://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/" target="_blank">Lattices Catalogue</a> — Nebe-Sloane catalogue</li>
-                        <li><a href="https://www.findstat.org" target="_blank">FindStat</a> — Combinatorial statistics</li>
-                        <li><a href="https://www-imai.is.s.u-tokyo.ac.jp/~yMDitroid/" target="_blank">Matroid Atlas</a> — Small matroids</li>
-                    </ul>
-                </div>
+    .db-list li {
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .db-desc {
+        color: #777;
+        font-size: 0.8rem;
+    }
+
+    @media (max-width: 600px) {
+        .db-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+</style>
+
+<div class="entry">
+    <span class="date">January 1, 2026</span>
+    <div class="content">
+        <p>A curated collection of databases for mathematical objects:</p>
+        
+        <div class="db-grid">
+            <!-- Group 1 -->
+            <div class="db-cat">
+                <strong>Sequences & Numbers</strong>
+                <ul class="db-list">
+                    <li><a href="https://oeis.org" target="_blank">OEIS</a> <span class="db-desc">— Integer sequences</span></li>
+                    <li><a href="https://www.lmfdb.org" target="_blank">LMFDB</a> <span class="db-desc">— L-functions & modular forms</span></li>
+                </ul>
+            </div>
+
+            <!-- Group 2 -->
+            <div class="db-cat">
+                <strong>Graphs</strong>
+                <ul class="db-list">
+                    <li><a href="https://houseofgraphs.org" target="_blank">House of Graphs</a></li>
+                    <li><a href="https://discretezoo.xyz" target="_blank">DiscreteZOO</a> <span class="db-desc">— Maniplexes</span></li>
+                    <li><a href="https://phoeg.umons.ac.be" target="_blank">PHOEG</a> <span class="db-desc">— Extremal theory</span></li>
+                    <li><a href="http://atlas.gregas.eu" target="_blank">Encyclopedia of Graphs</a></li>
+                    <li><a href="https://users.cecs.anu.edu.au/~bdm/data/" target="_blank">McKay’s Data</a> <span class="db-desc">— Ramsey/Regular</span></li>
+                </ul>
+            </div>
+
+            <!-- Group 3 -->
+            <div class="db-cat">
+                <strong>Topology</strong>
+                <ul class="db-list">
+                    <li><a href="https://topology.pi-base.org/" target="_blank">$\pi$-Base</a> <span class="db-desc">— Counterexamples</span></li>
+                    <li><a href="http://www.map.mpim-bonn.mpg.de/Main_Page" target="_blank">Manifold Atlas</a></li>
+                    <li><a href="https://knotinfo.math.indiana.edu" target="_blank">KnotInfo</a> <span class="db-desc">— Invariants</span></li>
+                    <li><a href="https://regina-normal.github.io" target="_blank">Regina</a> <span class="db-desc">— 3-manifolds</span></li>
+                </ul>
+            </div>
+
+            <!-- Group 4 -->
+            <div class="db-cat">
+                <strong>Algebra & Geometry</strong>
+                <ul class="db-list">
+                    <li><a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/" target="_blank">GroupNames</a> <span class="db-desc">— Finite groups</span></li>
+                    <li><a href="http://brauer.maths.qmul.ac.uk/Atlas/v3/" target="_blank">ATLAS</a> <span class="db-desc">— Representations</span></li>
+                    <li><a href="http://grdb.co.uk" target="_blank">GRDB</a> <span class="db-desc">— Rings</span></li>
+                    <li><a href="http://hep.itp.tuwien.ac.at/~kreuzer/CY/" target="_blank">PALP</a> <span class="db-desc">— Calabi-Yau</span></li>
+                </ul>
+            </div>
+
+            <!-- Group 5 -->
+            <div class="db-cat">
+                <strong>Combinatorics</strong>
+                <ul class="db-list">
+                    <li><a href="https://ljcr.dmgordon.org" target="_blank">La Jolla</a> <span class="db-desc">— Covering designs</span></li>
+                    <li><a href="http://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/" target="_blank">Lattices</a> <span class="db-desc">— Nebe-Sloane</span></li>
+                    <li><a href="https://www.findstat.org" target="_blank">FindStat</a> <span class="db-desc">— Statistics</span></li>
+                    <li><a href="https://www-imai.is.s.u-tokyo.ac.jp/~yMDitroid/" target="_blank">Matroid Atlas</a></li>
+                </ul>
             </div>
         </div>
+    </div>
+</div>
 
+        
         <!-- Entry: Dec 31 -->
         <div class="entry">
             <span class="date">December 31, 2025</span>
