@@ -3,22 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <title>Research Log & Mathematical Notes</title>
+    <title></title>
 
-    <!-- MathJax Configuration -->
     <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\\[', '\\]']],
-        processEscapes: true,
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          addMenu: [] /* Disables right-click menu to reduce clutter */
-        }
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
       }
     };
     </script>
@@ -27,570 +17,718 @@
     </script>
 
     <style>
-        /* --- CORE VARIABLES --- */
+        /* --- VARIABLES --- */
         :root {
-            --bg-page: #fdfdfd;      /* Slightly off-white for less glare */
-            --bg-card: #ffffff;
-            --text-main: #222222;    /* High contrast (not pure black) */
-            --text-meta: #666666;
-            --accent: #0056b3;       /* Academic Blue */
-            --accent-hover: #003d80;
-            --border: #e0e0e0;
-            --font-serif: "Charter", "Bitstream Charter", "Sitka Text", Cambria, serif;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --bg: #f4f4f4;
+            --card-bg: #ffffff;
+            --text: #111;
+            --meta: #666;
+            --accent: #0056b3; 
+            --badge-bg: #eef3f8;
+            --border: #eee;
         }
 
-        /* --- GLOBAL RESET & LAYOUT --- */
-        html {
-            box-sizing: border-box;
-            font-size: 18px; /* Larger base font for readability */
-        }
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
-
+        /* --- GLOBAL LAYOUT --- */
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-page);
-            font-family: var(--font-sans);
-            color: var(--text-main);
+            background-color: var(--bg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
             line-height: 1.6;
-            -webkit-text-size-adjust: 100%; /* Prevents iOS text sizing weirdness */
         }
 
-        /* --- HEADER --- */
-        .site-header {
-            padding: 60px 20px 40px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+        header {
+            padding: 50px 20px 10px 20px;
             text-align: center;
         }
 
-        .site-title {
-            font-family: var(--font-serif);
+        h1 { 
+            margin: 0; 
+            font-size: 2.0rem; 
+            letter-spacing: -0.01em; 
             font-weight: 700;
-            font-size: 2.2rem;
-            margin: 0;
-            color: #111;
+            font-family: "Courier New", Courier, monospace; 
+        }
+
+        h3, h4 {
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            color: #333;
         }
 
         /* --- CONTAINER --- */
         .diary-container {
-            max-width: 800px; /* Optimal reading width */
+            max-width: 850px;
             margin: 0 auto;
             padding: 0 20px 100px 20px;
         }
 
-        /* --- ENTRY CARDS --- */
-        article.entry {
-            background: var(--bg-card);
-            margin-bottom: 50px;
-            padding: 0 0 30px 0;
-            border-bottom: 1px solid var(--border); /* Minimalist separator */
+        /* --- ENTRY CARD STYLE --- */
+        .entry {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+            border: 1px solid transparent;
+            transition: border-color 0.2s ease;
         }
 
-        /* --- ENTRY HEADERS --- */
-        .entry-header {
-            margin-bottom: 20px;
+        .entry:hover {
+            border-color: #e0e0e0;
         }
 
-        .entry-date {
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
+        .date { 
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-meta);
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .entry-title {
-            font-family: var(--font-serif);
-            font-size: 1.7rem;
-            margin: 0;
-            color: #111;
-            line-height: 1.25;
-        }
-
-        /* --- CONTENT TYPOGRAPHY --- */
-        .content p {
-            margin-bottom: 1.2rem;
-            text-align: left; /* Better for readability than justify on web */
-        }
-
-        .content h3, .content h4 {
-            margin-top: 2rem;
-            margin-bottom: 0.8rem;
-            color: #333;
-            font-family: var(--font-sans);
-        }
-
-        .content ul, .content ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-        
-        .content li {
-            margin-bottom: 0.5rem;
-        }
-
-        a {
+            letter-spacing: 1.5px;
             color: var(--accent);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-        a:hover {
-            border-bottom-color: var(--accent);
-        }
-
-        /* --- MATH OPTIMIZATION (THE FIX) --- */
-        /* This ensures math scrolls internally instead of breaking the page width */
-        mjx-container {
-            overflow-x: auto !important;
-            overflow-y: hidden;
-            max-width: 100%;
-            display: block !important;
-            padding: 5px 0;
-            font-size: 105%; /* Slight boost to math size */
-        }
-        
-        mjx-container:focus {
-            outline: none; /* Removes outline on click-to-scroll */
-        }
-
-        /* --- LAYOUT COMPONENTS --- */
-        
-        /* Grid for Resource Lists */
-        .resource-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 25px;
-            margin: 25px 0;
-            font-size: 0.9rem;
-        }
-        
-        /* Two-column grid for Paradigms */
-        .compact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 25px 0;
-        }
-
-        .grid-cat strong, .resource-cat strong {
+            font-weight: 700;
+            margin-bottom: 20px;
             display: block;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-            text-transform: uppercase;
+        }
+
+        /* --- TYPOGRAPHY & LISTS --- */
+        p { margin: 0 0 1.2em 0; }
+        em { color: #333; font-weight: 500; }
+
+        a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            border-bottom: 1px dotted #ccc; 
+            transition: border-bottom 0.2s;
+        }
+
+        a:hover { 
+            border-bottom: 1px solid var(--accent);
+            background-color: #f0f7ff;
+        }
+
+        ul, ol { 
+            margin: 0 0 1.5em 0; 
+            padding-left: 20px; 
+            list-style-type: square;
             color: #444;
         }
 
-        .grid-list, .resource-list {
+        li { margin-bottom: 8px; }
+
+        /* --- UNIFIED RESOURCE GRID (Used for Tools & Databases) --- */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .resource-cat {
+            break-inside: avoid;
+        }
+
+        .resource-cat strong {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--meta);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+        }
+
+        .resource-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        .grid-list li, .resource-list li {
-            margin-bottom: 8px;
+        .resource-list li {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
             line-height: 1.4;
+            display: flex;
+            flex-direction: column;
         }
 
-        .meta {
+        .resource-list li .meta {
+            font-size: 0.8rem;
             color: #777;
-            font-size: 0.85em;
             font-style: italic;
         }
 
-        /* Visualizations (Images) */
+        /* --- VISUALIZATIONS & MEDIA --- */
         .visualization {
-            background: #f8f9fa;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 4px;
             margin: 30px 0;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
             text-align: center;
         }
 
         .visualization img {
-            max-width: 100%;
+            max-width: 100%; 
             height: auto;
-            display: block;
-            margin: 0 auto;
+            border-radius: 4px; 
         }
 
         .caption {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #555;
-            text-align: left;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--meta);
             line-height: 1.5;
+            font-style: italic;
+            text-align: left;
+            padding: 0 10px;
         }
 
-        /* Proof Environment */
-        .proof {
-            display: block;
-            margin: 20px 0;
-            padding: 15px 20px;
-            background: #f9f9f9;
-            border-left: 4px solid #ddd;
-            font-style: normal;
+        .notebook-badge {
+            margin-top: 20px;
+            display: inline-block;
         }
-        .proof p:last-child { margin-bottom: 0; }
-        
-        /* References Section */
+
+        /* --- REFERENCES SECTION --- */
         .refs {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
             font-size: 0.85rem;
             color: #555;
-        }
-        .refs h4 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #999;
-            margin-top: 0;
-            margin-bottom: 10px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            line-height: 1.8;
+            margin-top: 20px;
         }
 
+        .refs a { border-bottom: none; color: var(--accent); font-weight: 500; }
+        .refs a:hover { text-decoration: underline; }
+
         /* --- MOBILE OPTIMIZATION --- */
-        @media (max-width: 650px) {
-            html { font-size: 17px; } /* Slightly smaller text on mobile */
-            
-            .site-header { padding: 40px 20px; }
-            .site-title { font-size: 1.8rem; }
-            .entry-title { font-size: 1.5rem; }
-            
-            /* Collapse Grids */
-            .compact-grid, .resource-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .entry { padding-bottom: 40px; }
+        @media (max-width: 600px) {
+            header { padding: 30px 15px 10px 15px; }
+            .entry { padding: 25px 20px; }
+            h1 { font-size: 1.6rem; }
+            .resource-grid { grid-template-columns: 1fr; gap: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="site-header">
-        <h1 class="site-title">Research Log</h1>
-    </header>
-
     <div class="diary-container">
 
-        <!-- JAN 4 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">January 4, 2026</span>
-                <h2 class="entry-title">Rigor and Generation</h2>
-            </header>
-            
-            <div class="content">
-                <p>
-                    <em>This entry is based on the survey <a href="https://arxiv.org/pdf/2508.20825" target="_blank">arXiv:2508.20825</a>.</em>
-                </p>
-                <p>
-                    Computer-assisted graph theory has evolved from the controversial "brute force" of the 1976 Four Color Theorem to a rigorous discipline. Modern approaches prioritize correctness through formal verification (e.g., using the <strong>Rocq</strong> proof assistant) and independent algorithm reimplementation.
-                </p>
-                <p>
-                    The fundamental engine of the field is <strong>Exhaustive Generation</strong>—producing every non-isomorphic graph in a specific class (e.g., cubic, planar) up to a certain order. The central challenge is <strong>Isomorphism Rejection</strong>: preventing the generation of structurally identical copies without the memory cost of storing every graph found. The survey highlights sophisticated solutions to this:
-                </p>
-                <ul>
-                    <li><strong>Orderly Generation:</strong> Introduced by Faradžev and Reed, this method generates graphs such that only those with a specific "canonical" labeling are accepted. Because validity is determined by the current graph's structure alone, it requires no historical memory.</li>
-                    <li><strong>Canonical Construction Path:</strong> Used by the standard tool <code>nauty</code>, this method assumes graphs are built recursively (e.g., adding edges). To avoid duplicating work via different build orders (a problem known as <em>pseudosimilarity</em>), the algorithm defines a "canonical reduction". A graph is accepted only if it was generated via the exact reverse of its canonical reduction.</li>
+       <!-- Entry: Jan 4 -->
+      <!-- Entry: Jan 4 -->
+<div class="entry">
+    <span class="date">January 4, 2026</span>
+    <div class="content">
+        <h2>Rigor and Generation</h2>
+        <p>
+            <em>This entry is based on the survey <a href="https://arxiv.org/pdf/2508.20825" target="_blank">arXiv:2508.20825</a>.</em>
+        </p>
+        <p>
+            Computer-assisted graph theory has evolved from the controversial "brute force" of the 1976 Four Color Theorem to a rigorous discipline. Modern approaches prioritize correctness through formal verification (e.g., using the <strong>Rocq</strong> proof assistant) and independent algorithm reimplementation.
+        </p>
+
+        <p>
+            The fundamental engine of the field is <strong>Exhaustive Generation</strong>—producing every non-isomorphic graph in a specific class (e.g., cubic, planar) up to a certain order. The central challenge is <strong>Isomorphism Rejection</strong>: preventing the generation of structurally identical copies without the memory cost of storing every graph found. The survey highlights sophisticated solutions to this:
+        </p>
+
+        <ul>
+            <li><strong>Orderly Generation:</strong> Introduced by Faradžev and Reed, this method generates graphs such that only those with a specific "canonical" labeling are accepted. Because validity is determined by the current graph's structure alone, it requires no historical memory.</li>
+            <li><strong>Canonical Construction Path:</strong> Used by the standard tool <code>nauty</code>, this method assumes graphs are built recursively (e.g., adding edges). To avoid duplicating work via different build orders (a problem known as <em>pseudosimilarity</em>), the algorithm defines a "canonical reduction" (a specific way to remove an element). A graph is accepted only if it was generated via the exact reverse of its canonical reduction.</li>
+        </ul>
+
+        <h3>Searchable Knowledge</h3>
+        <p>
+            The field has moved beyond static lists of graphs to dynamic databases like the <strong>House of Graphs</strong>. Unlike standard repositories, these allow researchers to search using inequalities of invariants (e.g., searching for graphs where chromatic number &gt; clique number). This facilitates the discovery of connections between unrelated problems by identifying common counterexamples.
+        </p>
+
+        <h3>Algorithmic Paradigms</h3>
+        <div class="compact-grid">
+            <div class="grid-cat">
+                <strong>Exact & Algebraic Methods</strong>
+                <ul class="grid-list">
+                    <li><strong>Mixed Integer Linear Programming (MILP):</strong> Used for exact structural problems (e.g., Turán numbers). A key feature is duality: finding a solution to the "dual" problem provides a mathematical certificate of optimality, removing the need to blindly trust the solver's software implementation.</li>
+                    <li><strong>Semidefinite Programming (SDP) & Flag Algebras:</strong> Introduced by Razborov, Flag Algebras transform combinatorial problems regarding subgraph densities into algebraic inequalities. These are solved via SDP to provide rigorous asymptotic bounds, such as determining exact Ramsey numbers like $R(K_4^-, K_4^-, K_4^-)=28$.</li>
                 </ul>
-
-                <h3>Searchable Knowledge</h3>
-                <p>
-                    The field has moved beyond static lists of graphs to dynamic databases like the <strong>House of Graphs</strong>. Unlike standard repositories, these allow researchers to search using inequalities of invariants (e.g., searching for graphs where chromatic number &gt; clique number). This facilitates the discovery of connections between unrelated problems by identifying common counterexamples.
-                </p>
-
-                <h3>Algorithmic Paradigms</h3>
-                <div class="compact-grid">
-                    <div class="grid-cat">
-                        <strong>Exact & Algebraic Methods</strong>
-                        <ul class="grid-list">
-                            <li><strong>MILP:</strong> Used for exact structural problems (e.g., Turán numbers). Duality provides mathematical certificates of optimality.</li>
-                            <li><strong>SDP & Flag Algebras:</strong> Transform combinatorial subgraph density problems into algebraic inequalities to provide rigorous asymptotic bounds (e.g. Ramsey numbers).</li>
-                        </ul>
-                    </div>
-                    <div class="grid-cat">
-                        <strong>Logic & Machine Learning</strong>
-                        <ul class="grid-list">
-                            <li><strong>SAT Solvers:</strong> Used for boolean constraints. Modern solvers produce "proof logs" that formally verify non-existence of counterexamples.</li>
-                            <li><strong>Machine Learning:</strong> Approaches like <strong>FunSearch</strong> utilize LLMs to generate code that searches for "witnesses," evolving algorithms rather than just data.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="refs">
-                    <h4>References</h4>
-                    <ul>
-                        <li>J. Brakensiek et al., <a href="https://doi.org/10.1007/s10817-022-09630-x">"The resolution of Keller’s conjecture,"</a> <em>J. Auto. Reas.</em>, 2022.</li>
-                        <li>G. Brinkmann et al., <a href="https://houseofgraphs.org">"House of Graphs,"</a> <em>DAM</em>, 2013.</li>
-                        <li>B. D. McKay, <a href="https://doi.org/10.1006/jagm.1997.0909">"Isomorph-free exhaustive generation,"</a> <em>J. Alg.</em>, 1998.</li>
-                        <li>B. Romera-Paredes et al., <a href="https://www.nature.com/articles/s41586-023-06924-6">"Mathematical discoveries from program search with LLMs,"</a> <em>Nature</em>, 2024.</li>
-                    </ul>
-                </div>
             </div>
-        </article>
-
-        <!-- JAN 3 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">January 3, 2026</span>
-                <h2 class="entry-title">Resource-Constrained Graph Construction</h2>
-            </header>
-
-            <div class="content">
-                <p>
-                    Fix integers $k,m\ge 0$. We consider a construction process occurring over time steps $t=1,2,\dots,n$. 
-                    At each time $t$, a new vertex $v_t$ is created. Alice sends an instruction $x_t\in\{0,1\}^k$. 
-                    Bob maps this instruction to a <em>stored state</em>
-                    \[
-                    \ell(t) \;=\; \alpha(x_t) \in \Sigma_m, \qquad \text{where } \Sigma_m := \{0,1,\dots,2^m-1\}.
-                    \]
-                    The state $\ell(t)$ is permanently attached to $v_t$.
-                </p>
-                <p>
-                    The crucial constraint is that the adjacency of $v_t$ to <em>all earlier vertices</em> must be determined solely from the stored states. 
-                    Concretely, Bob fixes a <em>decoder</em> function once and for all:
-                    \[
-                    \delta: \Sigma_m \times \Sigma_m \to \{0,1\}.
-                    \]
-                    Upon creating $v_t$, edges are added according to the rule:
-                    \[
-                    \{v_i, v_t\} \in E \iff \delta(\ell(i), \ell(t)) = 1 \qquad (\text{for } i < t).
-                    \]
-                </p>
-
-                <p>
-                    <strong>Definition (Resource model $\mathcal{R}(k,m)$).</strong> 
-                    A graph $G$ is <em>constructible in $\mathcal{R}(k,m)$</em> if there exist functions $\alpha, \delta$ and instructions $(x_t)$ producing $G$ via this protocol.
-                </p>
-
-                <p>
-                    To characterize these graphs, we recall <strong>lettericity</strong>. An ordered graph is a <em>$(\Sigma,D)$-letter graph</em> if edges correspond to pairs of letters in $D$. The lettericity is the minimum alphabet size required.
-                </p>
-
-                <p>
-                    <strong>Theorem.</strong>
-                    A graph $G$ is constructible in $\mathcal{R}(k,m)$ if and only if its lettericity satisfies:
-                    \[
-                    \text{lett}(G) \le 2^{\min\{k,m\}}.
-                    \]
-                </p>
-
-                <div class="proof">
-                    <p><strong>Proof Sketch.</strong></p>
-                    <p>
-                        The effective alphabet available to the system is bounded by Alice's instruction bandwidth ($2^k$) and Bob's memory ($2^m$). Thus, $K = \min\{2^k, 2^m\}$.
-                    </p>
-                    <p>
-                        (<em>Forward</em>): If $G$ is generated, the set of states actually used acts as the alphabet $\Sigma$, and the decoder acts as the relation $D$. Thus $\text{lett}(G) \le K$.
-                        <br>
-                        (<em>Reverse</em>): If $\text{lett}(G) \le K$, we can encode the letters of the graph into the available binary instructions and memory states, constructing the graph exactly.
-                        <span style="float:right;">$\square$</span>
-                    </p>
-                </div>
-
-                <div class="refs">
-                    <h4>References</h4>
-                    <ul>
-                        <li>D. Dervovic et al., <a href="https://arxiv.org/abs/1802.09844">"Constructing graphs with limited resources,"</a> <em>arXiv</em>, 2018.</li>
-                        <li>M. Petkovšek, <a href="https://doi.org/10.1016/S0012-365X(01)00094-2">"Letter graphs and well-quasi-order,"</a> <em>Discrete Math.</em>, 2002.</li>
-                    </ul>
-                </div>
+            <div class="grid-cat">
+                <strong>Logic & Machine Learning</strong>
+                <ul class="grid-list">
+                    <li><strong>SAT Solvers:</strong> Used for boolean constraints, such as the resolution of Keller’s Conjecture (dimension 7). Modern solvers produce "proof logs" (e.g., 224 gigabytes for Keller's conjecture) that formally verify the non-existence of a counterexample.</li>
+                    <li><strong>Machine Learning:</strong> Recent approaches utilize Reinforcement Learning and Large Language Models (e.g., <strong>FunSearch</strong>) to generate code that searches for "witnesses" (constructions). This method recently improved lower bounds for the Cap Set Problem by evolving algorithms rather than just data.</li>
+                </ul>
             </div>
-        </article>
+        </div>
 
-        <!-- JAN 1 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">January 1, 2026</span>
-                <h2 class="entry-title">Databases for Mathematical Objects</h2>
-            </header>
-            
+        <div class="refs">
+            <strong>Selected References:</strong><br>
+            • J. Brakensiek et al. <a href="https://doi.org/10.1007/s10817-022-09630-x" target="_blank">The resolution of Keller’s conjecture</a>. <em>Journal of Automated Reasoning</em>, 66(3):277–300, 2022.<br>
+            • G. Brinkmann et al. <a href="https://houseofgraphs.org" target="_blank">House of Graphs: a database of interesting graphs</a>. <em>Discrete Applied Mathematics</em>, 161(1-2):311–314, 2013.<br>
+            • I. A. Faradžev. <em>Generation of nonisomorphic graphs with a given degree sequence</em>. Algorithmic Studies in Combinatorics, 1978.<br>
+            • B. D. McKay. <a href="https://doi.org/10.1006/jagm.1997.0909" target="_blank">Isomorph-free exhaustive generation</a>. <em>Journal of Algorithms</em>, 26(2):306–324, 1998.<br>
+            • A. A. Razborov. <a href="https://doi.org/10.2178/jsl/1203350781" target="_blank">Flag algebras</a>. <em>The Journal of Symbolic Logic</em>, 72(4):1239–1282, 2007.<br>
+            • B. Romera-Paredes et al. <a href="https://www.nature.com/articles/s41586-023-06924-6" target="_blank">Mathematical discoveries from program search with LLMs</a>. <em>Nature</em>, 625(7995):468–475, 2024.<br>
+            • A. Z. Wagner. <a href="https://doi.org/10.1016/j.jcta.2019.105130" target="_blank">Refuting conjectures in extremal combinatorics via linear programming</a>. <em>JCT Series A</em>, 169:105130, 2020.
+            <h4>References</h4>
+            <ul>
+                <li>
+                    J. Brakensiek et al., 
+                    <a href="https://doi.org/10.1007/s10817-022-09630-x" target="_blank">"The resolution of Keller’s conjecture,"</a> 
+                    <em>Journal of Automated Reasoning</em>, 66(3):277–300, 2022.
+                </li>
+                <li>
+                    G. Brinkmann, K. Coolsaet, J. Goedgebeur, and H. Mélot, 
+                    <a href="https://houseofgraphs.org" target="_blank">"House of Graphs: a database of interesting graphs,"</a> 
+                    <em>Discrete Applied Mathematics</em>, 161(1-2):311–314, 2013.
+                </li>
+                <li>
+                    I. A. Faradžev, 
+                    "Generation of nonisomorphic graphs with a given degree sequence," 
+                    <em>Algorithmic Studies in Combinatorics</em>, pages 11–19, 1978.
+                </li>
+                <li>
+                    B. D. McKay, 
+                    <a href="https://doi.org/10.1006/jagm.1997.0909" target="_blank">"Isomorph-free exhaustive generation,"</a> 
+                    <em>Journal of Algorithms</em>, 26(2):306–324, 1998.
+                </li>
+                <li>
+                    A. A. Razborov, 
+                    <a href="https://doi.org/10.2178/jsl/1203350781" target="_blank">"Flag algebras,"</a> 
+                    <em>The Journal of Symbolic Logic</em>, 72(4):1239–1282, 2007.
+                </li>
+                <li>
+                    B. Romera-Paredes et al., 
+                    <a href="https://www.nature.com/articles/s41586-023-06924-6" target="_blank">"Mathematical discoveries from program search with large language models,"</a> 
+                    <em>Nature</em>, 625(7995):468–475, 2024.
+                </li>
+                <li>
+                    A. Z. Wagner, 
+                    <a href="https://doi.org/10.1016/j.jcta.2019.105130" target="_blank">"Refuting conjectures in extremal combinatorics via linear programming,"</a> 
+                    <em>Journal of Combinatorial Theory, Series A</em>, 169:105130, 2020.
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="entry">
+            <span class="date">January 3, 2026</span>
+            <h3>Resource-Constrained Graph Construction</h3>
+            <p>
+                Fix integers $k,m\ge 0$. We consider a construction process occurring over time steps $t=1,2,\dots,n$. 
+                At each time $t$, a new vertex $v_t$ is created. Alice sends an instruction $x_t\in\{0,1\}^k$. 
+                Bob maps this instruction to a <em>stored state</em>
+                \[
+                \ell(t) \;=\; \alpha(x_t) \in \Sigma_m, \qquad \text{where } \Sigma_m := \{0,1,\dots,2^m-1\}.
+                \]
+                The state $\ell(t)$ is permanently attached to $v_t$.
+            </p>
+            <p>
+                The crucial constraint is that the adjacency of $v_t$ to <em>all earlier vertices</em> must be determined solely from the stored states. 
+                Concretely, Bob fixes a <em>decoder</em> function once and for all:
+                \[
+                \delta: \Sigma_m \times \Sigma_m \to \{0,1\}.
+                \]
+                Upon creating $v_t$, edges are added according to the rule:
+                \[
+                \{v_i, v_t\} \in E \iff \delta(\ell(i), \ell(t)) = 1 \qquad (\text{for } i < t).
+                \]
+                Intuitively, $\ell(i)$ is the only information Bob can ever access regarding $v_i$ at times $t > i$, 
+                and $\ell(t)$ is the only information about $v_t$ that persists beyond time $t$.
+            </p>
+
+            <p>
+                <strong>Definition (Resource model $\mathcal{R}(k,m)$).</strong> 
+                A graph $G$ is <em>constructible in $\mathcal{R}(k,m)$</em> if there exist functions
+                \[
+                \alpha: \{0,1\}^k \to \Sigma_m, \qquad \delta: \Sigma_m \times \Sigma_m \to \{0,1\},
+                \]
+                and a sequence of instructions $(x_t)_{t=1}^n$ such that, defining $\ell(t) = \alpha(x_t)$, 
+                the graph on vertices $v_1,\dots,v_n$ generated by the rule
+                \[
+                \{v_i, v_t\} \in E \iff \delta(\ell(i), \ell(t)) = 1 \quad (i < t)
+                \]
+                is isomorphic to $G$.
+            </p>
+
+            <p>
+                <strong>Remark (Indistinguishability).</strong>
+                If $\ell(i) = \ell(j)$ with $i < j$, then for every $t > j$,
+                \[
+                \{v_i, v_t\} \in E \iff \delta(\ell(i), \ell(t)) = 1 \iff \delta(\ell(j), \ell(t)) = 1 \iff \{v_j, v_t\} \in E.
+                \]
+                Thus, vertices sharing a state are indistinguishable to all <em>future</em> vertices. 
+                This captures the symmetry enforced by bounded state memory.
+            </p>
+
+            <p>
+                To characterize these graphs, we recall the concept of lettericity.
+            </p>
+
+            <p>
+                <strong>Definition (Letter graph).</strong> 
+                Let $\Sigma$ be a finite alphabet and $D \subseteq \Sigma \times \Sigma$ be a binary relation (the decoder). 
+                An ordered graph $G$ with vertices $v_1,\dots,v_n$ is a <em>$(\Sigma,D)$-letter graph</em> if there exists a word $w = w_1 \dots w_n \in \Sigma^n$ such that for all $1 \le i < j \le n$,
+                \[
+                \{v_i, v_j\} \in E(G) \iff (w_i, w_j) \in D.
+                \]
+                The <em>lettericity</em> of an abstract graph $G$, denoted $\text{lett}(G)$, is the minimum $|\Sigma|$ such that $G$ is isomorphic to a $(\Sigma,D)$-letter graph for some $D$.
+            </p>
+
+            <p>
+                In our resource model, only the number of <em>distinct</em> states that can effectively appear matters. 
+                Alice can send at most $2^k$ distinct instructions, and Bob can store at most $2^m$ distinct states. 
+                Thus, the effective alphabet size is bounded by
+                \[
+                K \;:=\; \min\{2^k, 2^m\} \;=\; 2^{\min\{k,m\}}.
+                \]
+            </p>
+
+            <p>
+                <strong>Theorem (Operational characterization of lettericity).</strong>
+                A graph $G$ is constructible in $\mathcal{R}(k,m)$ if and only if $\text{lett}(G) \le 2^{\min\{k,m\}}$. Equivalently,
+                \[
+                \mathcal{R}(k,m) \;=\; \{\, G : \text{lett}(G) \le K \,\}.
+                \]
+            </p>
+
+            <div class="proof">
+                <p><em>Proof.</em></p>
+                <p>
+                    (<em>Forward.</em>) Assume $G$ is produced by a protocol $(\alpha, \delta)$ and instruction sequence $(x_t)_{t=1}^n$. Let
+                    \[
+                    \Sigma := \{ \ell(t) : 1 \le t \le n \} \subseteq \Sigma_m
+                    \]
+                    be the set of states that actually occur. Clearly $|\Sigma| \le \min\{2^k, 2^m\} = K$. 
+                    Define the word $w \in \Sigma^n$ by $w_t := \ell(t)$, and define a decoder relation $D \subseteq \Sigma \times \Sigma$ by $(a,b) \in D \iff \delta(a,b)=1$.
+                    By construction, for every $i < j$,
+                    \[
+                    \{v_i, v_j\} \in E(G) \iff \delta(\ell(i), \ell(j)) = 1 \iff (w_i, w_j) \in D.
+                    \]
+                    Thus, the constructed graph is a $(\Sigma, D)$-letter graph, implying $\text{lett}(G) \le |\Sigma| \le K$.
+                </p>
+                <p>
+                    (<em>Reverse.</em>) Suppose $\text{lett}(G) \le K$. By definition, there exists an ordering of the vertices of $G$, 
+                    an alphabet $\Sigma$ with $|\Sigma| \le K$, a decoder $D$, and a word $w \in \Sigma^n$ representing the graph.
+                    Since $|\Sigma| \le 2^k$, we can injectively encode letters via a map $\text{enc}: \Sigma \hookrightarrow \{0,1\}^k$. 
+                    Since $|\Sigma| \le 2^m$, we can injectively embed $\Sigma$ into $\Sigma_m$ via $\iota: \Sigma \hookrightarrow \Sigma_m$. 
+                    Fix an arbitrary $a_0 \in \Sigma$ and define:
+                    \[
+                    \alpha(x) := \begin{cases} \iota(a) & \text{if } x = \text{enc}(a) \text{ for some } a \in \Sigma, \\ \iota(a_0) & \text{otherwise}. \end{cases}
+                    \]
+                    Define the decoder $\delta$ such that for any $a,b \in \Sigma$, $\delta(\iota(a), \iota(b)) = 1 \iff (a,b) \in D$, and 0 otherwise.
+                    With the instruction sequence $x_t := \text{enc}(w_t)$, we have $\ell(t) = \iota(w_t)$. 
+                    The edge rule $\{v_i, v_j\} \in E \iff \delta(\ell(i), \ell(j)) = 1$ reproduces exactly the condition $(w_i, w_j) \in D$. 
+                    Thus, $G$ is constructible in $\mathcal{R}(k,m)$. 
+                    <span style="float:right;">$\square$</span>
+                </p>
+            </div>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+            <h4>References</h4>
+            <ul>
+                <li>
+                    D. Dervovic, A. Mocherla, and S. Severini, 
+                    <a href="https://arxiv.org/abs/1802.09844">"Constructing graphs with limited resources,"</a> 
+                    <em>arXiv:1802.09844</em>, 2018.
+                </li>
+                <li>
+                    M. Petkovšek, 
+                    <a href="https://doi.org/10.1016/S0012-365X(01)00094-2">"Letter graphs and well-quasi-order,"</a> 
+                    <em>Discrete Mathematics</em>, vol. 244, no. 1–3, pp. 375–388, 2002.
+                </li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="date">January 1, 2026</span>
             <div class="content">
                 <p>A curated collection of databases for mathematical objects:</p>
-                
+
                 <div class="resource-grid">
                     <div class="resource-cat">
                         <strong>Sequences & Numbers</strong>
                         <ul class="resource-list">
-                            <li><a href="https://oeis.org">OEIS</a> <span class="meta">— Integer sequences</span></li>
-                            <li><a href="https://www.lmfdb.org">LMFDB</a> <span class="meta">— L-functions</span></li>
+                            <li>
+                                <a href="https://oeis.org" target="_blank">OEIS</a> 
+                                <span class="meta">— Integer sequences</span>
+                            </li>
+                            <li>
+                                <a href="https://www.lmfdb.org" target="_blank">LMFDB</a> 
+                                <span class="meta">— L-functions & modular forms</span>
+                            </li>
                         </ul>
                     </div>
+
                     <div class="resource-cat">
                         <strong>Graphs</strong>
                         <ul class="resource-list">
-                            <li><a href="https://houseofgraphs.org">House of Graphs</a></li>
-                            <li><a href="https://discretezoo.xyz">DiscreteZOO</a> <span class="meta">— Maniplexes</span></li>
-                            <li><a href="http://atlas.gregas.eu">Encyclopedia of Graphs</a></li>
+                            <li><a href="https://houseofgraphs.org" target="_blank">House of Graphs</a></li>
+                            <li>
+                                <a href="https://discretezoo.xyz" target="_blank">DiscreteZOO</a> 
+                                <span class="meta">— Maniplexes</span>
+                            </li>
+                            <li>
+                                <a href="https://phoeg.umons.ac.be" target="_blank">PHOEG</a> 
+                                <span class="meta">— Extremal theory</span>
+                            </li>
+                            <li><a href="http://atlas.gregas.eu" target="_blank">Encyclopedia of Graphs</a></li>
+                            <li>
+                                <a href="https://users.cecs.anu.edu.au/~bdm/data/" target="_blank">McKay’s Data</a> 
+                                <span class="meta">— Ramsey/Regular</span>
+                            </li>
                         </ul>
                     </div>
+
                     <div class="resource-cat">
                         <strong>Topology</strong>
                         <ul class="resource-list">
-                            <li><a href="https://topology.pi-base.org/">$\pi$-Base</a> <span class="meta">— Counterexamples</span></li>
-                            <li><a href="https://knotinfo.math.indiana.edu">KnotInfo</a> <span class="meta">— Invariants</span></li>
-                            <li><a href="https://regina-normal.github.io">Regina</a> <span class="meta">— 3-manifolds</span></li>
+                            <li>
+                                <a href="https://topology.pi-base.org/" target="_blank">$\pi$-Base</a> 
+                                <span class="meta">— Counterexamples</span>
+                            </li>
+                            <li><a href="http://www.map.mpim-bonn.mpg.de/Main_Page" target="_blank">Manifold Atlas</a></li>
+                            <li>
+                                <a href="https://knotinfo.math.indiana.edu" target="_blank">KnotInfo</a> 
+                                <span class="meta">— Invariants</span>
+                            </li>
+                            <li>
+                                <a href="https://regina-normal.github.io" target="_blank">Regina</a> 
+                                <span class="meta">— 3-manifolds</span>
+                            </li>
                         </ul>
                     </div>
+
                     <div class="resource-cat">
                         <strong>Algebra & Geometry</strong>
                         <ul class="resource-list">
-                            <li><a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/">GroupNames</a> <span class="meta">— Finite groups</span></li>
-                            <li><a href="http://brauer.maths.qmul.ac.uk/Atlas/v3/">ATLAS</a> <span class="meta">— Representations</span></li>
-                            <li><a href="http://grdb.co.uk">GRDB</a> <span class="meta">— Rings</span></li>
+                            <li>
+                                <a href="https://people.maths.bris.ac.uk/~matyd/GroupNames/" target="_blank">GroupNames</a> 
+                                <span class="meta">— Finite groups</span>
+                            </li>
+                            <li>
+                                <a href="http://brauer.maths.qmul.ac.uk/Atlas/v3/" target="_blank">ATLAS</a> 
+                                <span class="meta">— Representations</span>
+                            </li>
+                            <li>
+                                <a href="http://grdb.co.uk" target="_blank">GRDB</a> 
+                                <span class="meta">— Rings</span>
+                            </li>
+                            <li>
+                                <a href="http://hep.itp.tuwien.ac.at/~kreuzer/CY/" target="_blank">PALP</a> 
+                                <span class="meta">— Calabi-Yau</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="resource-cat">
+                        <strong>Combinatorics</strong>
+                        <ul class="resource-list">
+                            <li>
+                                <a href="https://ljcr.dmgordon.org" target="_blank">La Jolla</a> 
+                                <span class="meta">— Covering designs</span>
+                            </li>
+                            <li>
+                                <a href="http://www.math.rwth-aachen.de/~Gabriele.Nebe/LATTICES/" target="_blank">Lattices</a> 
+                                <span class="meta">— Nebe-Sloane</span>
+                            </li>
+                            <li>
+                                <a href="https://www.findstat.org" target="_blank">FindStat</a> 
+                                <span class="meta">— Statistics</span>
+                            </li>
+                            <li><a href="https://www-imai.is.s.u-tokyo.ac.jp/~yMDitroid/" target="_blank">Matroid Atlas</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <!-- DEC 31 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">December 31, 2025</span>
-                <h2 class="entry-title">The Missing Moore Graph</h2>
-            </header>
-            
+        <div class="entry">
+            <span class="date">December 31, 2025</span>
             <div class="content">
                 <p>
                   A <i>Moore graph</i> of diameter $2$ and degree $k$ is a regular graph with the theoretical maximum number of vertices allowed by the degree-diameter bound. 
-                  The total number of vertices is $n = k^2 + 1$.
-                  Hoffman and Singleton (1960) proved that for such a graph to exist, $k$ must belong to $\{2, 3, 7, 57\}$.
+                  Counting neighbors layer by layer, we have $1$ root, $k$ neighbors, and $k(k-1)$ vertices at distance 2. Thus, the total number of vertices is
+                  $$n = 1 + k + k(k-1) = k^2 + 1.$$
                 </p>
+
+                <p>
+                  Hoffman and Singleton (1960) proved a stunning spectral constraint: for such a graph to exist, $k$ must belong to the set $\{2, 3, 7, 57\}$.
+                  The first three are known:
+                </p>
+
                 <ul>
                   <li>$k=2$: The pentagon ($5$ vertices).</li>
                   <li>$k=3$: The Petersen graph ($10$ vertices).</li>
                   <li>$k=7$: The Hoffman-Singleton graph ($50$ vertices).</li>
                 </ul>
+
                 <p>
-                  The case $k=57$ ($3250$ vertices) has been open for 60 years. In <a href="https://doi.org/10.1016/j.ejco.2023.100060"><i>The missing Moore graph as an optimization problem</i></a> (2023), Smith and Montemanni attack this using massive parallel hill-climbing. They converged to a solution with a deficit of $41,482$ edges, suggesting non-existence, but the rugged landscape makes it a fascinating testbed for evolutionary algorithms.
+                  The case $k=57$ requires a graph with $57^2+1 = 3250$ vertices. Its existence has been an open problem for over 60 years.
+                  In <a href="https://doi.org/10.1016/j.ejco.2023.100060"><i>The missing Moore graph as an optimization problem</i></a> (2023), Smith and Montemanni attack this construction not via algebra, but as a massive optimization task.
+                </p>
+
+                <p>
+                  They attempt to minimize the <i>deficit</i>—the number of missing edges required to satisfy the Moore constraints.
+                  Despite running parallelized hill-climbing algorithms for 18 months, they converged to a solution with a deficit of $41,482$ edges (missing nearly half the required edges). 
+                  While they suggest this points to non-existence, the rugged landscape of high-girth graphs makes it a fascinating testbed for evolutionary algorithms.
                 </p>
             </div>
-        </article>
+        </div>
 
-        <!-- DEC 26 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">December 26, 2025</span>
-                <h2 class="entry-title">Markov Triples & The Fibonacci Spine</h2>
-            </header>
-            
+        <div class="entry">
+            <span class="date">December 26, 2025</span>
             <div class="content">
                 <p>
-                  A <i>Markov triple</i> is a triple of positive integers $(x,y,z)$ satisfying $x^2+y^2+z^2 = 3xyz.$
-                  Navigating the solutions via Vieta jumping generates the Markov tree.
-                  The question is <i>which Markov triples have a Fibonacci number as their largest entry?</i>
+                  A <i>Markov triple</i> is a triple of positive integers $(x,y,z)$ satisfying
+                  $$x^2+y^2+z^2 = 3xyz.$$
+                  The integers that occur in Markov triples are the <i>Markov numbers</i>.
+                  The usual way to navigate the set of solutions is the Vieta move: if $(x,y,z)$ is a solution, then so is
+                  $$(x,y,3xy-z),$$
+                  and similarly by cycling coordinates. Iterating these involutions (and permuting) generates the Markov tree.
                 </p>
+
                 <p>
-                  If we fix $x=1$, the equation becomes $y^2+z^2+1 = 3yz$. The positive solutions are exactly
-                  $(1, F_{2n-1}, F_{2n+1})$, forming a "spine" in the tree:
+                  Fibonacci numbers are slower creatures: $F_0=0$, $F_1=1$, and $F_{n+1}=F_n+F_{n-1}$.
                 </p>
+
+                <p>
+                  The question is <i>which Markov triples have a Fibonacci number as their largest entry?</i>
+                  There is one branch where Fibonacci numbers show up for free and this is the branch of triples that contain a $1$.
+                </p>
+
+                <p>
+                  If $x=1$, the Markov equation becomes
+                  $$y^2+z^2+1 = 3yz.$$
+                  Solving for $z$ gives
+                  $$z=\frac{3y\pm\sqrt{5y^2-4}}{2},$$
+                  so integrality forces $5y^2-4$ to be a square. The resulting positive solutions are exactly
+                  $$(1, F_{2n-1}, F_{2n+1}) \qquad (n\ge 1),$$
+                  e.g.
+                </p>
+
                 <ul>
                   <li>$(1,F_1,F_3)=(1,1,2)$</li>
                   <li>$(1,F_3,F_5)=(1,2,5)$</li>
                   <li>$(1,F_5,F_7)=(1,5,13)$</li>
                 </ul>
 
-                <div class="visualization">
-                    <img src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/Fibonacci_Markov_spine_3.png" alt="Markov tree layout" loading="lazy">
-                    <div class="caption">
-                        <strong>Figure:</strong> The Fibonacci spine (red) and the side branches (blue). Once you leave the spine, the magnitudes accelerate so fast that hitting a Fibonacci value is highly unlikely.
-                    </div>
-                </div>
+                <p>
+                  I added a Colab notebook on GitHub that draws the tree with this spine highlighted. Off the spine, the Vieta update is typically multiplicative ($z'\approx 3xy$ once both $x$ and $y$ grow).
+                </p>
+            </div>
 
-                <div class="notebook-badge">
-                    <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/Markov_Fibonacci_drawing_Dec_26.ipynb" target="_blank">
-                        <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-                    </a>
+            <div class="visualization">
+                <img
+                  src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/Fibonacci_Markov_spine_3.png"
+                  alt="Markov tree layout"
+                  loading="lazy"
+                />
+                <div class="caption">
+                    <strong></strong> The Fibonacci spine (red) and the side branches (blue). Once you leave the spine, the magnitudes accelerate so fast that hitting a Fibonacci value starts to feel like a category error. For background on tree layouts, see the <a href="https://cs.brown.edu/people/rtamassi/gdhandbook/chapters/trees.pdf" target="_blank">Trees chapter</a> of the Graph Drawing Handbook.
                 </div>
             </div>
-        </article>
 
-        <!-- DEC 24 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">December 24, 2025</span>
-                <h2 class="entry-title">Resources: Markoff Numbers</h2>
-            </header>
-            
+            <div class="notebook-badge">
+                <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/Markov_Fibonacci_drawing_Dec_26.ipynb" target="_blank">
+                    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="entry">
+            <span class="date">December 24, 2025</span>
             <div class="content">
                 <p>
                     These slides by Michel Waldschmidt are an introduction to <a href="https://webusers.imj-prg.fr/~michel.waldschmidt/articles/pdf/Markoff-en.pdf">Markoff Numbers</a>.
                 </p>
+
                 <div class="refs">
-                    <h4>Selected References</h4>
-                    <ul>
-                        <li><a href="#">Baragar (1996)</a>, On the Unicity Conjecture</li>
-                        <li><a href="#">Button (2001)</a>, Markoff Numbers & Continued Fractions</li>
-                        <li><a href="#">Zhang (2006)</a>, Proof of uniqueness for prime-power</li>
-                        <li><a href="#">Lagisquet (2020)</a>, Markov tree / Stern–Brocot indexing</li>
-                        <li><a href="#">Bowditch</a>, Markoff triples and quasifuchsian groups</li>
-                    </ul>
+                    <strong>Selected References:</strong><br>
+                    • <a href="https://www.cambridge.org/core/journals/canadian-mathematical-bulletin/article/on-the-unicity-conjecture-for-markoff-numbers/88B0E426FFCBEA8B3A345C1074B8CC59" target="_blank">Baragar (1996), On the Unicity Conjecture</a><br>
+                    • <a href="https://ora.ox.ac.uk/objects/uuid%3Afc6f3446-4389-41e2-9cb4-d75505137821/files/m79f46f4a2e7ff1cbec2f7e7d8b22e737" target="_blank">Button (2001), Markoff Numbers & Continued Fractions</a><br>
+                    • <a href="https://www.sciencedirect.com/science/article/pii/S0022314X13000401" target="_blank">Chen (2013), On the Frobenius Conjecture</a><br>
+                    • <a href="https://arxiv.org/pdf/math/0612620.pdf" target="_blank">Zhang (2006), Proof of uniqueness for prime-power</a><br>
+                    • <a href="https://www.heldermann-verlag.de/jlt/jlt18/torla2e.pdf" target="_blank">Tornero (2008), A Geometric Approach</a><br>
+                    • <a href="https://arxiv.org/abs/2010.10335" target="_blank">Lagisquet (2020), Markov tree / Stern–Brocot indexing</a><br>
+                    • <a href="https://arxiv.org/pdf/2010.13010.pdf" target="_blank">Lee (2022), On the ordering of the Markov numbers</a><br>
+                    • <a href="https://bhbowditch.com/papers/bhb-markoff.pdf" target="_blank">Bowditch, Markoff triples and quasifuchsian groups</a><br>
+                    • <a href="https://www-users.cse.umn.edu/~musiker/Markoff2003.pdf" target="_blank">Itsara et al. (2003), Combinatorial Interpretations</a><br>
+                    • <a href="https://escholarship.org/uc/item/6pn049mp" target="_blank">Labbé (2022), The q-analog over words</a>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <!-- DEC 23 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">December 23, 2025</span>
-                <h2 class="entry-title">Barbados Workshop Problems</h2>
-            </header>
+        <div class="entry">
+            <span class="date">December 23, 2025</span>
+            <p>
+                I have been looking at the <a href="https://web.math.princeton.edu/~pds/barbados25/problems.pdf">Open Problems for the 2025 Barbados Graph Theory Workshop</a>. 
+                This collection, compiled by Julien Codsi, features a number of intriguing problems.
+            </p>
+        </div>
+
+        <div class="entry">
+            <span class="date">December 17, 2025</span>
             <div class="content">
                 <p>
-                    I have been looking at the <a href="https://web.math.princeton.edu/~pds/barbados25/problems.pdf">Open Problems for the 2025 Barbados Graph Theory Workshop</a>. 
-                    This collection, compiled by Julien Codsi, features a number of intriguing problems.
+                    The <i>Shannon capacity</i> of a graph $G$ is defined as $$\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}.$$ The best lower bound for 7-cycle graph $C_7$ was obtained by finding an independent set of size 367 in the fifth power. This yields: $$\Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578.$$ See <a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a> for details. Below is a Colab notebook generated with AlphaEvolve. It gives the same result. 
                 </p>
-            </div>
-        </article>
-
-        <!-- DEC 17 -->
-        <article class="entry">
-            <header class="entry-header">
-                <span class="entry-date">December 17, 2025</span>
-                <h2 class="entry-title">Shannon Capacity of $C_7$</h2>
-            </header>
-            
-            <div class="content">
-                <p>
-                    The <i>Shannon capacity</i> of a graph $G$ is defined as $\Theta(G) = \lim_{d \to \infty} (\alpha(G^d))^{1/d}.$ 
-                    The best lower bound for $C_7$ is $\Theta(C_7) \geq \sqrt[5]{367} \approx 3.2578$. 
-                    (<a href="https://arxiv.org/abs/1808.07438">arXiv:1808.07438</a>).
-                </p>
-                
                 <div class="notebook-badge">
                     <a href="https://github.com/simoneseverini/automated-discovery-site/blob/main/C_7_Shannon_capacity_lower_bound.ipynb" target="_blank">
                         <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
                     </a>
                 </div>
 
-                <h3>Algorithm Description</h3>
-                <p>
-                    The algorithm searches for the Maximum Independent Set (MIS) in the graph $G = C_7^n$ using a <strong>Randomized Iterated Local Search</strong> strategy. It combines greedy construction (filling the set with valid vertices) with a "Ruin and Recreate" perturbation step to escape local optima.
-                </p>
+                <div class="algorithm-description" style="margin-top: 20px;">
+                    <h3>Algorithm for Lower Bounding the Shannon Capacity of $C_7$</h3>
 
-                <div class="visualization">
-                    <img src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/C_7_5_independent.png" alt="Independent Set Structure Matrix" loading="lazy">
-                    <div class="caption">
-                        <strong>Figure:</strong> Structure of the Independent Set in $C_7^5$. The diagonal histograms show frequency of coordinates, while off-diagonal heatmaps reveal correlations between dimensions, helping to identify if the solution follows a specific structured pattern.
+                    <h4>Problem Definition</h4>
+                    <p>
+                        The algorithm searches for the Maximum Independent Set (MIS) in the graph $G = C_7^n$, which is the strong product of $n$ copies of the 7-cycle.
+                    </p>
+                    <ul>
+                        <li><strong>Vertex Set:</strong> $V = \mathbb{Z}_7^n = \{0, 1, \dots, 6\}^n$.</li>
+                        <li><strong>Adjacency:</strong> Two vertices $u, v \in V$ are adjacent if and only if:
+                        $$ \forall i \in \{1, \dots, n\}, \quad (u_i - v_i) \pmod 7 \in \{0, 1, 6\}. $$
+                        (Note: $6 \equiv -1 \pmod 7$).</li>
+                    </ul>
+                    <p>
+                        An independent set $S \subseteq V$ requires that for any distinct pair $u, v \in S$, they are non-adjacent. The size of this set establishes a lower bound for the Shannon capacity: $\Theta(C_7) \geq |S|^{1/n}$.
+                    </p>
+
+                    <h4>Methodology: Randomized Iterated Local Search</h4>
+                    <p>
+                        The approach implements a <i>Ruin and Recreate</i> strategy combined with greedy construction and local optimization.
+                    </p>
+                    <ol>
+                        <li><strong>Initialization:</strong> The search is seeded either with a known structured subset (e.g., based on the pattern $\{0, 2, 4\}^n$) or a previous best solution.</li>
+                        <li><strong>Greedy Construction:</strong> The algorithm maintains an array of "forbidden counts" for every vertex. It iteratively selects random valid vertices (count = 0) and updates the counts of their neighbors.</li>
+                        <li><strong>Local Search (1-Swaps):</strong> Once the set is maximal, the algorithm attempts to escape local optima. It selects a vertex $u \in S$ and checks if it is "critical" (i.e., removing it liberates new vertices blocked <em>only</em> by $u$). If so, $u$ is removed, and the greedy process immediately fills the gap, effectively performing a $(1, k)$-swap optimization.</li>
+                        <li><strong>Perturbation (Ruin and Recreate):</strong> If the solution size stagnates, the algorithm randomly removes approximately 10% of the vertices (Ruin) and refills the set using the Greedy Construction (Recreate).</li>
+                    </ol>
+
+                   <div class="visualization">
+                        <img
+                          src="https://raw.githubusercontent.com/simoneseverini/automated-discovery-site/main/C_7_5_independent.png"
+                          alt="Independent Set Structure Matrix"
+                          loading="lazy"
+                        />
+                        <div class="caption">
+                            <strong>Structure of the Independent Set ($C_7^5$).</strong> The image is a $5 \times 5$ matrix of plots visualizing the structure of the Independent Set (IS) found in the 5-dimensional space ($C_7^5$). Here's how to read it:
+                            <br><br>
+                            <strong>Diagonal Plots (Top-Left to Bottom-Right):</strong> These are histograms for each of the 5 dimensions. They show the frequency of each coordinate value (0 through 6). For example, if you see taller bars at 0, 2, and 4, it means those values appear more frequently in that specific dimension, hinting that the solution might be built around a specific pattern like $\{0, 2, 4\}$.
+                            <br><br>
+                            <strong>Off-Diagonal Plots:</strong> These are 2D heatmaps showing the relationship between pairs of dimensions (e.g., Row 0, Column 1 shows Dimension 0 vs. Dimension 1). The color intensity (purple to yellow) represents the number of points at that specific $(x, y)$ coordinate pair. These projections reveal correlations. For an Independent Set in a strong product graph, you often see specific sparse patterns or "holes" because certain combinations of coordinates are forbidden to maintain the non-adjacency constraint.
+                            <br><br>
+                            Overall, this visualization helps verify if the solution is a structured product (e.g., looks like a clean grid) or a more random packing.
+                        </div>
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
 
     </div>
+
 </body>
 </html>
