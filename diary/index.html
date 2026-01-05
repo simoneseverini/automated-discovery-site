@@ -889,11 +889,11 @@
             </div>
         </div>
 
-        <!-- Entry: Dec 19 -->
+       <!-- Entry: Dec 19 -->
 <div class="entry">
     <span class="date">December 19, 2025</span>
     <div class="content">
-        <h2>Correction Width: Definition and Equivalence</h2>
+        <h2>Correction Width</h2>
 
         <h3>Definition (Correction width with $k$ labels)</h3>
         <p>
@@ -904,29 +904,29 @@
         <ul>
             <li>a linear ordering $\pi=(v_1,\dots,v_n)$ of $V$, and</li>
             <li>a partition of $V$ into $k$ (possibly empty) classes
-                \[ V = V_1 \,\dot\cup\, V_2 \,\dot\cup\, \cdots \,\dot\cup\, V_k, \]
+                \[ V = V_1 \,\dot{\cup}\, V_2 \,\dot{\cup}\, \cdots \,\dot{\cup}\, V_k, \]
             </li>
         </ul>
         <p>
             satisfying the following local approximation property:
         </p>
         <p>
-            For each time step $t\in\{1,\dots,n\}$ let $V_{<t}:=\{v_1,\dots,v_{t-1}\}$
-            and let $N_{<t}(v_t):=N(v_t)\cap V_{<t}$ be the set of predecessors adjacent to $v_t$.
+            For each time step $t\in\{1,\dots,n\}$ let $V_{\lt t}:=\{v_1,\dots,v_{t-1}\}$
+            and let $N_{\lt t}(v_t):=N(v_t)\cap V_{\lt t}$ be the set of predecessors adjacent to $v_t$.
             There must exist a <em>template set</em> $T_t$ of the form
             \[
-              T_t \;=\; \bigcup_{i\in S_t}\bigl(V_{<t}\cap V_i\bigr)
+              T_t \;=\; \bigcup_{i\in S_t}\bigl(V_{\lt t}\cap V_i\bigr)
               \qquad\text{for some subset } S_t\subseteq [k]:=\{1,\dots,k\},
             \]
             such that
             \[
-              \bigl|\,N_{<t}(v_t)\,\Delta\,T_t\,\bigr| \;\le\; d.
+              \bigl|\,N_{\lt t}(v_t)\,\Delta\,T_t\,\bigr| \;\le\; d.
             \]
         </p>
 
         <p>
             <strong>Remark.</strong> For $k=2$ this yields exactly four possible templates
-            $\emptyset$, $V_{<t}$, $V_{<t}\cap V_1$, $V_{<t}\cap V_2$,
+            $\emptyset$, $V_{\lt t}$, $V_{\lt t}\cap V_1$, $V_{\lt t}\cap V_2$,
             matching the "connect to none / all / group 1 / group 2" intuition.
         </p>
 
@@ -941,10 +941,10 @@
             <li>a label assignment $\ell_t(v_s)\in[k]$ for each already created vertex $v_s$,</li>
             <li>at each step $t$, an optional global relabeling by a <em>permutation</em> $\sigma_t\in S_k$ applied to all current labels (i.e., $\ell_{t}(x)=\sigma_t(\ell_{t-1}(x))$),</li>
             <li>a default connection mask $S_t\subseteq[k]$ specifying that, by default, the new vertex $v_t$ connects to every predecessor whose <em>current</em> label lies in $S_t$,</li>
-            <li>and an error set $E_t\subseteq V_{<t}$ of size at most $d$, whose adjacencies to $v_t$ are <em>toggled</em> relative to the default rule.</li>
+            <li>and an error set $E_t\subseteq V_{\lt t}$ of size at most $d$, whose adjacencies to $v_t$ are <em>toggled</em> relative to the default rule.</li>
         </ul>
         <p>
-            Formally, after choosing $\sigma_t$, $S_t$ and $E_t$, the adjacency between $v_t$ and a predecessor $u\in V_{<t}$ is set to
+            Formally, after choosing $\sigma_t$, $S_t$ and $E_t$, the adjacency between $v_t$ and a predecessor $u\in V_{\lt t}$ is set to
             \[
               \mathbf{1}_{\{u v_t\in E\}}
               \;=\;
@@ -969,18 +969,18 @@
             <p><strong>Proof.</strong></p>
             <p>
                 (<em>Forward direction</em>.) Assume $\text{cw}_k(G)\le d$ as witnessed by an ordering
-                $\pi=(v_1,\dots,v_n)$ and a partition $V=\dot\cup_{i=1}^k V_i$.
+                $\pi=(v_1,\dots,v_n)$ and a partition $V=\dot{\cup}_{i=1}^k V_i$.
                 Construct $G$ sequentially in this order.
                 Assign each vertex $v_t$ the fixed label $i$ with $v_t\in V_i$ and never relabel
                 (i.e., take all $\sigma_t=\mathrm{id}$).
             </p>
             <p>
-                At step $t$, let $T_t=\bigcup_{i\in S_t}(V_{<t}\cap V_i)$ be a template satisfying
-                $|N_{<t}(v_t)\Delta T_t|\le d$. Use the default connection mask $S_t$ (connect to all
+                At step $t$, let $T_t=\bigcup_{i\in S_t}(V_{\lt t}\cap V_i)$ be a template satisfying
+                $|N_{\lt t}(v_t)\Delta T_t|\le d$. Use the default connection mask $S_t$ (connect to all
                 predecessors with label in $S_t$), and set the error set to
-                $E_t := N_{<t}(v_t)\Delta T_t.$
+                $E_t := N_{\lt t}(v_t)\Delta T_t.$
                 Then $|E_t|\le d$ and, by construction, the toggling rule realizes exactly the desired
-                neighborhood $N_{<t}(v_t)$. Hence $G\in \mathcal{G}^{\mathrm{perm}}_{\mathrm{error}}(k,d)$.
+                neighborhood $N_{\lt t}(v_t)$. Hence $G\in \mathcal{G}^{\mathrm{perm}}_{\mathrm{error}}(k,d)$.
             </p>
             <p>
                 (<em>Reverse direction</em>.) Assume $G\in \mathcal{G}^{\mathrm{perm}}_{\mathrm{error}}(k,d)$.
@@ -990,27 +990,27 @@
             <p>
                 Define the <em>final label</em> of a vertex $x$ to be the label it has after the last step,
                 and let $V_i$ be the set of vertices of final label $i$. This yields a partition
-                $V=\dot\cup_{i=1}^k V_i$.
+                $V=\dot{\cup}_{i=1}^k V_i$.
             </p>
             <p>
-                Now consider any step $t$ and any predecessor $u\in V_{<t}$.
+                Now consider any step $t$ and any predecessor $u\in V_{\lt t}$.
                 Since relabelings are permutations, there exists a bijection $\rho_t:[k]\to[k]$ such that
                 the <em>current</em> label class $j$ at time $t$ corresponds exactly to the final class $\rho_t(j)$,
                 restricted to predecessors:
                 \[
-                  \{u\in V_{<t}:\ell_t(u)=j\} \;=\; V_{<t}\cap V_{\rho_t(j)}.
+                  \{u\in V_{\lt t}:\ell_t(u)=j\} \;=\; V_{\lt t}\cap V_{\rho_t(j)}.
                 \]
                 The default rule at step $t$ uses a mask $S_t\subseteq[k]$, hence the default neighborhood is
                 \[
-                  T_t \;:=\; \{u\in V_{<t}:\ell_t(u)\in S_t\}
-                  \;=\; \bigcup_{j\in S_t}\bigl(V_{<t}\cap V_{\rho_t(j)}\bigr),
+                  T_t \;:=\; \{u\in V_{\lt t}:\ell_t(u)\in S_t\}
+                  \;=\; \bigcup_{j\in S_t}\bigl(V_{\lt t}\cap V_{\rho_t(j)}\bigr),
                 \]
                 which is a union of predecessor-pieces of the <em>fixed</em> final partition.
                 The construction then toggles adjacency on at most $d$ vertices $E_t$, so
                 \[
-                  N_{<t}(v_t) \;=\; T_t \,\Delta\, E_t
+                  N_{\lt t}(v_t) \;=\; T_t \,\Delta\, E_t
                   \qquad\Longrightarrow\qquad
-                  |N_{<t}(v_t)\Delta T_t| \;=\; |E_t| \;\le\; d.
+                  |N_{\lt t}(v_t)\Delta T_t| \;=\; |E_t| \;\le\; d.
                 \]
                 Thus the same ordering and the final partition witness $\text{cw}_k(G)\le d$.
             </p>
