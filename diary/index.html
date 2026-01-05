@@ -215,72 +215,57 @@
 
     <div class="diary-container">
 
-        <div class="entry">
-    <span class="date">January 4, 2025</span>
+       <!-- Entry: Jan 4 -->
+<div class="entry">
+    <span class="date">January 4, 2026</span>
     <div class="content">
+        <h2>Rigor and Generation</h2>
         <p>
-            I have been reading Jorik Jooken's survey on <a href="https://arxiv.org/abs/2508.20825" target="_blank">Computer-Assisted Graph Theory</a>. It articulates how the field has evolved from the singular controversy of the Four Color Theorem into a standardized discipline built on three pillars: exhaustive generation, searchable databases, and advanced algorithmic paradigms.
+            Computer-assisted graph theory has evolved from the controversial "brute force" of the 1976 Four Color Theorem to a rigorous discipline. Modern approaches prioritize correctness through formal verification (e.g., using the <strong>Rocq</strong> proof assistant) and independent algorithm reimplementation.
         </p>
         
         <p>
-            The survey is particularly strong on the "modern" stack—integrating classical optimization methods like <strong>Semidefinite Programming (SDP)</strong> with emerging AI techniques. It argues that while isomorphism rejection (via <em>nauty</em>) remains the engine of the field, the frontier has shifted toward automated proof verification and heuristic discovery.
+            The fundamental engine of the field is <strong>Exhaustive Generation</strong>—producing every non-isomorphic graph in a specific class (e.g., cubic, planar) up to a certain order. The central challenge is <strong>Isomorphism Rejection</strong>: preventing the generation of structurally identical copies without the memory cost of storing every graph found. The survey highlights sophisticated solutions to this:
         </p>
 
-        <div class="resource-grid">
-            <div class="resource-cat">
-                <strong>Generation & Databases</strong>
-                <ul class="resource-list">
-                    <li>
-                        <span><code>nauty</code> / <code>geng</code></span>
-                        <span class="meta">— Canonical construction path</span>
-                    </li>
-                    <li>
-                        <span><strong>House of Graphs</strong></span>
-                        <span class="meta">— Invariant-based search</span>
-                    </li>
-                    <li>
-                        <span><strong>Plantri</strong></span>
-                        <span class="meta">— Planar & topological generation</span>
-                    </li>
+        <ul>
+            <li><strong>Orderly Generation:</strong> Introduced by Faradžev and Reed, this method generates graphs such that only those with a specific "canonical" labeling are accepted. Because validity is determined by the current graph's structure alone, it requires no historical memory.</li>
+            <li><strong>Canonical Construction Path:</strong> Used by the standard tool <code>nauty</code>, this method assumes graphs are built recursively (e.g., adding edges). To avoid duplicating work via different build orders (a problem known as <em>pseudosimilarity</em>), the algorithm defines a "canonical reduction" (a specific way to remove an element). A graph is accepted only if it was generated via the exact reverse of its canonical reduction.</li>
+        </ul>
+
+        <h3>Searchable Knowledge</h3>
+        <p>
+            The field has moved beyond static lists of graphs to dynamic databases like the <strong>House of Graphs</strong>. Unlike standard repositories, these allow researchers to search using inequalities of invariants (e.g., searching for graphs where chromatic number &gt; clique number). This facilitates the discovery of connections between unrelated problems by identifying common counterexamples.
+        </p>
+
+        <h3>Algorithmic Paradigms</h3>
+        <div class="compact-grid">
+            <div class="grid-cat">
+                <strong>Exact & Algebraic Methods</strong>
+                <ul class="grid-list">
+                    <li><strong>Mixed Integer Linear Programming (MILP):</strong> Used for exact structural problems (e.g., Turán numbers). A key feature is duality: finding a solution to the "dual" problem provides a mathematical certificate of optimality, removing the need to blindly trust the solver's software implementation.</li>
+                    <li><strong>Semidefinite Programming (SDP) & Flag Algebras:</strong> Introduced by Razborov, Flag Algebras transform combinatorial problems regarding subgraph densities into algebraic inequalities. These are solved via SDP to provide rigorous asymptotic bounds, such as determining exact Ramsey numbers like $R(K_4^-, K_4^-, K_4^-)=28$.</li>
                 </ul>
             </div>
-
-            <div class="resource-cat">
-                <strong>Optimization & Logic</strong>
-                <ul class="resource-list">
-                    <li>
-                        <span><strong>SAT Solvers</strong></span>
-                        <span class="meta">— Massive boolean proofs</span>
-                    </li>
-                    <li>
-                        <span><strong>MILP & SDP</strong></span>
-                        <span class="meta">— Extremal bounds & Flag Algebras</span>
-                    </li>
-                    <li>
-                        <span><strong>Dynamic Programming</strong></span>
-                        <span class="meta">— For bounded treewidth</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="resource-cat">
-                <strong>Heuristics & AI</strong>
-                <ul class="resource-list">
-                    <li>
-                        <span><strong>Metaheuristics</strong></span>
-                        <span class="meta">— Variable Neighborhood Search (VNS)</span>
-                    </li>
-                    <li>
-                        <span><strong>Machine Learning</strong></span>
-                        <span class="meta">— RL & LLM-guided discovery</span>
-                    </li>
+            <div class="grid-cat">
+                <strong>Logic & Machine Learning</strong>
+                <ul class="grid-list">
+                    <li><strong>SAT Solvers:</strong> Used for boolean constraints, such as the resolution of Keller’s Conjecture (dimension 7). Modern solvers produce "proof logs" (e.g., 224 gigabytes for Keller's conjecture) that formally verify the non-existence of a counterexample.</li>
+                    <li><strong>Machine Learning:</strong> Recent approaches utilize Reinforcement Learning and Large Language Models (e.g., <strong>FunSearch</strong>) to generate code that searches for "witnesses" (constructions). This method recently improved lower bounds for the Cap Set Problem by evolving algorithms rather than just data.</li>
                 </ul>
             </div>
         </div>
 
-        <p style="margin-top: 15px;">
-            Jooken illustrates these techniques across a wide spectrum of subfields—from <strong>Spectral</strong> and <strong>Algebraic Graph Theory</strong> to <strong>Chemical</strong> applications. The survey demonstrates that "computer-assisted" is no longer just a niche label for counter-example hunting, but a fundamental methodology for proving structural results.
-        </p>
+        <div class="refs">
+            <strong>Selected References:</strong><br>
+            • J. Brakensiek et al. <a href="https://doi.org/10.1007/s10817-022-09630-x" target="_blank">The resolution of Keller’s conjecture</a>. <em>Journal of Automated Reasoning</em>, 66(3):277–300, 2022.<br>
+            • G. Brinkmann et al. <a href="https://houseofgraphs.org" target="_blank">House of Graphs: a database of interesting graphs</a>. <em>Discrete Applied Mathematics</em>, 161(1-2):311–314, 2013.<br>
+            • I. A. Faradžev. <em>Generation of nonisomorphic graphs with a given degree sequence</em>. Algorithmic Studies in Combinatorics, 1978.<br>
+            • B. D. McKay. <a href="https://doi.org/10.1006/jagm.1997.0909" target="_blank">Isomorph-free exhaustive generation</a>. <em>Journal of Algorithms</em>, 26(2):306–324, 1998.<br>
+            • A. A. Razborov. <a href="https://doi.org/10.2178/jsl/1203350781" target="_blank">Flag algebras</a>. <em>The Journal of Symbolic Logic</em>, 72(4):1239–1282, 2007.<br>
+            • B. Romera-Paredes et al. <a href="https://www.nature.com/articles/s41586-023-06924-6" target="_blank">Mathematical discoveries from program search with LLMs</a>. <em>Nature</em>, 625(7995):468–475, 2024.<br>
+            • A. Z. Wagner. <a href="https://doi.org/10.1016/j.jcta.2019.105130" target="_blank">Refuting conjectures in extremal combinatorics via linear programming</a>. <em>JCT Series A</em>, 169:105130, 2020.
+        </div>
     </div>
 </div>
         
