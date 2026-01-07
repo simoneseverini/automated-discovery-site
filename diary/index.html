@@ -435,6 +435,121 @@
 
     <div class="diary-container">
 
+        <div class="entry">
+  <div class="date">January 6, 2026</div>
+  <h2>Graph likelihood</h2>
+
+  <p>
+    Banerji–Mansour–Severini define the <em>likelihood</em> of a graph \(G\) on \(n\) vertices as the probability that a
+    “monkey” constructs \(G\) in exactly \(n\) steps by adding one vertex per step:
+    at step \(t\) it picks a degree \(k\in\{0,\dots,t-1\}\) uniformly, then picks \(k\) neighbors uniformly among the existing
+    \(t-1\) vertices.
+    The likelihood is \(L(G)=\Pr(G_n \simeq G)\).
+  </p>
+
+  <div class="visualization">
+  \[
+  L(G)\;=\;\frac{1}{|\mathrm{Aut}(G)|}\sum_{\phi:[n]\overset{\sim}{\to}V(G)}
+  \;\prod_{t=2}^{n}\left(\frac{1}{t}\cdot \binom{t-1}{d_t(\phi)}^{-1}\right),
+  \qquad
+  d_t(\phi):=\bigl|N_G(\phi(t))\cap\{\phi(1),\dots,\phi(t-1)\}\bigr|.
+  \]
+  </div>
+
+  <p>
+    Two immediate remarks:
+    (i) the symmetry \(k\leftrightarrow (t-1-k)\) plus \(\binom{t-1}{k}=\binom{t-1}{t-1-k}\) implies
+    \(L(G)=L(\overline{G})\);
+    (ii) the formula is a “partition function over arrival orders”: a sum over all labelings \(\phi\),
+    with a weight that depends only on the <em>back-degrees</em> \(d_t(\phi)\).
+  </p>
+
+  <h3>A small computation (and a collision)</h3>
+
+  <p>
+    The paper gives closed forms for a few families; for instance \(L(K_n)=1/n!\).
+    But what I find more revealing is how quickly collisions appear.
+  </p>
+
+  <p>
+    Consider the two connected graphs on 5 vertices:
+    <br/>
+    (A) the wheel \(W_5\) (a 4-cycle plus a hub),
+    <br/>
+    (B) the “double-hub with three common neighbors”: two adjacent hubs, and three other vertices adjacent to both hubs and to nobody else.
+  </p>
+
+  <p>
+    A brute-force enumeration of all \(5!=120\) arrival orders in the formula above gives the same exact value for both:
+  </p>
+
+  <div class="visualization">
+  \[
+  L(W_5)\;=\;L(\text{double-hub}(5))\;=\;\frac{13}{720}.
+  \]
+  </div>
+
+  <p>
+    So likelihood is strong, but not a complete invariant (even after identifying complements).
+  </p>
+
+  <h3>A natural generalization</h3>
+
+  <p>
+    The monkey rule “choose \(k\) uniformly” can be replaced by an arbitrary degree law.
+    Fix distributions \(p_t\) on \(\{0,\dots,t-1\}\). At step \(t\), first draw \(K_t\sim p_t\), then choose a \(K_t\)-subset uniformly.
+    The same derivation yields
+  </p>
+
+  <div class="visualization">
+  \[
+  L_{p}(G)\;=\;\frac{1}{|\mathrm{Aut}(G)|}\sum_{\phi}
+  \prod_{t=2}^{n}\left(\frac{p_t(d_t(\phi))}{\binom{t-1}{d_t(\phi)}}\right).
+  \]
+  </div>
+
+  <p>
+    Complement-invariance now holds <em>iff</em> each \(p_t\) is symmetric: \(p_t(k)=p_t(t-1-k)\).
+    A pleasant special case is the binomial choice \(p_t(k)=\binom{t-1}{k}q^k(1-q)^{t-1-k}\),
+    which makes every subset \(S\subseteq[t-1]\) appear with probability \(q^{|S|}(1-q)^{t-1-|S|}\).
+    In that case the labeled distribution is exactly \(G(n,q)\), and the unlabeled likelihood becomes
+    \[
+      L_{p}(G)=\frac{n!}{|\mathrm{Aut}(G)|}\,q^{m}(1-q)^{\binom{n}{2}-m},
+    \]
+    where \(m=|E(G)|\).
+  </p>
+
+  <h3>Two conjectures</h3>
+
+  <p><strong>Conjecture 1 (complexity, monkey model).</strong>
+    Exact computation of \(L(G)\) (as a rational number) is \(\#\mathrm{P}\)-hard under polynomial-time Turing reductions,
+    even when restricted to connected graphs.
+    (Banerji–Mansour–Severini explicitly ask for the complexity of computing likelihood.)
+  </p>
+
+  <p><strong>Conjecture 2 (extremals among connected graphs).</strong>
+    For each \(n\), the connected graphs maximizing \(L(G)\) are threshold-like “staircase” split graphs
+    (neighborhoods nested in the arrival order), while the minimizers are close to regular graphs
+    (cycles being the first suspects).
+    Evidence at \(n=5\): among connected graphs on 5 vertices, the unique minimizer is \(C_5\) with \(L(C_5)=1/270\),
+    and the unique maximizer is the split graph with degree sequence \((4,3,2,2,1)\), with \(L=307/4320\).
+  </p>
+
+  <h3>References (starting points)</h3>
+
+  <p class="references">
+    C. R. S. Banerji, T. Mansour, S. Severini,
+    <a href="https://arxiv.org/abs/1304.3600">A notion of graph likelihood and an infinite monkey theorem</a>, arXiv:1304.3600 (2013; published in <em>J. Phys. A</em>).
+    &nbsp;—&nbsp;
+    D. Dervovic, A. Mocherla, S. Severini,
+    <a href="https://arxiv.org/abs/1802.09844">Constructing graphs with limited resources</a>, arXiv:1802.09844 (2018).
+    &nbsp;—&nbsp;
+    S. Janson, S. Severini,
+    <a href="https://archive.intlpress.com/site/pub/files/_fulltext/journals/joc/2013/0004/0001/JOC-2013-0004-0001-a003.pdf">An example of graph limits of growing sequences of random graphs</a>, <em>Journal of Combinatorics</em> 4(1):67–80 (2013).
+  </p>
+</div>
+
+
         <!-- Entry: Jan 4 -->
         <div class="entry">
             <span class="date">January 4, 2026</span>
