@@ -493,16 +493,6 @@
   
 <div class="graph-likelihood-entry">
 
-  <h3>Conjecture 1: The Bipartite Minimization Principle</h3>
-  <p>
-    For all \( n \ge 6 \), the graph with the unique minimum likelihood is the balanced complete bipartite graph \( K_{\lfloor n/2 \rfloor, \lceil n/2 \rceil} \).
-  </p>
-  <p><strong>Status:</strong> Verified computationally for \( n \le 9 \).</p>
-  <blockquote>
-    <strong>Intuition:</strong> The likelihood of a graph is inversely proportional to the product of binomial coefficients \( \binom{t}{k} \) chosen at each step. To minimize the probability, the generative process must select the <em>maximum</em> possible binomial coefficient at every single step \( t \). Since \( \binom{t}{k} \) is maximized when \( k \approx t/2 \), the "rarest" graph is one that forces the new vertex to connect to exactly half of the existing vertices at every stage of growth. The balanced bipartite structure naturally enforces this constraint.
-  </blockquote>
-
-
   <h3>Conjecture 1: Minima</h3>
   <p>
     For all \( n \ge 6 \), the graph with the unique minimum likelihood is the balanced complete bipartite graph \( K_{\lfloor n/2 \rfloor, \lceil n/2 \rceil} \).
