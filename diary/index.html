@@ -102,10 +102,9 @@
             border: 1px solid transparent;
             transition: border-color 0.2s ease;
             
-            /* FIX: Ensure long text breaks and doesn't overflow */
+            /* FIX 1: Use overflow-wrap (standard) instead of word-break (aggressive).
+               This breaks long words if necessary but respects HTML tags (like math). */
             overflow-wrap: break-word;
-            word-wrap: break-word;
-            word-break: break-word;
         }
 
         .entry:hover {
@@ -141,7 +140,9 @@
             text-decoration: none;
             border-bottom: 1px dotted #ccc;
             transition: border-bottom 0.2s, background-color 0.2s;
-            overflow-wrap: break-word; /* Prevent long URLs from breaking layout */
+            
+            /* FIX 2: Only force aggressive breaking on URLs/Links */
+            word-break: break-all;
         }
 
         a:hover {
@@ -170,17 +171,26 @@
             border: 1px solid var(--border);
             color: #c7254e;
             white-space: pre-wrap; /* Allows code to wrap on small screens */
+            word-break: normal; /* Do not break code mid-word weirdly */
         }
 
         /* --- MATHJAX FIX --- */
-        /* This forces math equations to scroll horizontally if they are too wide,
-           instead of pushing outside the white card. */
-        mjx-container {
-            overflow-x: auto;
+        
+        /* 1. Reset text wrapping for MathJax to prevent vertical stacking */
+        mjx-container, .MathJax {
+            white-space: nowrap !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
+            direction: ltr;
+        }
+
+        /* 2. Specific rule for Block Math (Display Mode) to allow scrolling */
+        mjx-container[display="true"] {
+            display: block !important;
+            overflow-x: auto; /* Adds scrollbar if too wide */
             overflow-y: hidden;
             max-width: 100%;
-            display: block !important;
-            padding-bottom: 5px; /* Space for scrollbar */
+            padding-bottom: 5px;
         }
 
         /* --- HORIZONTAL RULE --- */
@@ -237,7 +247,7 @@
         /* --- COMPACT GRID (Algorithmic Paradigms) --- */
         .compact-grid {
             display: grid;
-            /* FIX: Reduced minmax to 250px to fit smaller tablets/phones better */
+            /* Adjusted minmax for better mobile fit */
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 25px;
             margin-top: 20px;
@@ -283,7 +293,8 @@
             padding: 20px 25px;
             margin: 20px 0;
             border-radius: 0 4px 4px 0;
-            overflow-x: auto; /* Safety scroll for proofs */
+            /* Safety scroll for proofs */
+            overflow-x: auto; 
         }
 
         .proof p {
@@ -329,7 +340,7 @@
             border-radius: 6px;
             border: 1px solid var(--border);
             text-align: center;
-            /* FIX: Ensure content inside (like math) doesn't overflow */
+            /* Handle broad content */
             overflow-x: auto;
             max-width: 100%;
         }
@@ -362,6 +373,8 @@
 
         .notebook-badge a {
             border-bottom: none;
+            /* Badges should not break */
+            word-break: normal; 
         }
 
         .notebook-badge a:hover {
