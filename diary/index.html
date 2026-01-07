@@ -9,6 +9,11 @@
     window.MathJax = {
       tex: {
         inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      chtml: {
+        scale: 1,                      
+        minScale: .5,                  
+        matchFontHeight: true         
       }
     };
     </script>
@@ -41,6 +46,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: var(--text);
             line-height: 1.6;
+            /* Prevent horizontal scroll on the body caused by overflowing elements */
+            overflow-x: hidden;
         }
 
         header {
@@ -82,6 +89,7 @@
             max-width: 850px;
             margin: 0 auto;
             padding: 0 20px 100px 20px;
+            width: 100%;
         }
 
         /* --- ENTRY CARD STYLE --- */
@@ -93,6 +101,11 @@
             margin-bottom: 30px;
             border: 1px solid transparent;
             transition: border-color 0.2s ease;
+            
+            /* FIX: Ensure long text breaks and doesn't overflow */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
         .entry:hover {
@@ -128,6 +141,7 @@
             text-decoration: none;
             border-bottom: 1px dotted #ccc;
             transition: border-bottom 0.2s, background-color 0.2s;
+            overflow-wrap: break-word; /* Prevent long URLs from breaking layout */
         }
 
         a:hover {
@@ -155,6 +169,18 @@
             border-radius: 3px;
             border: 1px solid var(--border);
             color: #c7254e;
+            white-space: pre-wrap; /* Allows code to wrap on small screens */
+        }
+
+        /* --- MATHJAX FIX --- */
+        /* This forces math equations to scroll horizontally if they are too wide,
+           instead of pushing outside the white card. */
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-width: 100%;
+            display: block !important;
+            padding-bottom: 5px; /* Space for scrollbar */
         }
 
         /* --- HORIZONTAL RULE --- */
@@ -211,7 +237,8 @@
         /* --- COMPACT GRID (Algorithmic Paradigms) --- */
         .compact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            /* FIX: Reduced minmax to 250px to fit smaller tablets/phones better */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 25px;
             margin-top: 20px;
             margin-bottom: 20px;
@@ -256,6 +283,7 @@
             padding: 20px 25px;
             margin: 20px 0;
             border-radius: 0 4px 4px 0;
+            overflow-x: auto; /* Safety scroll for proofs */
         }
 
         .proof p {
@@ -301,6 +329,9 @@
             border-radius: 6px;
             border: 1px solid var(--border);
             text-align: center;
+            /* FIX: Ensure content inside (like math) doesn't overflow */
+            overflow-x: auto;
+            max-width: 100%;
         }
 
         .visualization img {
@@ -376,7 +407,7 @@
             background-color: transparent;
         }
 
-        /* Refs inline style (for entries using <br> format) */
+        /* Refs inline style */
         .refs-inline {
             font-size: 0.85rem;
             color: #555;
@@ -410,14 +441,19 @@
                 padding: 30px 15px 20px 15px;
             }
 
+            .diary-container {
+                padding: 0 10px 100px 10px; /* Reduced side padding */
+            }
+
             .entry {
-                padding: 25px 20px;
+                padding: 25px 15px; /* Reduced internal padding */
             }
 
             h1 {
                 font-size: 1.5rem;
             }
 
+            /* Force 1 column on mobile to prevent squishing */
             .resource-grid,
             .compact-grid {
                 grid-template-columns: 1fr;
@@ -425,7 +461,12 @@
             }
 
             .proof {
-                padding: 15px 18px;
+                padding: 15px 15px;
+            }
+            
+            /* Smaller font for code on mobile */
+            code {
+                font-size: 0.8em;
             }
         }
     </style>
@@ -749,7 +790,7 @@
                         \]
                         Define the decoder $\delta$ such that for any $a,b \in \Sigma$, $\delta(\iota(a), \iota(b)) = 1 \iff (a,b) \in D$, and 0 otherwise.
                         With the instruction sequence $x_t := \text{enc}(w_t)$, we have $\ell(t) = \iota(w_t)$.
-                        The edge rule $\{v_i, v_j\} \in E \iff \delta(\ell(i), \ell(j)) = 1$ reproduces exactly the condition $(w_i, w_j) \in D$.
+                        The edge rule $\{v_i, v_j\} \in E \iff \delta(\ell(i), \ell(j)) = 1$ reproduces exactly the condition $(w_i, w_j) \in D.
                         Thus, $G$ is constructible in $\mathcal{R}(k,m)$.
                         <span style="float:right;">$\square$</span>
                     </p>
