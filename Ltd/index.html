@@ -5,175 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Science Ltd. - Borghini & Severini</title>
     <meta name="description" content="Science Ltd.: Research Enterprise in the Age of Machines by Andrea Borghini and Simone Severini.">
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      chtml: {
+        scale: 1,                      
+        minScale: .5,                  
+        matchFontHeight: true         
+      }
+    };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
     <style>
+        /* --- VARIABLES (From your requested style) --- */
         :root {
-            --bg-color: #ffffff;
-            --text-color: #111111;
-            --link-color: #0000ee; /* Standard link blue, or adjust to match main site */
-            --meta-color: #666666;
+            --bg: #f4f4f4;           /* Light gray background */
+            --card-bg: #ffffff;      /* White content area */
+            --text: #111111;
+            --meta: #666666;
+            --accent: #0056b3;       /* Blue accent for links/highlights */
+            --badge-bg: #eef3f8;
+            --border: #eeeeee;
             --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             --max-width: 800px;
         }
 
         body {
             font-family: var(--font-main);
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             margin: 0;
             padding: 20px;
         }
 
+        /* The Card Container: This creates the "Page on a desk" look */
         .container {
             max-width: var(--max-width);
-            margin: 0 auto;
-            padding-top: 40px;
-            padding-bottom: 60px;
+            margin: 40px auto;
+            background-color: var(--card-bg);
+            padding: 40px 60px;
+            border-radius: 8px; /* Slight rounding */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Subtle shadow to lift the card */
         }
 
-        /* Navigation / Back Link */
+        /* Mobile adjustment for container */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Navigation */
         .nav {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 0.9em;
         }
-
         .nav a {
             text-decoration: none;
-            color: var(--meta-color);
+            color: var(--meta);
+            transition: color 0.2s;
         }
-
         .nav a:hover {
+            color: var(--accent);
             text-decoration: underline;
-            color: var(--text-color);
         }
 
-        /* Header Section */
+        /* Header Typography */
         header {
             margin-bottom: 40px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border);
             padding-bottom: 20px;
         }
 
         h1 {
-            font-size: 2.2em;
+            font-size: 2.4em;
             margin: 0 0 10px 0;
             font-weight: 700;
             letter-spacing: -0.02em;
+            color: var(--text);
         }
 
         .subtitle {
-            font-size: 1.2em;
-            color: var(--meta-color);
+            font-size: 1.3em;
+            color: var(--meta);
             margin-bottom: 15px;
             font-weight: 400;
         }
 
-        .authors {
-            font-size: 1.1em;
+        .authors-badge {
+            display: inline-block;
+            background-color: var(--badge-bg);
+            color: var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
             font-weight: 500;
-            margin-bottom: 20px;
+            font-size: 0.95em;
+            margin-bottom: 15px;
         }
 
         .meta {
             font-size: 0.9em;
-            color: var(--meta-color);
+            color: var(--meta);
         }
 
-        /* Layout for Book Content */
-        .book-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .cover-image {
-            flex: 1 1 300px;
-            max-width: 350px;
-        }
-
-        .cover-image img {
-            width: 100%;
-            height: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 1px solid #eee;
-            background-color: #f9f9f9;
-        }
-
-        .details {
-            flex: 1 1 400px;
-        }
-
-        /* Sections */
-        h2 {
-            font-size: 1.4em;
-            margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        h3 {
-            font-size: 1.1em;
-            margin-top: 25px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        .toc-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .toc-list li {
-            margin-bottom: 8px;
-            padding-left: 15px;
-            border-left: 2px solid #eee;
+        /* Content Styling */
+        .content {
+            font-size: 1.05em;
         }
         
-        .toc-list li strong {
-            display: block;
-            color: #333;
-        }
-
-        .toc-sub {
-            font-size: 0.9em;
-            color: var(--meta-color);
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #111;
-            color: #fff;
-            padding: 10px 20px;
+        a {
+            color: var(--accent);
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.95em;
-            margin-top: 20px;
-            transition: background-color 0.2s;
         }
-
-        .btn:hover {
-            background-color: #333;
-        }
-
-        blockquote {
-            font-style: italic;
-            border-left: 3px solid #ccc;
-            margin: 20px 0;
-            padding-left: 20px;
-            color: #444;
-        }
-
-        @media (max-width: 600px) {
-            .book-content {
-                flex-direction: column;
-            }
-            .cover-image {
-                max-width: 100%;
-            }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -181,55 +134,40 @@
 
 <div class="container">
     <div class="nav">
-        &larr; <a href="https://faust.science/">faust.science</a>
+        <a href="#">&larr; Back to Home</a>
     </div>
 
     <header>
         <h1>Science Ltd.</h1>
         <div class="subtitle">Research Enterprise in the Age of Machines</div>
-        <div class="authors">Andrea Borghini & Simone Severini</div>
+        
+        <div class="authors-badge">
+            Andrea Borghini & Simone Severini
+        </div>
+        
         <div class="meta">
-            Publication: March 2026 &bull; CRC Press &bull; 216 Pages
+            Published 2024 &bull; Philosophy / Technology
         </div>
     </header>
 
-    <div class="book-content">
-        <div class="cover-image">
-            <img src="https://placehold.co/400x600?text=Science+Ltd" alt="Book Cover: Science Ltd.">
-            
-            <a href="https://www.routledge.com/Science-Ltd-Research-Enterprise-in-the-Age-of-Machines/Borghini-Severini/p/book/9781041131069" class="btn" target="_blank">View on Routledge</a>
-        </div>
+    <div class="content">
+        <p>
+            <strong>About the Book</strong>
+        </p>
+        <p>
+            This book explores how the fundamental structure of scientific discovery is changing. 
+            As machines take a more active role in the research enterprise, the boundaries between 
+            human intuition and algorithmic processing begin to blur.
+        </p>
 
-        <div class="details">
-            
-            <h2>About the Book</h2>
-            <p>
-                <strong>Science LTD</strong> examines the evolving relationship between scientific knowledge, technology, and society in an era where deep tech companies are increasingly driven by discoveries rather than market demand. Written from the perspective of metascientific entrepreneurs, this timely work explores how scientific research struggles to balance profit with truth, individual objectives with collective values, and human creativity with machine capabilities.
-            </p>
-            <p>
-                The book tackles critical operational questions about modern science: How is scientific knowledge produced and prioritized? How are research funds distributed? What constitutes effective dissemination and application of discoveries?
-            </p>
-            <p>
-                Enriched with expert interviews and real-world anecdotes, the book provides both practical insights and speculative analysis of science's automated future. It is designed for researchers, entrepreneurs, policymakers, and anyone curious about the intersection of science and technology.
-            </p>
+        <p>
+            <em>Note: Because you requested the MathJax style, you can now write equations directly in your text like this: 
+            $E = mc^2$ or complex logic like $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$.</em>
+        </p>
 
-            <h2>Table of Contents</h2>
-            <ul class="toc-list">
-                <li><strong>Chapter 1: “Science”</strong> <span class="toc-sub">Notes on science as a dynamic activity to describe and predict</span></li>
-                <li><strong>Chapter 2: “Technology”</strong> <span class="toc-sub">Notes on technology as an activity that builds machines and procedures</span></li>
-                <li><strong>Chapter 3: Scientific production</strong> <span class="toc-sub">Notes on how to support research while trying to avoid prejudice and gossip</span></li>
-                <li><strong>Chapter 4: Technologies for scientific production</strong> <span class="toc-sub">Notes on the scalability and sustainability of the scientific and technological enterprise</span></li>
-                <li><strong>Chapter 5: Epilogue</strong> <span class="toc-sub">Notes on how to guide the construction of machines for future science</span></li>
-            </ul>
-
-            <h2>About the Authors</h2>
-            <p>
-                <strong>Andrea Borghini</strong> is an associate professor at the “Piero Martinetti” Department of Philosophy at the University of Milan and director of Culinary Mind. He is the author of nine monographs and over eighty publications.
-            </p>
-            <p>
-                <strong>Simone Severini</strong> is a Distinguished Engineer at Google and a Professor of Physics of Information at University College London (UCL). He helped found some of the world's first quantum computing startups and has advised agencies in fifteen countries.
-            </p>
-        </div>
+        <p style="margin-top: 30px;">
+            <a href="#">Order this book &rarr;</a>
+        </p>
     </div>
 </div>
 
