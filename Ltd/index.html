@@ -43,31 +43,32 @@
             color: var(--text);
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 0; /* Remove padding here so notification touches top */
         }
 
         /* Top Notification Bar */
         .top-notification {
-            background-color: var(--accent); /* Uses your existing blue color */
+            background-color: var(--accent);
             color: #ffffff;
             text-align: center;
-            padding: 12px;
+            padding: 12px 20px;
             font-size: 0.95em;
             font-weight: 500;
+            line-height: 1.4;
         }
         
         .top-notification a {
             color: #ffffff;
             text-decoration: underline;
-            font-weight: 700; /* Makes the link bold */
+            font-weight: 700;
         }
         
         .top-notification a:hover {
-            color: #e0e0e0; /* Light grey on hover */
+            color: #e0e0e0;
             text-decoration: none;
         }
 
-        /* The Main Container - This fixes the "too broad" issue */
+        /* The Main Container */
         .container {
             max-width: var(--max-width);
             margin: 40px auto;
@@ -80,7 +81,8 @@
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
-                margin: 0 auto;
+                margin: 20px auto;
+                width: 90%; /* better mobile width */
             }
         }
 
@@ -112,6 +114,7 @@
             font-weight: 700;
             letter-spacing: -0.02em;
             color: var(--text);
+            line-height: 1.1;
         }
 
         .subtitle {
@@ -119,6 +122,7 @@
             color: var(--meta);
             margin-bottom: 10px;
             font-weight: 400;
+            line-height: 1.3;
         }
 
         .meta {
@@ -147,6 +151,7 @@
             height: auto;
             margin: 0 auto 50px auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 2px;
         }
 
         /* Main Text Styling */
@@ -244,24 +249,23 @@
         a:hover { text-decoration: underline; }
     </style>
 </head>
+<body>
 
-    <div class="top-notification">
+<div class="top-notification">
     To be published by Routledge in March 2026 &mdash; 
     <a href="https://www.routledge.com/Science-Ltd-Research-Enterprise-in-the-Age-of-Machines/Borghini-Severini/p/book/9781041131069" target="_blank">
         View on Routledge.com
     </a>
 </div>
-<body>
 
 <div class="container">
     
     <div class="nav">
-    </div>
+        </div>
 
     <header>
         <h1>Science Ltd.</h1>
         <div class="subtitle">Research Enterprise in the Age of Machines</div>
-        </div>
     </header>
 
     <div class="highlight-box">
