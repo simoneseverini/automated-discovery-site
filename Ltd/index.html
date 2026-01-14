@@ -1,3 +1,10 @@
+Here is the updated code. I have replaced the placeholder box with the actual code to display `cover.png`.
+
+I also added a specific style (`.book-cover`) to ensure the image sits nicely in the center of the page and doesn't become too huge on large screens.
+
+Save this as `index.html` and make sure your image file is named exactly **`cover.png`** and is in the same folder.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,8 +39,9 @@
             --accent: #0056b3;
             --badge-bg: #eef3f8;
             --border: #eeeeee;
+            --toc-bg: #fdfdfd;
             --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --max-width: 800px;
+            --max-width: 900px;
         }
 
         body {
@@ -49,7 +57,7 @@
             max-width: var(--max-width);
             margin: 40px auto;
             background-color: var(--card-bg);
-            padding: 40px 60px;
+            padding: 50px 60px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
@@ -78,13 +86,13 @@
 
         /* Header Typography */
         header {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
+            padding-bottom: 30px;
         }
 
         h1 {
-            font-size: 2.4em;
+            font-size: 2.5em;
             margin: 0 0 10px 0;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -92,9 +100,9 @@
         }
 
         .subtitle {
-            font-size: 1.3em;
+            font-size: 1.4em;
             color: var(--meta);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 400;
         }
 
@@ -102,89 +110,126 @@
             display: inline-block;
             background-color: var(--badge-bg);
             color: var(--accent);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
             font-weight: 500;
-            font-size: 0.95em;
+            font-size: 1em;
             margin-bottom: 15px;
         }
 
         .meta {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: var(--meta);
         }
 
-        /* Image Placeholder Style */
-        .cover-placeholder {
-            width: 100%;
-            height: 400px; /* Adjust height as needed */
-            background-color: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            margin-bottom: 40px;
-            border-radius: 4px;
-            border: 2px dashed #ddd;
+        /* IMAGE STYLING */
+        .book-cover {
+            display: block;
+            max-width: 100%;
+            width: 450px; /* Limits width so it doesn't look too huge */
+            height: auto;
+            margin: 0 auto 40px auto; /* Center alignment */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Adds a nice shadow to the cover */
         }
 
-        /* Content Sections */
+        /* Main Text Styling */
+        .intro-text p {
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        /* COMPACT TOC STYLING */
         h2 {
-            font-size: 1.4em;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            font-size: 1.5em;
+            margin-top: 50px;
+            margin-bottom: 25px;
             border-bottom: 2px solid var(--accent);
             display: inline-block;
             padding-bottom: 5px;
         }
         
-        h3 {
-            font-size: 1.1em;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            color: var(--text);
+        .toc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 25px;
+            font-size: 0.9em;
         }
 
-        .content {
-            font-size: 1.05em;
+        @media (max-width: 700px) {
+            .toc-grid { grid-template-columns: 1fr; } 
+        }
+
+        .toc-chapter {
+            background: var(--toc-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px 20px;
+        }
+
+        .toc-chapter h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            color: var(--accent);
+        }
+
+        .chapter-desc {
+            font-style: italic;
+            color: var(--meta);
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            line-height: 1.3;
         }
 
         .toc-list {
             list-style: none;
             padding: 0;
-        }
-        .toc-list li {
-            margin-bottom: 8px;
-        }
-        .toc-sublist {
-            list-style: none;
-            padding-left: 20px;
-            margin-top: 5px;
-            font-size: 0.95em;
-            color: var(--meta);
+            margin: 0;
         }
 
+        .toc-list > li {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .toc-list strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .sub-items {
+            display: block;
+            color: var(--meta);
+            font-size: 0.9em;
+            margin-top: 2px;
+        }
+        .sub-separator {
+            margin: 0 4px;
+            color: #ccc;
+        }
+
+        /* Bios */
         .author-bio {
             background: #fafafa;
             padding: 20px;
             border-left: 4px solid var(--accent);
             margin-bottom: 20px;
-            font-size: 0.95em;
         }
 
-        /* Quotes Section (Placeholder) */
+        /* Footer Question */
+        .footer-question {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: var(--badge-bg);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        /* Quotes Section */
         .quotes-section {
             margin-top: 50px;
             padding-top: 30px;
             border-top: 1px solid var(--border);
-        }
-        
-        blockquote {
-            font-style: italic;
-            color: var(--meta);
-            border-left: 3px solid #ccc;
-            margin: 20px 0;
-            padding-left: 20px;
         }
 
         a { color: var(--accent); text-decoration: none; }
@@ -211,84 +256,118 @@
         </div>
     </header>
 
-    <div class="cover-placeholder">
-        [cover.png]
-    </div>
+    <img src="cover.png" alt="Cover of Science Ltd." class="book-cover">
 
     <div class="content">
         
         <h2>About the Book</h2>
-        <p>
-            <em>Science Ltd.</em> The book addresses the undisputed influence of science in contemporary society while questioning the sustainability of current research paradigms.
-
-The book tackles critical operational questions about modern science: How is scientific knowledge produced and prioritized? How are research funds distributed? What constitutes effective dissemination and application of discoveries? Chapters examine the journey from laboratory innovation to commercial implementation while exploring two fundamental challenges facing the scientific community. First, the urgent need to reform scientific practices, particularly rethinking academic publishing and research funding models to create more open and sustainable science. Second, the complex prospect of human-machine collaboration in research, moving beyond traditional instruments to AI assistants with capabilities that exceed human limitations. Enriched with expert interviews and real-world anecdotes, the book provides both practical insights and speculative analysis of science's automated future.
-
-This accessible work is designed for researchers, entrepreneurs, policymakers, and anyone curious about the intersection of science and technology. It serves academics seeking to understand contemporary research dynamics, industry professionals navigating the deep tech landscape, and general readers interested in how scientific discovery shapes society. The book offers valuable perspectives for those involved in research funding, science policy, and technology transfer, while remaining engaging for anyone concerned about the future of human-driven versus machine-assisted scientific innovation.
-        </p>
+        <div class="intro-text">
+            <p>
+                Science LTD examines the evolving relationship between scientific knowledge, technology, and society in an era where deep tech companies are increasingly driven by discoveries rather than market demand. Written from the perspective of metascientific entrepreneurs, this timely work explores how scientific research struggles to balance profit with truth, individual objectives with collective values, and human creativity with machine capabilities. The book addresses the undisputed influence of science in contemporary society while questioning the sustainability of current research paradigms.
+            </p>
+            <p>
+                The book tackles critical operational questions about modern science: How is scientific knowledge produced and prioritized? How are research funds distributed? What constitutes effective dissemination and application of discoveries? Chapters examine the journey from laboratory innovation to commercial implementation while exploring two fundamental challenges facing the scientific community. First, the urgent need to reform scientific practices, particularly rethinking academic publishing and research funding models to create more open and sustainable science. Second, the complex prospect of human-machine collaboration in research, moving beyond traditional instruments to AI assistants with capabilities that exceed human limitations. Enriched with expert interviews and real-world anecdotes, the book provides both practical insights and speculative analysis of science's automated future.
+            </p>
+            <p>
+                This accessible work is designed for researchers, entrepreneurs, policymakers, and anyone curious about the intersection of science and technology. It serves academics seeking to understand contemporary research dynamics, industry professionals navigating the deep tech landscape, and general readers interested in how scientific discovery shapes society. The book offers valuable perspectives for those involved in research funding, science policy, and technology transfer, while remaining engaging for anyone concerned about the future of human-driven versus machine-assisted scientific innovation.
+            </p>
+        </div>
 
         <h2>Table of Contents</h2>
         
-        <h3>Prologue</h3>
-        
-        <h3>Chapter 1: “Science”</h3>
-        <p style="font-size:0.9em; color:var(--meta);">Notes on science as a dynamic activity to describe and predict</p>
-        <ul class="toc-list">
-            <li>1.1 The practical value of science
-                <ul class="toc-sublist">
-                    <li>1.1.1 Explore and predict</li>
-                    <li>1.1.2 Phenomena</li>
-                    <li>1.1.3 Between practice and theory</li>
+        <div class="toc-grid">
+            
+            <div class="toc-chapter">
+                <h3>Prologue Chapter 1: “Science”</h3>
+                <div class="chapter-desc">That is: notes on science as a dynamic activity to describe and predict</div>
+                <ul class="toc-list">
+                    <li>
+                        <strong>1.1 The practical value of science</strong>
+                        <span class="sub-items">1.1.1 Explore and predict <span class="sub-separator">&bull;</span> 1.1.2 Phenomena <span class="sub-separator">&bull;</span> 1.1.3 Between practice and theory</span>
+                    </li>
+                    <li>
+                        <strong>1.2 Scientific languages</strong>
+                        <span class="sub-items">1.2.1 Preliminary considerations <span class="sub-separator">&bull;</span> 1.2.2 The value of formalization</span>
+                    </li>
+                    <li>
+                        <strong>1.3 Language and epistemic value</strong>
+                        <span class="sub-items">1.3.1 Communicability and verifiability <span class="sub-separator">&bull;</span> 1.3.2 Compactness <span class="sub-separator">&bull;</span> 1.3.3 Applicability</span>
+                    </li>
+                    <li>
+                        <strong>1.4 Formal and applied truths</strong>
+                        <span class="sub-items">1.4.1 Formal language as a regulative ideal <span class="sub-separator">&bull;</span> 1.4.2 The limits of formal language (through machines) <span class="sub-separator">&bull;</span> 1.4.3 Psychological certainty rather than truth</span>
+                    </li>
+                    <li>
+                        <strong>1.5 Limitations</strong>
+                        <span class="sub-items">1.5.1 The language of mathematics is fallible <span class="sub-separator">&bull;</span> 1.5.2 Intractable problems and undecidable problems <span class="sub-separator">&bull;</span> 1.5.3 Scientific discovery and the dynamism of knowledge</span>
+                    </li>
                 </ul>
-            </li>
-            <li>1.2 Scientific languages
-                <ul class="toc-sublist">
-                    <li>1.2.1 Preliminary considerations</li>
-                    <li>1.2.2 The value of formalization</li>
+            </div>
+
+            <div class="toc-chapter">
+                <h3>Chapter 2: “Technology”</h3>
+                <div class="chapter-desc">That is: notes on technology as an activity that builds machines and procedures to operate them</div>
+                <ul class="toc-list">
+                    <li>
+                        <strong>2.1 In the sea of technologies</strong>
+                        <span class="sub-items">2.1.1 First intuitions <span class="sub-separator">&bull;</span> 2.1.2 Observation and practical reason <span class="sub-separator">&bull;</span> 2.1.3 Formulation and discovery <span class="sub-separator">&bull;</span> 2.1.4 Accidental discoveries</span>
+                    </li>
+                    <li>
+                        <strong>2.2 Utility, utopia, dystopia</strong>
+                        <span class="sub-items">2.2.1 Primary and secondary technologies <span class="sub-separator">&bull;</span> 2.2.2 Five parameters <span class="sub-separator">&bull;</span> 2.2.3 Storytelling and technology</span>
+                    </li>
+                    <li>
+                        <strong>2.3 Science & technology</strong>
+                        <span class="sub-items">2.3.1 A complex relationship <span class="sub-separator">&bull;</span> 2.3.2 Impact on society</span>
+                    </li>
                 </ul>
-            </li>
-            <li>1.3 Language and epistemic value
-                <ul class="toc-sublist">
-                    <li>1.3.1 Communicability and verifiability</li>
-                    <li>1.3.2 Compactness</li>
-                    <li>1.3.3 Applicability</li>
+            </div>
+
+            <div class="toc-chapter">
+                <h3>Chapter 3: Scientific production</h3>
+                <div class="chapter-desc">That is: notes on how to support research while trying to avoid prejudice and gossip</div>
+                <ul class="toc-list">
+                    <li>
+                        <strong>3.1 Publish today</strong>
+                        <span class="sub-items">3.1.1 The primacy of the scientific article <span class="sub-separator">&bull;</span> 3.1.2 The literary form of the scientific article <span class="sub-separator">&bull;</span> 3.1.3 The refereeing process <span class="sub-separator">&bull;</span> 3.1.4 The value of the publication</span>
+                    </li>
+                    <li>
+                        <strong>3.2 Looking for alternatives</strong>
+                        <span class="sub-items">3.2.1 Against refereeing <span class="sub-separator">&bull;</span> 3.2.2 Open-ended scientific articles <span class="sub-separator">&bull;</span> 3.2.3 Reputation, gossip and trust <span class="sub-separator">&bull;</span> 3.2.4 Trust in science as a public value</span>
+                    </li>
+                    <li>
+                        <strong>3.3 Funding for scientific research</strong>
+                        <span class="sub-items">3.3.1 Research support, quality and quantity <span class="sub-separator">&bull;</span> 3.3.2 Access criteria: degrees and types of breakthrough <span class="sub-separator">&bull;</span> 3.3.3 The importance of context and the streetlight effect <span class="sub-separator">&bull;</span> 3.3.4 How to rethink the system?</span>
+                    </li>
                 </ul>
-            </li>
-            <li>1.4 Formal and applied truths</li>
-            <li>1.5 Limitations</li>
-        </ul>
+            </div>
 
-        <h3>Chapter 2: “Technology”</h3>
-        <p style="font-size:0.9em; color:var(--meta);">Notes on technology as an activity that builds machines and procedures to operate them</p>
-        <ul class="toc-list">
-            <li>2.1 In the sea of technologies</li>
-            <li>2.2 Utility, utopia, dystopia</li>
-            <li>2.3 Science & technology</li>
-        </ul>
+            <div class="toc-chapter">
+                <h3>Chapter 4: Technologies for scientific production</h3>
+                <div class="chapter-desc">That is: notes on the scalability and sustainability of the scientific and technological enterprise</div>
+                <ul class="toc-list">
+                    <li>
+                        <strong>4.1 Scalability of science</strong>
+                        <span class="sub-items">4.1.1 Technology in mathematics <span class="sub-separator">&bull;</span> 4.1.2 Science in a graph? <span class="sub-separator">&bull;</span> 4.1.3 Technology in a graph? <span class="sub-separator">&bull;</span> 4.1.4 A science database <span class="sub-separator">&bull;</span> 4.1.5 Androids muse for humans or humans muse for androids? <span class="sub-separator">&bull;</span> 4.1.6 A hyperscale science <span class="sub-separator">&bull;</span> 4.1.7 Android and human creativity</span>
+                    </li>
+                    <li>
+                        <strong>4.2 Sustainability of science</strong>
+                        <span class="sub-items">4.2.1 Phronesis <span class="sub-separator">&bull;</span> 4.2.2 Innovation <span class="sub-separator">&bull;</span> 4.2.3 Communicability <span class="sub-separator">&bull;</span> 4.2.4 Risk <span class="sub-separator">&bull;</span> 4.2.5 The last mile <span class="sub-separator">&bull;</span> 4.2.6 Ordinariness</span>
+                    </li>
+                </ul>
+            </div>
 
-        <h3>Chapter 3: Scientific production</h3>
-        <p style="font-size:0.9em; color:var(--meta);">Notes on how to support research while trying to avoid prejudice and gossip</p>
-        <ul class="toc-list">
-            <li>3.1 Publish today</li>
-            <li>3.2 Looking for alternatives</li>
-            <li>3.3 Funding for scientific research</li>
-        </ul>
+            <div class="toc-chapter">
+                <h3>Chapter 5: Epilogue</h3>
+                <div class="chapter-desc">That is: notes on how to guide the construction of machines for future science</div>
+                <ul class="toc-list">
+                    <li>5.1 Machines and people</li>
+                    <li>5.2 Science for a House of Solomon</li>
+                    <li>5.3 A call to action</li>
+                </ul>
+            </div>
 
-        <h3>Chapter 4: Technologies for scientific production</h3>
-        <p style="font-size:0.9em; color:var(--meta);">Notes on the scalability and sustainability of the scientific and technological enterprise</p>
-        <ul class="toc-list">
-            <li>4.1 Scalability of science</li>
-            <li>4.2 Sustainability of science</li>
-        </ul>
-
-        <h3>Chapter 5: Epilogue</h3>
-        <p style="font-size:0.9em; color:var(--meta);">Notes on how to guide the construction of machines for future science</p>
-        <ul class="toc-list">
-            <li>5.1 Machines and people</li>
-            <li>5.2 Science for a House of Solomon</li>
-            <li>5.3 A call to action</li>
-        </ul>
-
-        <h2>About the Authors</h2>
+        </div> <h2>About the Authors</h2>
         
         <div class="author-bio">
             <strong>Andrea Borghini</strong> is an associate professor with the “Piero Martinetti” Department of Philosophy at the University of Milan and director of Culinary Mind, a research center promoting philosophical thinking on food.
@@ -298,17 +377,19 @@ This accessible work is designed for researchers, entrepreneurs, policymakers, a
             <strong>Simone Severini</strong> is a Distinguished Engineer at Google and a Professor of Physics of Information with the Computer Science Department at University College London (UCL).
         </div>
 
-        <p style="margin-top: 30px; font-weight: bold;">
+        <div class="footer-question">
             The application of digital technologies to scientific research suggests new scenarios for the scalability of knowledge. How does this opportunity change our conception of science and how can we use it to make scientific practice more enduring and effective in the long term?
-        </p>
+        </div>
 
         <div class="quotes-section">
             <h2>Selected Quotes</h2>
             <p><em>(Quotes to be added shortly)</em></p>
-            </div>
+        </div>
 
     </div>
 </div>
 
 </body>
 </html>
+
+```
