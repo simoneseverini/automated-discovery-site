@@ -94,18 +94,6 @@
             overflow-y: scroll;
         }
 
-        <div class="menu-wrapper">
-        <button class="hamburger-btn" id="menuToggle" aria-label="Menu">
-            <span class="line"></span>
-            <span class="line"></span>
-            <span class="line"></span>
-        </button>
-        <nav class="nav-dropdown" id="navMenu">
-            <a href="/diary/" class="nav-link">Diary</a>
-            <a href="/Ltd/" class="nav-link">Science Ltd</a>
-        </nav>
-    </div>
-
         header {
             padding: 50px 20px;
             text-align: center;
@@ -270,6 +258,18 @@
 </head>
 <body>
 
+    <div class="menu-wrapper">
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
+        <nav class="nav-dropdown" id="navMenu">
+            <a href="/diary/" class="nav-link">Diary</a>
+            <a href="/Ltd/" class="nav-link">Science Ltd</a>
+        </nav>
+    </div>
+
     <header>
         <h1></h1>
         <div class="subtitle"></div>
@@ -293,6 +293,7 @@
                 navMenu.classList.remove('is-open');
             }
         });
+
         // --- DATA SECTION ---
         const database = [
             { 
