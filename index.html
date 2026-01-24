@@ -16,6 +16,75 @@
             --badge-text: #0056b3;
         }
 
+        /* --- NAVIGATION MENU --- */
+        .menu-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .hamburger-btn:hover { opacity: 0.6; }
+
+        .line {
+            width: 24px;
+            height: 2px;
+            background-color: var(--text);
+            border-radius: 2px;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--card-bg);
+            min-width: 160px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none; /* Not clickable when hidden */
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* State for when menu is open */
+        .nav-dropdown.is-open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .nav-link {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .nav-link:last-child { border-bottom: none; }
+        
+        .nav-link:hover {
+            background-color: var(--badge-bg);
+            color: var(--accent);
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -24,6 +93,18 @@
             color: var(--text);
             overflow-y: scroll;
         }
+
+        <div class="menu-wrapper">
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
+        <nav class="nav-dropdown" id="navMenu">
+            <a href="/diary/" class="nav-link">Diary</a>
+            <a href="/Ltd/" class="nav-link">Science Ltd</a>
+        </nav>
+    </div>
 
         header {
             padding: 50px 20px;
@@ -197,6 +278,21 @@
     <div id="feed"></div>
 
     <script>
+        // --- NAVIGATION LOGIC ---
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to document
+            navMenu.classList.toggle('is-open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('is-open');
+            }
+        });
         // --- DATA SECTION ---
         const database = [
             { 
