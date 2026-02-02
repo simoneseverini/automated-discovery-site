@@ -489,6 +489,197 @@
 
     <div class="diary-container">
 
+        <!-- Entry: Feb 1 -->
+<div class="entry">
+    <div class="date">February 1, 2026</div>
+    <h2>The Topology of Mathlib</h2>
+
+    <p>
+        I analyze the structure of Mathlib—the mathematical library for Lean 4—as a network. By constructing a co-occurrence graph from 118,517 theorem proofs, I find that formalized mathematics is shallow (81% of premises lie within two hops of reflexivity), naturally modular (493 communities emerge that correspond to mathematical subfields), and contains structural anomalies (premises that are well-connected but underused). The predictive model I trained is largely tautological—degree alone accounts for 89% of its accuracy—but the anomalies it surfaces merit investigation.
+    </p>
+
+    <h3>The Question</h3>
+    <p>
+        Mathlib contains over 150,000 formalized theorems. How is this knowledge organized? What does the dependency structure reveal about mathematics itself?
+    </p>
+    <p>
+        I constructed a graph where nodes are premises (lemmas, definitions, theorems) and edges connect premises that co-occur in proofs. The data comes from LeanDojo Benchmark 4, which traces 118,517 theorem proofs. After filtering edges that appear fewer than 3 times, the graph contains 11,789 nodes and 82,567 edges.
+    </p>
+
+    <h3>Finding 1: Mathematics is Shallow</h3>
+    <p>
+        I computed the shortest-path distance from each premise to a set of "core" nodes: <code>rfl</code>, <code>symm</code>, <code>trans</code>, <code>mul_comm</code>, and <code>mul_assoc</code>. The distribution is striking:
+    </p>
+
+    <div class="visualization">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+            <thead>
+                <tr>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Depth</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Count</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Cumulative</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">0</td><td style="padding: 6px; border-bottom: 1px solid #eee;">10</td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.1%</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">1</td><td style="padding: 6px; border-bottom: 1px solid #eee;">3,276</td><td style="padding: 6px; border-bottom: 1px solid #eee;">27.9%</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">2</td><td style="padding: 6px; border-bottom: 1px solid #eee;">6,247</td><td style="padding: 6px; border-bottom: 1px solid #eee;">80.9%</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;">3</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,057</td><td style="padding: 6px; border-bottom: 1px solid #eee;">89.9%</td></tr>
+                <tr><td style="padding: 6px;">4–7</td><td style="padding: 6px;">149</td><td style="padding: 6px;">100%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>
+        Over 80% of premises lie within two hops of foundational axioms. The maximum depth is 7. Formalized mathematics, at the proof level, is shallow.
+    </p>
+    <p>
+        This does not contradict the intuition that advanced mathematics builds on long chains of abstraction. A theorem may logically depend on many prior results, yet its proof may "reach back" to <code>rfl</code> directly. The shallowness is structural, not logical.
+    </p>
+
+    <h3>Finding 2: The Core</h3>
+    <p>PageRank identifies the most central premises:</p>
+
+    <div class="visualization">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+            <thead>
+                <tr>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Premise</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">PageRank</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Degree</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>rfl</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0172</td><td style="padding: 6px; border-bottom: 1px solid #eee;">2,213</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>mul_assoc</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0090</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,287</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>mul_comm</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0088</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,327</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>symm</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0082</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,345</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>mul_one</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0072</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,106</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>one_mul</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0060</td><td style="padding: 6px; border-bottom: 1px solid #eee;">1,001</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>trans</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">0.0053</td><td style="padding: 6px; border-bottom: 1px solid #eee;">939</td></tr>
+                <tr><td style="padding: 6px;"><code>le_antisymm</code></td><td style="padding: 6px;">0.0047</td><td style="padding: 6px;">753</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>
+        Reflexivity dominates, with nearly twice the centrality of any other premise. Multiplication lemmas rank higher than addition lemmas, reflecting Mathlib's emphasis on abstract algebra where multiplicative notation is primary.
+    </p>
+
+    <h3>Finding 3: Natural Communities</h3>
+    <p>
+        The Louvain algorithm identifies 493 communities from co-occurrence patterns alone—without any semantic information. These correspond to recognizable mathematical areas:
+    </p>
+    <ul>
+        <li><strong>Community 1 (1,867 nodes):</strong> Polynomials, complex analysis</li>
+        <li><strong>Community 2 (1,721 nodes):</strong> Measure theory, integration</li>
+        <li><strong>Community 3 (1,698 nodes):</strong> Combinatorics, cardinality</li>
+        <li><strong>Community 4 (1,636 nodes):</strong> Limits, functional analysis</li>
+    </ul>
+    <p>The topology of proofs encodes mathematical subject matter.</p>
+
+    <h3>Finding 4: Short Paths Between Distant Domains</h3>
+    <p>How does Topology connect to Number Theory? The shortest path:</p>
+
+    <div class="visualization">
+        \[
+        \texttt{continuous\_of\_discreteTopology} \to \texttt{rfl} \to \texttt{Nat.mul\_comm}
+        \]
+    </div>
+
+    <p>
+        Three hops, through reflexivity. Even distant mathematical domains connect quickly through foundational axioms.
+    </p>
+
+    <h3>The Predictive Model (and Its Limitations)</h3>
+    <p>
+        I trained an XGBoost classifier to predict whether a premise is "high utility" (top 10% by usage). Features: degree, clustering coefficient, community ID.
+    </p>
+    <ul>
+        <li><strong>AUC-ROC:</strong> 0.9791</li>
+        <li><strong>Accuracy:</strong> 0.9614</li>
+    </ul>
+    <p>This appears impressive until one examines feature importance:</p>
+    <ul>
+        <li><strong>Degree:</strong> 0.892</li>
+        <li><strong>Clustering Coefficient:</strong> 0.060</li>
+        <li><strong>Community ID:</strong> 0.049</li>
+    </ul>
+    <p>
+        Degree accounts for 89% of predictive power. Degree alone achieves 97.79% AUC. The relationship is nearly tautological: a premise used in many proofs will co-occur with many other premises, mechanically increasing its degree. The model is essentially predicting usage from a correlate of usage.
+    </p>
+
+    <h3>Finding 5: Usage Gap Anomalies</h3>
+    <p>
+        The model's value lies not in prediction but in identifying anomalies. I computed, for each premise, the difference between its actual usage and the expected usage for premises of similar degree. Large gaps indicate premises that are well-connected but underused:
+    </p>
+
+    <div class="visualization">
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+            <thead>
+                <tr>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Premise</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Degree</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Actual</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Exp.</th>
+                    <th style="border-bottom: 2px solid #ddd; padding: 8px;">Gap</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>tsum_le_tsum</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">93</td><td style="padding: 6px; border-bottom: 1px solid #eee;">40</td><td style="padding: 6px; border-bottom: 1px solid #eee;">126</td><td style="padding: 6px; border-bottom: 1px solid #eee;">−86</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>val_zero</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">74</td><td style="padding: 6px; border-bottom: 1px solid #eee;">38</td><td style="padding: 6px; border-bottom: 1px solid #eee;">105</td><td style="padding: 6px; border-bottom: 1px solid #eee;">−67</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>cast_abs</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">72</td><td style="padding: 6px; border-bottom: 1px solid #eee;">40</td><td style="padding: 6px; border-bottom: 1px solid #eee;">107</td><td style="padding: 6px; border-bottom: 1px solid #eee;">−67</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>abs_zero</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">52</td><td style="padding: 6px; border-bottom: 1px solid #eee;">36</td><td style="padding: 6px; border-bottom: 1px solid #eee;">81</td><td style="padding: 6px; border-bottom: 1px solid #eee;">−45</td></tr>
+                <tr><td style="padding: 6px; border-bottom: 1px solid #eee;"><code>repr_self</code></td><td style="padding: 6px; border-bottom: 1px solid #eee;">45</td><td style="padding: 6px; border-bottom: 1px solid #eee;">37</td><td style="padding: 6px; border-bottom: 1px solid #eee;">71</td><td style="padding: 6px; border-bottom: 1px solid #eee;">−34</td></tr>
+                <tr><td style="padding: 6px;"><code>IsIntegral</code></td><td style="padding: 6px;">45</td><td style="padding: 6px;">41</td><td style="padding: 6px;">71</td><td style="padding: 6px;">−30</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>
+        <code>tsum_le_tsum</code>—the monotonicity of infinite sums—is used 86 fewer times than its connectivity would suggest. It is the largest anomaly in Mathlib.
+    </p>
+    <p>
+        For contrast, <code>HasFDerivAt</code> (the Fréchet derivative) was flagged by the model with 91.9% confidence, but its usage gap is 0. It is used exactly as expected for its degree. Not all model predictions indicate true anomalies.
+    </p>
+
+    <h3>Interpretation</h3>
+    <p>Why might these premises be underused relative to their connectivity?</p>
+    <ul>
+        <li><strong>Abstraction penalty:</strong> General lemmas like <code>tsum_le_tsum</code> may be less convenient than specialized versions for finite sums.</li>
+        <li><strong>Type coercion friction:</strong> Lemmas like <code>cast_abs</code> and <code>val_zero</code> bridge numeric types; users may avoid explicit casts.</li>
+        <li><strong>Discoverability:</strong> These lemmas may be poorly documented or absent from common tactics.</li>
+        <li><strong>Legitimate alternatives:</strong> Other lemmas may serve the same purpose more naturally.</li>
+    </ul>
+
+    <h3>Conclusions</h3>
+    <p>Mathlib, viewed as a network, reveals that:</p>
+    <ol>
+        <li>Formalized mathematics is shallow—most premises lie within two steps of <code>rfl</code>.</li>
+        <li>Community structure emerges naturally from proof patterns.</li>
+        <li>Some premises exhibit usage gaps worth investigating.</li>
+    </ol>
+    <p>
+        The predictive model is largely tautological. The structural findings are descriptive, not causal. But the portrait that emerges—of a shallow, modular, <code>rfl</code>-centered mathematical universe—is, I think, worth contemplating.
+    </p>
+
+    <div class="refs">
+        <h4>References</h4>
+        <ul>
+            <li>
+                K. Yang et al.,
+                <a href="https://arxiv.org/abs/2306.15626" target="_blank">"LeanDojo: Theorem Proving with Retrieval-Augmented Language Models,"</a>
+                <em>NeurIPS</em>, 2023.
+            </li>
+            <li>
+                The mathlib Community,
+                <a href="https://doi.org/10.1145/3372885.3373824" target="_blank">"The Lean mathematical library,"</a>
+                <em>CPP</em>, 2020.
+            </li>
+        </ul>
+    </div>
+</div>
+
         <div class="entry">
   <div class="date">January 6, 2026</div>
   <h2>Graph likelihood</h2>
