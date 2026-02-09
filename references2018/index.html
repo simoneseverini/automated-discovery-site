@@ -1,0 +1,3056 @@
+This is a modernized version of the legacy homepage. To ensure compatibility, I have:
+1.  **Inherited the Design Language**: Used the same CSS variables, typography, and "unified blue" accent from the first file.
+2.  **Integrated the Navigation**: Added the exact same hamburger menu and logic so both pages feel like parts of the same site.
+3.  **Modernized the Layout**: Wrapped the legacy `<DL>` content into a modern container that respects the grid/card aesthetic while keeping every single link and citation intact.
+4.  **Cleaned Typography**: Overrode the old "Times New Roman" and `<FONT>` tags via CSS to match the clean system font stack of the previous file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simone Severini - Research Archive</title>
+    <style>
+        /* --- VISUAL STYLE (INHERITED) --- */
+        :root {
+            --bg: #f4f4f4;
+            --card-bg: #ffffff;
+            --text: #111;
+            --meta: #666;
+            --accent: #0056b3;
+            --badge-bg: #eef3f8;
+            --badge-text: #0056b3;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION MENU (INHERITED) --- */
+        .menu-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: opacity 0.2s;
+        }
+
+        .line {
+            width: 24px;
+            height: 2px;
+            background-color: var(--text);
+            border-radius: 2px;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: var(--card-bg);
+            min-width: 160px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .nav-dropdown.is-open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .nav-link {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--badge-bg);
+            color: var(--accent);
+        }
+
+        header {
+            padding: 80px 20px 40px 20px;
+            text-align: center;
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 2.0rem; 
+            letter-spacing: -0.03em; 
+            font-weight: 700;
+            font-family: "Courier New", Courier, monospace; 
+        }
+
+        .subtitle { 
+            color: var(--meta); 
+            font-size: 1.0rem; 
+            margin-top: 10px; 
+            font-weight: 300; 
+        }
+
+        /* --- CONTENT WRAPPER --- */
+        .archive-container {
+            max-width: 900px;
+            margin: 0 auto 100px auto;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid #e0e0e0;
+        }
+
+        /* --- OVERRIDING LEGACY TAGS --- */
+        dl { margin: 0; padding: 0; }
+        dt { 
+            font-family: inherit !important; 
+            font-size: 0.95rem !important;
+            color: var(--text) !important;
+            text-align: left !important;
+        }
+        
+        /* Force remove legacy font styling while keeping text */
+        font, span, i, em, cite {
+            font-family: inherit !important;
+            font-size: inherit !important;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .section-header {
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            margin-top: 20px;
+            border-left: 3px solid var(--accent);
+            padding-left: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="menu-wrapper">
+        <button class="hamburger-btn" id="menuToggle" aria-label="Menu">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </button>
+        <nav class="nav-dropdown" id="navMenu">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/diary/" class="nav-link">Diary</a>
+            <a href="/Ltd/" class="nav-link">Science Ltd</a>
+        </nav>
+    </div>
+
+    <header>
+        <h1>RESEARCH ARCHIVE</h1>
+        <div class="subtitle">Simone Severini — Selected References & Connections</div>
+    </header>
+
+    <div class="archive-container">
+        <!-- THE CONTENT BELOW IS THE ORIGINAL UNMODIFIED LEGACY CONTENT -->
+        <DL>
+            <DT STYLE="margin-bottom: 0.51cm; text-align: justify">
+                <A NAME="/HTML/BODY/DIV/DIV/DIV/DIV/DIV/DIV/DIV/B[2]"></A>
+                <A NAME="/HTML/BODY/DIV/DIV/DIV/DIV/DIV/DIV/DIV/B/H5[4]"></A>
+                <A NAME="/HTML/BODY/DIV/DIV/DIV/DIV/DIV/DIV/DIV/B/H5/EM"></A>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <span class="section-header">Quantum information and graphs:</span> In 2008, at the <A HREF="http://www.perimeterinstitute.ca/">Perimeter
+	Institute for Theoretical Physics</A>
+                        , we organized a conference
+	titled <A HREF="http://www.perimeterinstitute.ca/Events/Quantum_Information_and_Graph_Theory:_emerging_connections/Quantum_Information_and_Graph_Theory:_emerging_connections/">Quantum
+	Information and Graph Theory: emerging connections</A>
+                        . Below is an
+	incomplete list of references on this topic (Oct 2011): Graph
+	states: 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            R.
+	Raussendorf, D.E. Browne, H.J. Briegel, Measurement-based quantum
+	computation with cluster states, Phys. Rev. A 68, 022312 (2003).
+	<A HREF="http://arxiv.org/abs/quant-ph/0301052v2">arXiv:quant-ph/0301052v2</A>
+                            ;
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        M.
+	Hein, W. D &uuml;r, J. Eisert, R. Raussendorf, M. Van den Nest, H.-J.
+	Briegel, Entanglement in Graph States and its Applications,
+	Proceedings of the International School of Physics &quot;Enrico
+	Fermi &quot;on &quot;Quantum Computers, Algorithms and Chaos &quot;,
+	Varenna, Italy, July, 2005. <A HREF="http://arxiv.org/abs/quant-ph/0602096v1">arXiv:quant-ph/0602096v1</A>
+                        .
+	State transfer on spin systems: M. Christandl, N. Datta, T. C.
+	Dorlas, A. Ekert, A. Kay, A. J. Landahl, 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Perfect
+	Transfer of Arbitrary States in Quantum Spin Networks, Phys. Rev. A
+	71, 032312 (2005). <A HREF="http://arxiv.org/abs/quant-ph/0411020v2">arXiv:quant-ph/0411020v2</A>
+                            ;
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        C.
+	Godsil, State Transfer on Graphs, 2011. <A HREF="http://arxiv.org/abs/1102.4898v2">arXiv:1102.4898v2</A>
+                        [math.CO]. Quantum expanders: A. Ben-Aroya, A. Ta-Shma, 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            Quantum
+	expanders and the quantum entropy difference problem, 2007.
+	<A HREF="http://arxiv.org/abs/quant-ph/0702129v3">arXiv:quant-ph/0702129v3</A>
+                            ;
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        A.
+	W. Harrow, R. A. Low, Efficient Quantum Tensor Product Expanders and
+	k-designs, Proceedings of RANDOM 2009, LNCS, 5687:548-561, 2009.
+	<A HREF="http://arxiv.org/abs/0811.2597v3">arXiv:0811.2597v3</A>
+                        [quant-ph]. <span class="section-header">Quantum walks:</span> 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            D.
+	Aharonov, A. Ambainis, J. Kempe, U. Vazirani, <A HREF="http://portal.acm.org/citation.cfm?id=380758">Quantum
+	walks on graphs</A>
+                            , Proceedings of ACM Symposium on Theory of
+	Computation (STOC'01), July 2001, p. 50-59; A. Ambainis, <A HREF="http://www.citebase.org/abstract?id=oai%3AarXiv.org%3Aquant-ph%2F0403120">Quantum
+	walks and their algorithmic applications</A>
+                            , International Journal
+	of Quantum Information, 1:507-518, 2003. <A HREF="http://arxiv.org/abs/quant-ph/0403120v3">arXiv:quant-ph/0403120v3</A>
+                            ;
+	M. Mohseni, P. Rebentrost, S. Lloyd, A. Aspuru-Guzik.
+	<A HREF="http://link.aip.org/link/?JCPSA6/129/174106/1">Environment-assisted
+	quantum walks in photosynthetic energy transfer</A>
+                            , Journal of
+	Chemical Physics 129, 174106 (2008). <A HREF="http://arxiv.org/abs/0805.2741v2">arXiv:0805.2741v2</A>
+                            [quant-ph]; A. M. Childs, <A HREF="http://link.aps.org/doi/10.1103/PhysRevLett.102.180501">Universal
+	computation by quantum walk</A>
+                            , Phys. Rev. Lett. 102, 180501
+	(2009). <A HREF="http://arxiv.org/abs/0806.1972v1">arXiv:0806.1972v1</A>
+                            [quant-ph]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Quantum graphs:</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            T.
+	Kottos and U. Smilansky, <A HREF="http://www.weizmann.ac.il/complex/uzy/Publications/graphs/1997-Quantum%20Chaos%20on%20Graphs.pdf">Quantum
+	Chaos on Graphs</A>
+                            , Phys. Rev. Lett. 79, 4794-797, (1997); U.
+	Smilansky, Quantum chaos on discrete graphs, 2007. <A HREF="http://arxiv.org/abs/0704.3525v1">arXiv:0704.3525v1</A>
+                            [math-ph]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Graphs of unitary matrices:</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            L.
+	Deaett, <A HREF="http://www.sciencedirect.com/science/article/pii/S0024379510006610">The
+	minimum semidefinite rank of a triangle-free graph</A>
+                            , 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <I>
+                            <SPAN STYLE="font-weight: normal">Linear
+	Algebra and its Applications</SPAN>
+                        </I>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            434
+	(2011), 1945-1955; T. J. Osborne, Approximate Locality for Quantum
+	Systems on Graphs, Phys. Rev. Lett. 101, 140503 (2008).
+	<A HREF="http://arxiv.org/abs/quant-ph/0611231v2">arXiv:quant-ph/0611231v2</A>
+                            .
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Complexity metrics:</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            R.
+	Jozsa, On the simulation of quantum circuits, 2006.
+	<A HREF="http://arxiv.org/abs/quant-ph/0603163v1">arXiv:quant-ph/0603163v1</A>
+                            ;
+	I. L. Markov, Y. Shi, Simulating quantum computation by contracting
+	tensor networks, SIAM Journal on Computing, 38(3):963-981, 2008.
+	<A HREF="http://arxiv.org/abs/quant-ph/0511069v7">arXiv:quant-ph/0511069v7</A>
+                            ;
+	D. Aharonov, Z. Landau, J. Makowsky, The quantum FFT can be
+	classically simulated, 2006, <A HREF="http://arxiv.org/abs/quant-ph/0611156v2">arXiv:quant-ph/0611156v2</A>
+                            .
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Isomorphism (via encoding):</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">K.
+	Audenaert, C. D. Godsil, G. F. Royle, T.</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            Rudolph,
+	Symmetric squares of graphs, J. Comb. Theory, Ser. B 97(1): 74-90
+	(2007). <A HREF="http://arxiv.org/abs/math/0507251v1">arXiv:math/0507251v1</A>
+                            [math.CO]; J. K. Gamble, M. Friesen, D. Zhou, R. Joynt, S. N.
+	Coppersmith, Two-particle quantum walks applied to the graph
+	isomorphism 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        problem.
+	Phys. Rev. A, 81(5):052313, 2010. <A HREF="http://arxiv.org/abs/1002.3003v1">arXiv:1002.3003v1</A>
+                        [quant-ph]. <span class="section-header">Network coding:</span> 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">M.
+	Hayashi, K. Iwama, H. Nishimura, R. Raymond, and S. Yamashita.
+	Quantum network coding. In STACS 2007, volume 4393 of Lecture Notes
+	in Computer Science, pages 610 &ndash;621, 2007.
+	</SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://arxiv.org/abs/quant-ph/0601088v2">arXiv:quant-ph/0601088v2</A>
+                            ;
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">D.
+	Leung, J. Oppenheim, and A.Winter. Quantum network communication &mdash;the butterfly and beyond. IEEE Transactions on Information Theory,
+	56(7):3478 &ndash;3490, 2010. </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://arxiv.org/abs/quant-ph/0608223v5">arXiv:quant-ph/0608223v5</A>
+                            .
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Complex networks:</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">S.
+	Perseguers, M. Lewenstein, A. Ac &iacute;n, J. I. Cirac,</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Quantum
+	complex networks, Nature Physics 6, 539 - 543 (2010).
+	<A HREF="http://arxiv.org/abs/0907.3283v1">arXiv:0907.3283v1</A>
+                            [quant-ph]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <span class="section-header">Graphs as channels:</span> T. S. Cubitt, D. Leung, W. Matthews, A. Winter,
+	Improving zero-error classical communication with entanglement,
+	Phys. Rev. Lett., 104(23):230503, 2010. <A HREF="http://arxiv.org/abs/0911.5300">arXiv:0911.5300v2</A>
+                        [quant-ph]; 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">D.
+	Leung, L. Mancinska, W. Matthews, M. Ozols, A. Roy,</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Entanglement
+	can increase asymptotic rates of zero-error classical communication
+	over classical channels, 2010. <A HREF="http://arxiv.org/abs/1009.1195v2">arXiv:1009.1195v2</A>
+                            [quant-ph]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <span class="section-header">Quantum colouring:</span> C. Godsil, M. W. Newman, Coloring an Orthogonality Graph,
+	SIAM J. Discrete Math. 22(2): 683-692 (2008). <A HREF="http://arxiv.org/abs/math/0509151v1">arXiv:math/0509151v1</A>
+                        [math.CO]; 
+                    </FONT>
+                </FONT>
+                <FONT COLOR="#000000">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>J.
+	Fukawa, Hi. Imai, F. Le Gall, </FONT>
+                    </FONT>
+                </FONT>
+                <FONT COLOR="#000000">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">Quantum
+	Coloring Games via Symmetric SAT Games</SPAN>
+                        </FONT>
+                    </FONT>
+                </FONT>
+                <FONT COLOR="#000000">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>.
+	Presented as a long talk at the 11th Asian Quantum Information
+	Science Conference (AQIS 2011). </FONT>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3><span class="section-header">Background independent models of quantum gravity based on time-dependent graphs:</span> </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">
+                                A.
+	Hamma, F. Markopoulou, Background independent condensed matter
+	models for quantum gravity, New J. Phys. 13:095006, 2011.
+	<A HREF="http://arxiv.org/abs/1011.5754v1">arXiv:1011.5754v1</A>
+                                [gr-qc]; 
+                            </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="font-weight: normal">
+                                        <SPAN STYLE="background: transparent">
+                                            F.
+	Caravelli, F. Markopoulou, Properties of quantum graphity at low
+	temperature, Phys. Rev. D 84 024002, 2011. <A HREF="http://arxiv.org/abs/1008.1340v3">arXiv:1008.1340v3</A>
+                                            [gr-qc] 
+                                        </SPAN>
+                                    </SPAN>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">R.
+	Penrose, </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://www.ucl.ac.uk/~ucapsse/Penrose-OnTheNatureOfQuantumGeometry.pdf">On
+	the nature of quantum geometry</A>
+                            , in 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">Magic
+	Without Magic</SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            ,
+	ed. J. Klauder, Freeman, San Francisco, 1972, pp. 333-354. N.
+	Linial, Z. Luria, <A HREF="http://arxiv.org/abs/1106.0649v1">An
+	upper bound on the number of high dimensional permutations</A>
+                            ,
+	<A HREF="http://arxiv.org/abs/1106.0649v1">arXiv:1106.0649v1</A>
+                            [math.CO] A. Ashikhmin, A. Robert Calderbank, W. Kewlin,
+	<A HREF="http://www.homepages.ucl.ac.uk/~ucapsse/Multidimensional%20Second%20Order%20Reed-Muller%20Codesas%20Grassmannian%20Packings.pdf">Multidimensional
+	Second Order Reed-Muller Codes as Grassmannian Packings</A>
+                            , ISIT
+	2006, Seattle, USA, July 9 14, 2006. P. Diaconis and J. Salzman,
+	<A HREF="http://arxiv.org/PS_cache/arxiv/pdf/0805/0805.3043v1.pdf">Projection
+	pursuit for discrete data</A>
+                            . IMS Collections Probability and
+	Statistics: Essays in Honor of David A. Freedman, Vol. 2 (2008)
+	265 &ndash;288. <A HREF="http://arxiv.org/abs/0805.3043v1">arXiv:0805.3043v1</A>
+                            [math.ST]. B. J. Frey and D. Dueck, <A HREF="http://www.sciencemag.org/cgi/content/full/315/5814/972">Clustering
+	by Passing Messages Between Data Points</A>
+                            , 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">Science
+	315, 972 &ndash;976, February 2007. </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    <A HREF="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.121.3145&amp;rep=rep1&amp;type=pdf">citeseerx</A>
+                                    .
+	<A HREF="http://www.psi.toronto.edu/index.php?q=affinity%20propagation">Software</A>
+                                    .
+	
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">D.
+	Jakobson, S. D.Miller, I. Rivin, Z. Rudnick,</SPAN>
+                    </FONT>
+                </FONT>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    Eigenvalue
+	spacings for regular graphs, IMA vol. 109 (Emerging applications of
+	number theory, Minneapolis, MN 1996). <A HREF="http://arxiv.org/abs/hep-th/0310002v1">arXiv:hep-th/0310002v1</A>
+                                    .
+	S. M. Pincus, <A HREF="http://www.pnas.org/content/88/6/2297.abstract">Approximate
+	entropy as a measure of system comple</A>
+                                    <A HREF="http://www.pnas.org/content/88/6/2297.abstract">xity</A>
+                                    ,
+	PNAS March 15, 1991 vol. 88 no. 6 2297-2301. (See our work
+	
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="font-weight: normal">
+                                        <A HREF="http://arxiv.org/abs/1201.0045v1">arXiv:1201.0045v1</A>
+                                        [cond-mat.dis-nn].). 
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    H.
+	R. Kleinberg, and A. Lehman, <A HREF="http://ieeexplore.ieee.org/xpl/freeabs_all.jsp?arnumber=1638531">On
+	the capacity of information networks</A>
+                                    ,
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">IEEE
+	Transactions on Information Theory, 52(6):2345 &ndash;2364, 2006. N.
+	Goldenfeld, L. P. Kadanoff, <A HREF="http://www.sciencemag.org/content/284/5411/87.abstract">Simple
+	lessons from complexity</A>
+                                    ,
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">Science
+	2 April 1999: Vol. 284 no. 5411 pp. 87-89. </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            G.
+	Tkacik and A M. Walczak, Information transmission in gene regulatory
+	networks: a review, J. Phys.: Condens. Matter 23 (2011) 153102
+	(31pp). <A HREF="http://arxiv.org/abs/1101.4240v1">arXiv:1101.4240v1</A>
+                            [physics.bio-ph]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    E.
+	Carlstein. <A HREF="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.154.6765">Non-parametric
+	change point estimation</A>
+                                    , The Annals of Statistics, Vol. 16, No.
+	1. (1988), pp. 188-197. 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">S.
+	Janson, D. E. Knuth, T. &#321;uczak, B. Pittel, </SPAN>
+                    </FONT>
+                </FONT>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    The
+	birth of the giant component, Random Structures Algorithms 4 (1993),
+	no. 3, 231-358. <A HREF="http://arxiv.org/abs/math/9310236v1">arXiv:math/9310236v1</A>
+                                    [math.PR]. D. Deutsch, 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">Physics,
+	Philosophy and Quantum Technology</SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </CITE>
+                <CITE>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    (talk
+	<A HREF="http://193.189.74.53/~qubitor/people/david/structure/Documents/Research%20Papers/PPQT.pdf" TARGET="_blank">PDF</A>
+                                    ),
+	The Sixth International Conference on Quantum Communication,
+	Measurement and Computing, in <A HREF="http://www.amazon.com/exec/obidos/ASIN/1589490304/daviddeutsch/" TARGET="_blank">Proceedings
+	of the Sixth International Conference on Quantum Communication,
+	Measurement and Computing</A>
+                                    , Shapiro, J.H. and Hirota, O., Eds.
+	(Rinton Press, Princeton, NJ. 2003). 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </CITE>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            E.
+	A. Rietman, R. L. Karp, and J. A Tuszynski, <A HREF="http://www.tbiomed.com/content/pdf/1742-4682-8-21.pdf">Review
+	and application of group theory to molecular systems biology</A>
+                            ,
+	Theoretical Biology and Medical Modelling 2011, 8:21. L. A. Zager,
+	G. C. Verghese, <A HREF="http://www.sciencedirect.com/science/article/pii/S0893965907001012">Graph
+	similarity scoring and matching</A>
+                            , Applied Mathematics Letters,
+	21:1(2008), 86-94. M. M. Wilde, From Classical to Quantum Shannon
+	Theory, 2011. <A HREF="http://arxiv.org/abs/1106.1445v2">arXiv:1106.1445v2</A>
+                            [quant-ph] N. Alon, C. Avin, M. Koucky, G. Kozma, Z. Lotker, M. R.
+	Tuttle, Many Random Walks Are Faster Than One, Combinatorics,
+	Probability and Computing (2011), 20 : pp 481-502. <A HREF="http://arxiv.org/abs/0705.0467v2">arXiv:0705.0467v2</A>
+                            [math.PR]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>P.
+	Expert, T. Evans, V. D. Blondel, R. Lambiotte, Beyond Space For
+	Spatial Networks, PNAS 2011 108 (19) 7663-7668. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://en.wikipedia.org/wiki/Planar_separator_theorem">Planar
+	Separator Theorem</A>
+                            : 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>D.
+	A. Spielman, S.-H. Teng (1996), Disk packings and planar separators,
+	Proc. 12th ACM Symposium on Computational Geometry (SCG '96), pp.
+	349 &ndash;358; D. A. Spielman, S.-H. Teng (2007), Spectral
+	partitioning works: Planar graphs and finite element meshes, Linear
+	Algebra and its Applications 421 (2 &ndash;3): 284 &ndash;305, J. H.
+	Conway, A. J. Jones, Trigonometric Diophantine equations (On
+	vanishing sums of roots of unity), Acta Arith. 30 (1976), no. 3,
+	229--240. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            B.
+	Poonen, M. Rubinstein, The Number of Intersection Points Made by the
+	Diagonals of a Regular Polygon, SIAM Journal on Discrete Mathematics
+	11 (1998), no. 1, 135-156. <A HREF="http://arxiv.org/abs/math/9508209v3">arXiv:math/9508209v3</A>
+                            [math.MG]. P. Bourgade, J. P. Keating, <A HREF="http://www.bourbaphy.fr/keating.pdf">Quantum
+	chaos, random matrix theory, and the Riemann zeta-function</A>
+                            ,
+	Seminaire Poincare, XIV (2010) 115-153. And the seminal paper:
+	M.V.Berry, 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <I>
+                            <SPAN STYLE="font-weight: normal">Riemann's
+	zeta function: A model for quantum chaos</SPAN>
+                        </I>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">,
+	in Quantum Chaos and Statistical Nuclear Physics, T.H. Seligman and
+	H. Nishioka, eds., Lecture Notes in Phys. 263, Springer-Verlag, New
+	York, 1986, pp. 1-17. C. W. J. Granger, Investigating causal
+	relations by econometric models and cross-spectral methods,
+	</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">
+                                <A HREF="http://en.wikipedia.org/wiki/Econometrica">Econometrica</A>
+                                3
+                            </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            7:3
+	(1969), 424 &ndash;438. Y.-A. Kim, S. Wuchty, T. M. Przytycka,
+	<A HREF="http://www.ploscompbiol.org/article/info:doi/10.1371/journal.pcbi.1001095">Identifying
+	causal genes and dysregulated pathways in complex disease</A>
+                            , PLoS
+	Comput Biol 7(3): e1001095. T. Ideker, N. J. Krogan, <A HREF="http://www.nature.com/msb/journal/v8/n1/full/msb201199.html?WT.ec_id=MSB-v8/n1">Differential
+	network biology</A>
+                            , Molecular Systems Biology 8:565. T. Manke, L.
+	Demetrius, and M. Vingron, <A HREF="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1885358/pdf/rsif20060140.pdf">An
+	entropic characterization of protein interaction networks and
+	cellular robustness</A>
+                            , J. R. Soc. Interface. 2006 December 22;
+	3(11): 843 &ndash;850. A. E. Motter, <A HREF="http://prl.aps.org/abstract/PRL/v93/i9/e098701">Cascade
+	control and defense in complex networks</A>
+                            , Phys. Rev. Lett. 93,
+	098701 (2004). T. Schreiber, <A HREF="http://prl.aps.org/abstract/PRL/v85/i2/p461_1">Meauring
+	information transfer</A>
+                            , Phys. Rev. Lett. 85, 461 (2000). H. G.
+	Tanner, <A HREF="http://research.me.udel.edu/~btanner/Papers/controllable_graphs.pdf">On
+	the controllability of nearest neighbor interconnections</A>
+                            ,
+	<A HREF="http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=9774">Decision
+	and Control, 2004. CDC. 43rd IEEE Conference on</A>
+                            . D. Ruelle, <A HREF="http://www.ams.org/journals/bull/1988-19-01/S0273-0979-1988-15634-0/S0273-0979-1988-15634-0.pdf">Is
+	our mathematics natural: The case of equilibrium statistical
+	mechanics</A>
+                            , Bull. Amer. Math. Soc. (N.S.) Volume 19, Number 1
+	(1988). J. Paris, J. and L.
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Harrington,
+	</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">
+                                <A HREF="http://www.compstat2004.cuni.cz/~krajicek/ph.pdf">A
+	Mathematical Incompleteness in Peano Arithmetic</A>
+                                . In Handbook for
+	Mathematical Logic (Ed. J. Barwise).
+                            </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Amsterdam,
+	Netherlands: North-Holland, 1977. M. Warmuth, <A HREF="http://books.nips.cc/papers/files/nips18/NIPS2005_0263.pdf">A
+	Bayes </A>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">
+                                <A HREF="http://books.nips.cc/papers/files/nips18/NIPS2005_0263.pdf">Rule
+	for Density Matrices</A>
+                                , In Y. Weiss, B. Sch &ouml;lkopf, and J.
+	Platt, editors, Advances in Neural Information Processing Systems
+	18, pages 1457 &ndash;1464. MIT Press, Cambridge, MA, 2005. M. K.
+	Warmuth, D. Kuzmin, <A HREF="http://arxiv.org/abs/0901.1273">Bayesian
+	Generalized Probability Calculus for Density Matrices</A>
+                                , In
+	Proceedings of the 22
+                            </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <SUP>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">nd</SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SUP>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">Annual
+	Conference on Uncertainty in Artificial Intelligence, 2006. </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            S.
+	Boyd, P. Diaconis, and L. Xiao, <A HREF="http://stanford.edu/~boyd/papers/fmmc.html">Fastest
+	Mixing Markov Chain on a Graph</A>
+                            , SIAM Review, 46(4):667-689,
+	2004. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        K.
+	P. Murphy, <A HREF="http://www.cs.ubc.ca/~murphyk/Papers/intro_gm.pdf">An
+	introduction to graphical models</A>
+                        , 2001. 
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">
+                                <A HREF="http://www.jeremy-gunawardena.com/">J.
+	Gunawardena</A>
+                                , <A HREF="http://vcp.med.harvard.edu/papers/cambridge-1.pdf">Six
+	Lectures on System Biology</A>
+                                (Cambridge 2011). <A HREF="http://en.wikipedia.org/wiki/Hedetniemi's_conjecture">Hedetniemi
+	conjecture</A>
+                                . J. Cooper, <A HREF="http://www.math.sc.edu/~cooper/math776/StudyGuide.pdf">Graph
+	Theory Study Guide</A>
+                                . <A HREF="http://www.cs.uml.edu/~jpropp/rotor-router-model/">Rotor
+	Router Model</A>
+                                by Jim Propp. The model involves a bug moving along
+	a directed graph. <A HREF="http://igraph.sourceforge.net/">Igraph</A>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">
+                                is
+	a free software package for creating and manipulating undirected and
+	directed graphs. <A HREF="http://www.cytoscape.org/">Cytoscape</A>
+                                is an open source software platform for visualizing <A HREF="http://en.wikipedia.org/wiki/Complex_network">complex
+	networks</A>
+                                . 
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <STRONG>
+                    <A HREF="http://www.cfinder.org/">
+                        <SPAN STYLE="text-decoration: none">
+                            <FONT FACE="Times New Roman, serif">
+                                <FONT SIZE=3>
+                                    <SPAN STYLE="font-weight: normal">CFinder</SPAN>
+                                </FONT>
+                            </FONT>
+                        </SPAN>
+                    </A>
+                </STRONG>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">is
+	a free software for finding and visualizing overlapping dense groups
+	of nodes in networks, based on the Clique Percolation Method (CPM)
+	of </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    <A HREF="http://dx.doi.org/10.1038/nature03607">Palla
+	et. al., </A>
+                                    <A HREF="http://dx.doi.org/10.1038/nature03607">Nature</A>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <A HREF="http://dx.doi.org/10.1038/nature03607">
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3></FONT>
+                        </FONT>
+                    </SPAN>
+                    <STRONG>
+                        <SPAN STYLE="text-decoration: none">
+                            <FONT FACE="Times New Roman, serif">
+                                <FONT SIZE=3>
+                                    <SPAN STYLE="font-style: normal">
+                                        <SPAN STYLE="font-weight: normal">435</SPAN>
+                                    </SPAN>
+                                </FONT>
+                            </FONT>
+                        </SPAN>
+                    </STRONG>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="font-weight: normal">,</SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3></FONT>
+                        </FONT>
+                    </SPAN>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="text-decoration: none">
+                                    <SPAN STYLE="font-weight: normal">
+                                        <SPAN STYLE="text-decoration: none">814-818
+	(2005)</SPAN>
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </A>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="text-decoration: none">
+                                <SPAN STYLE="font-weight: normal">
+                                    <SPAN STYLE="text-decoration: none">.
+	</SPAN>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    S.
+	Severini, Mathoverflow: <A HREF="http://mathoverflow.net/questions/80747/a-rewiring-process-on-graphs">Rewiring
+	graphs</A>
+                                    . <A HREF="http://konect.uni-koblenz.de/help/networks">KONECT</A>
+                                    is the Koblenz Network Collection. KONECT is a project to collect
+	large network datasets of all types in order to perform research in
+	the area of network mining, collected by the <A HREF="http://west.uni-koblenz.de/">Institute
+	of Web Science and Technologies</A>
+                                    of the <A HREF="http://www.uni-koblenz-landau.de/">University
+	of Koblenz &ndash;Landau</A>
+                                    . (7/2/12). 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Mark
+	Newman <A HREF="http://www-personal.umich.edu/~mejn/netdata/">Network
+	Data</A>
+                        . E. D. Kolaczyk, (2009), Statistical Analysis of Network
+	Data: Methods and Models. Springer, New York. 
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <A HREF="http://kappalanguage.org/">Kappalanguage</A>
+                                    :
+	A rule-based language for modeling protein interaction networks. Two
+	interesting topics in Markov chains analysis: P. Doyle, <A HREF="http://www.math.dartmouth.edu/~doyle/docs/kc/kc.pdf">Kemeny
+	constant</A>
+                                    : C. D. Meyer, <A HREF="http://meyer.math.ncsu.edu/Meyer/PS_Files/StochasticComplementation.pdf">Stochastic
+	Complementation</A>
+                                    . Smart Cities: World Economic Forum, <A HREF="http://www.weforum.org/issues/urban-sustainability">Urban
+	Sustainability</A>
+                                    . Companies in <A HREF="http://www.cleantechinvestor.com/portal/citiesofthefuture/9444-companies-in-the-smart-cities-space.html">Smart
+	Cities</A>
+                                    . 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">
+                            Subhash
+	A. Khot, Nisheeth K. Vishnoi, <A HREF="http://research.microsoft.com/en-us/um/people/nvishno/webpapers/kvjournal.pdf">The
+	Unique Games Conjecture, Integrality Gap for </A>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://research.microsoft.com/en-us/um/people/nvishno/webpapers/kvjournal.pdf">Cut
+	Problems and Embeddability of Negative Type Metrics into l_1</A>
+                        ,
+	2005. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">A.
+	Kavruk, V. I. Paulsen, I. G. Todorov, M. Tomforde, </SPAN>
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">Tensor
+	products of operator systems.</SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <A HREF="http://www.ams.org/mathscinet/search/journaldoc.html?cn=J_Funct_Anal">
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN LANG="en-GB">
+                                    <SPAN STYLE="font-style: normal">J.
+	Funct. Anal.</SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </A>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=292065">261
+	</A>
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=292065">(2011),
+	</A>
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=292065">no.
+	2</A>
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=292065">,</A>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">267 &ndash;299.
+	</SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            M.V.
+	Berry and J.P. Keating <A HREF="http://empslocal.ex.ac.uk/people/staff/mrwatkin/zeta/berry-keating1.pdf">The
+	Riemann zeros and eigenvalue asymptotics</A>
+                            , SIAM Review, 41, No. 2
+	(1999), 236-266. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">A.
+	Ferrante, M. Pavon, </SPAN>
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    Matrix
+	completion &agrave;la Dempster by the principle of parsimony, <A HREF="http://www.ams.org/mathscinet/search/journaldoc.html?cn=IEEE_Trans_Inform_Theory">IEEE
+	Trans. Inform. Theory</A>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=293171">57
+	</A>
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=293171">(2011),
+	</A>
+                                    <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=293171">no.
+	6,</A>
+                                    3925-3931. <A HREF="http://www.graphclasses.org/">Information
+	System on Graph Classes and their Inclusions</A>
+                                    . 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">
+                            Yvo
+	Desmedt, Yongge Wang, Perfectly Secure Message Transmission
+	Revisited, IEEE Trans. Inform. Theory 54 (2008), 25820-2595.
+	<A HREF="http://arxiv.org/abs/cs/0208041v1">arXiv:cs/0208041v1</A>
+                            [cs.CR]. <span class="section-header">Asu Ozdaglar:</span>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <A HREF="http://web.mit.edu/asuman/www/documents/ACC-talk-final.pdf">Learning
+	and dynamics on networks</A>
+                                    , 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">Acemoglu,
+	Daron, Munther Dahleh, Ilan Lobel, and Asuman Ozdaglar (2008),
+	</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://pages.stern.nyu.edu/~ilobel/socialnetworks_revised.pdf">Bayesian
+	learning in social networks</A>
+                        , LIDS Working Paper 2780,
+	Massachusetts nstitute of Technology. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN LANG="en-GB">
+                            M.
+	Agrawal, <A HREF="http://www.stanford.edu/~mukul/tutorials">Axiomatic
+	/ Postulatory Quantum Mechanics</A>
+                            , in Fundamental Physics in
+	Nano-Structured 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>Materials
+	and Devices (Stanford University, 2008). </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    R.
+	Diestel, <A HREF="http://www.esi2.us.es/~mbilbao/pdffiles/DiestelGT.pdf">Graph
+	Theory</A>
+                                    , Electronic Edition 2010. <A HREF="http://www.measuringworth.com/aboutus.php">Measuring
+	Worth</A>
+                                    , historical data on important economic aggregates, with
+	particular emphasis on nominal measures. H &agrave;Quang Minh,
+	<A HREF="http://itb.biologie.hu-berlin.de/~minh/RKHScubeminh.pdf">Reproducing
+	Kernel Hilbert Spaces and Learning Problems on the Hypercube </A>
+                                    ,
+	preprint, 2012. <A HREF="http://nwb.cns.iu.edu/index.html">Network
+	Workbench</A>
+                                    : A Large-Scale Network Analysis, Modeling and
+	Visualization Toolkit for Biomedical, Social Science and Physics
+	Research. <A HREF="http://gephi.org/">Gephi</A>
+                                    The Open Graph Viz
+	Platform. <A HREF="http://web.mit.edu/esd.83/www/notebook/Complexity.PDF">Measuring
+	complexity</A>
+                                    (by S. Lloyd): 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <I>1.
+	How hard is it to describe?</I>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3></FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">Entropy;
+	</SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>Algorithmic
+	Complexity or Algorithmic Information Content; Minimum Description
+	Length; Fisher Information; Renyi Entropy; Code Length (prefix-free,
+	Huffman, Shannon-Fano, error-correcting, Hamming); Chernoff
+	Information; Dimension; Fractal Dimension; Lempel-Ziv Complexity. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <I>2.
+	How hard is it to create?</I>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">Time
+	Computational Complexity; Spa</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>ce
+	Computational Complexity; Information-Based Complexity; Logical
+	Depth; Thermodynamic Depth; Cost; Crypticity. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <I>3.
+	What is its degree of organization? </I>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">Metric
+	Entropy; Fractal Dimension; Excess Entropy; </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Stochastic
+	Complexity; Sophistication; Effective Measure Complexity; True
+	Measure Complexity; Topological epsilon-machine size; Conditional
+	Information; Conditional Algorithmic Information Content; Schema
+	length; Ideal Complexity; Hierarchical Complexity; Tree subgraph
+	diversity; Homogeneous Complexity; Grammatical Complexity.
+	Algorithmic Mutual Information; Channel Capacity; Correlation;
+	Stored Information; Organization. S. Bhamidi, R. Rajagopal, S. Roch,
+	Network Delay Inference from Additive Metrics. <A HREF="http://arxiv.org/abs/math/0604367v2">arXiv:math/0604367v2</A>
+                        [math.PR]. R. Castro, M. Coates, G. Liang, R. Nowak and B. Yu,
+	<A HREF="http://www.win.tue.nl/~rmcastro/publications/STS103.pdf">Network
+	Tomography: Recent Developments</A>
+                        , Statistical Science, Vol. 19,
+	No. 3, 499 &ndash;517, 2004. <A HREF="http://bio-nets.doc.ic.ac.uk/graphcrunch2/">GraphCrunch2</A>
+                        is a software tool for network analysis, modelling and alignment. L.
+	Lov &aacute;sz, <A HREF="http://arxiv.org/pdf/0902.0132v1.pdf">Very
+	large graphs</A>
+                        , Current Developments in Mathematics 2008 (eds. D.
+	Jerison, B. Mazur, T. Mrowka, W. Schmid, R. Stanley, and S. T. Yau),
+	International Press, Somerville, MA (2009), 67-128. A. Clauset, C.
+	R. Shalizi, M. E. J. Newman, <A HREF="http://arxiv.org/abs/0706.1062">Power
+	law distribution of empirical data</A>
+                        , SIAM Review 51, 661-703
+	(2009). Blonstein, D. Fahmy, H., and Grbavec, A, (1996), <A HREF="http://research.cs.queensu.ca/~blostein/LNCS1073.pdf">Issues
+	in the practical use of graph rewriting</A>
+                        . <A HREF="http://www.bioconductor.org/">Bioconductor</A>
+                        provides tools for the analysis and comprehension of high-throughput
+	genomic data. <A HREF="http://networkx.lanl.gov/index.html">NetworkX</A>
+                        is a Python language software package for the creation,
+	manipulation, and study of the structure, dynamics, and functions of
+	complex networks. <A HREF="http://vlado.fmf.uni-lj.si/pub/networks/pajek/">Pajek</A>
+                        ,
+	program for large networks analysis. <A HREF="http://graphexploration.cond.org/">Guess</A>
+                        ,
+	the graph exploration system. <A HREF="http://www.cs.cmu.edu/~pegasus/">Pegasus</A>
+                        ,
+	open-source, graph-mining system with massive scalability. <A HREF="http://ccl.northwestern.edu/netlogo/">NetLogo</A>
+                        is a multi-agent programmable modeling environment. Massey <A HREF="http://itwinterschool07.eurecom.fr/Tutorials/Massey_Zero_error.pdf">Tutorial
+	on Zero-error Information Theory</A>
+                        , Information Theory Winter
+	School, La Colle Sur Loup, March 2007. D. Zelazo and M. Mesbahi,
+	<A HREF="http://www.ist.uni-stuttgart.de/~zelazo/papers/zm-bk-final.pdf">Graph-theoretic
+	methods for networked dynamic systems: Heterogeneity and H</A>
+                    </FONT>
+                </FONT>
+                <A HREF="http://www.ist.uni-stuttgart.de/~zelazo/papers/zm-bk-final.pdf">
+                    <SUB>
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>2</FONT>
+                        </FONT>
+                    </SUB>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>Performance</FONT>
+                    </FONT>
+                </A>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>,
+	in Efficient Modeling and Control of Large-Scale Systems (J.
+	Mohammadpour and K.M. Grigoriadis, eds.), New York, New York:
+	Springer, pp. 219-249. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">B.
+	Chazelle, </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        The
+	Convergence of Bird Flocking, <A HREF="http://arxiv.org/abs/0905.4241v1">arXiv:0905.4241v1</A>
+                        [cs.CG]. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Arora,
+	S., Rao, S., and Vazirani, U. 2009., <A HREF="http://scholar.google.com/scholar?as_q=&amp;num=10&amp;btnG=Search+Scholar&amp;as_epq=Expander+flows,+geometric+embeddings+and+graph+partitioning&amp;as_oq=&amp;as_eq=&amp;as_occt=any&amp;as_sauthors=Arora">Expander
+	flows, geometric embeddings and graph partitioning</A>
+                            , J. ACM 56,
+	2, Article 5 (April 2009). 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        G.
+	Szabo, G. Fath, <A HREF="http://arxiv.org/abs/cond-mat/0607344">Evolutionary
+	games on graphs</A>
+                        , Physics Reports 446 (4-6), 97-217 (2007). L.
+	Vinet, A. Zhedanov, Dual -1 Hahn polynomials and perfect state
+	transfer, <A HREF="http://arxiv.org/abs/1110.6477v3">arXiv:1110.6477v3</A>
+                        [math-ph]. Some <A HREF="http://129.81.170.14/~tamdeberhan/conjectures.pdf">nice
+	conjectures in algebraic combinatorics</A>
+                        by Tewodros Amdeberhan (8
+	August 2012). T. Bu, N. Duffield, F. Lo Presti, D. Towsley, <A HREF="ftp://gaia.cs.umass.edu/pub/Bu_tomography_02.pdf">Network
+	Tomography on General Topology</A>
+                        , Proc. of ACM SIGMETRICS 2002.
+	<A HREF="http://netevo.sourceforge.net/index.html">NetEvo</A>
+                        is a
+	computing framework and collection of end-user tools designed to
+	allow researchers to investigate evolutionary aspects of dynamical
+	complex networks. P. Malacaria, F. Smeraldi, <A HREF="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&amp;arnumber=6266166&amp;contentType=Conference+Publications&amp;queryText=foundational+understanding">The
+	Thermodynamics of Confidentiality</A>
+                        , CSF 2012: 280-290, 2011. D.
+	Aharonov, A. Ta-Shma, Adiabatic Quantum State Generation and
+	Statistical Zero Knowledge, <A HREF="http://arxiv.org/abs/quant-ph/0301023v2">arXiv:quant-ph/0301023v2</A>
+                        .
+	B. Sinaimeri, <A HREF="http://phd.di.uniroma1.it/thesis/sinaimeri.pdf">Structures
+	of Diversity</A>
+                        , PhD Thesis, Sapienza University, Roma, 2009. B. D.
+	McKay, <A HREF="http://www.sciencedirect.com/science/article/pii/0012365X79901134">Hadamard
+	equivalence via graph isomorphism</A>
+                        , Discrete Math. 27 (1979), no.
+	2, 213 &ndash;214. P. Schweitzer, <A HREF="http://people.mpi-inf.mpg.de/~pascal/docs/thesis_pascal_schweitzer.pdf">Problems
+	of Unknown Complexity</A>
+                        , PhD Thesis, Universitat des Saarlandes,
+	Saarbrucken, 2009. G. Haggard, D. J. Pearce, and G. Royle, <A HREF="http://dl.acm.org/citation.cfm?doid=1824801.1824802">Computing
+	Tutte Polynomials</A>
+                        , ACM Trans. Math. Softw. 37, 3, Article 24
+	(September 2010), 17 pages. <span class="section-header">Network Coding Bibliography</span>
+                        A. C. Kalloniatis, <A HREF="http://arxiv.org/abs/0909.0176">From
+	incoherence to synchronicity in the network Kuramoto model</A>
+                        ,
+	Phys. Rev. E (3) 82 (2010), no. 6, 066202. M. P. Frank, <A HREF="http://www.cise.ufl.edu/research/revcomp/physlim/PhysLim-CiSE/PhysLim-CiSE-4.pdf">Physical
+	Limits of Computing</A>
+                        , IEEE Computing in Science &amp;Engineering
+	magazine, May/June 2002. K. Tsuda, <A HREF="http://iopscience.iop.org/1742-6596/143/1/012021/pdf/jpconf9_143_012021.pdf">Machine
+	learning with quantum relative entropy</A>
+                        , International Workshop
+	on Statistical-Mechanical Informatics 2008 (IW-SMI 2008). L. H.
+	Kauffman, <A HREF="http://arxiv.org/abs/quant-ph/0204007">Biologic</A>
+                        ,
+	2002. L. G. Valiant, Evolvability, <A HREF="http://en.wikipedia.org/wiki/Electronic_Colloquium_on_Computational_Complexity">ECCC</A>
+                        &nbsp;<A HREF="http://eccc.uni-trier.de/report/2006/120/">TR06-120</A>
+                        .
+	A beautiful bibliography on the <A HREF="http://cnls.lanl.gov/~chertkov/alg.htm">Physics
+	of Algorithms</A>
+                        (Los Alamos National Laboratory). Y. Colin de
+	Verdiere, <A HREF="http://www-fourier.ujf-grenoble.fr/~ycolver/All-Articles/98a.pdf">Spectral
+	Graph Theory</A>
+                        (Spectres de Graphes). 
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">
+                                A.
+	Dutta, U. Divakaranb , D. Senc , B. K Chakrabartid , T. F.
+	Rosenbaume, and G. Aeppli, Quantum phase transitions in transverse
+	&#64257;eld spin models: From Statistical Physics to Quantum
+	Information, <A HREF="http://arxiv.org/abs/1012.0653">arXiv:1012.0653</A>
+                                [cond-mat.stat-mech]. M. Laurent, <A HREF="http://page.mi.fu-berlin.de/fmario/sdp/laurentv.pdf">Semidefinite
+	Optimization</A>
+                                (great lectures). <span class="section-header">Some of my favourite conjectures:</span>
+	
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <U>
+                                <SPAN STYLE="font-weight: normal">
+                                    <A HREF="http://en.wikipedia.org/wiki/Hadamard_matrix">Hadamard
+	conjecture</A>
+                                    ; <A HREF="http://en.wikipedia.org/wiki/Hedetniemi's_conjecture">Hedetniemi
+	conjecture</A>
+                                    ; 
+                                </SPAN>
+                            </U>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">
+                                Rosenfeld
+	conjecture: the Shannon capacity of the complement of the <A HREF="http://en.wikipedia.org/wiki/Clebsch_graph">Clebsch
+	graph</A>
+                                is 16^(1/3). 
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en">
+                                <SPAN STYLE="font-weight: normal">Hadwiger &ndash;Nelson
+	problem; The Crossing Number of the Complete Graph; Adam's
+	conjecture. </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-weight: normal">
+                                J.
+	C. Colburn, <A HREF="http://dl.acm.org/citation.cfm?id=535891">The
+	combinatorics of network reliability</A>
+                                , Oxford Univ. Press, 1987.
+	<A HREF="http://dbpedia.org/About">DBPedia</A>
+                                . <A HREF="https://www.writelatex.com/">Writelatex</A>
+                                is good. A good lecture on the <A HREF="http://www.ippp.dur.ac.uk/compphys/IsingModel/Lecture/lecture.pdf">Ising
+	</A>
+                                <A HREF="http://www.ippp.dur.ac.uk/compphys/IsingModel/Lecture/lecture.pdf">model</A>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        (Frank Krauss). S. Kauffman, L. Smolin, Combinatorial dynamics in
+	quantum gravity. <A HREF="http://arxiv.org/abs/hep-th/9809161">arXiv:hep-th/9809161</A>
+                        <A HREF="http://io9.com/watch-a-series-of-seven-brilliant-lectures-by-richard-f-5894600">Richard
+	Feynman's lectures</A>
+                        (on enhanced video player platform). Cook D.
+	J. and Holder L. B., Mining Graph Data, John Wiley &amp;Sons, 2007.
+	<A HREF="http://lib.tkk.fi/Diss/2010/isbn9789526034102/article5.pdf">Sperner
+	Capacities</A>
+                        , 1993. J. P. Keating and N. C. Snaith (2003), <A HREF="http://www.maths.bris.ac.uk/~majpk/papers/58.pdf">Random
+	matrices and L-functions</A>
+                        , J. Phys. A 36, pp. 2859-2881. Lasse
+	Kiviluoto, Patric R. J. &Ouml;sterg &aring;rd, and Vesa P.
+	Vaskelainen. 2009, <A HREF="http://lib.tkk.fi/Diss/2010/isbn9789526034102/article5.pdf">Sperner
+	capacity of small digraphs</A>
+                        . Advances in Mathematics of
+	Communications, volume 3, number 2, pages 125-133. Landau, H.G.
+	(1953), &quot;On dominance relations and the structure of animal
+	societies. III. The condition for a score struc
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">ture &quot;,
+	Bulletin of Mathematical Biophysics</SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">15</SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <SPAN STYLE="font-weight: normal">(2):
+	143 &ndash;148. (Landau's Theorem is beautiful). </SPAN>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        The
+	Comprehensive <A HREF="http://www.tex.ac.uk/tex-archive/info/symbols/comprehensive/symbols-a4.pdf&lrm;">LaTeX
+	Symbols</A>
+                        List (useful). <A HREF="http://www.google.co.uk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CFcQFjAF&amp;url=http%3A%2F%2Fwww.essex.ac.uk%2Fmaths%2Fbcb%2FBCBFiles%2F2013%2Fbcb2013.pdf&amp;ei=IgfmUYX3L8bM0QXBpICgBA&amp;usg=AFQjCNHeqvRkVuwCQq_Butmcg0NOPy43KQ&amp;sig2=j2_H3Hcp28-ExC4wxRIxvg&amp;bvm=bv.49405654,d.d2k">British
+	</A>
+                    </FONT>
+                </FONT>
+                <A HREF="http://www.google.co.uk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0CFcQFjAF&amp;url=http%3A%2F%2Fwww.essex.ac.uk%2Fmaths%2Fbcb%2FBCBFiles%2F2013%2Fbcb2013.pdf&amp;ei=IgfmUYX3L8bM0QXBpICgBA&amp;usg=AFQjCNHeqvRkVuwCQq_Butmcg0NOPy43KQ&amp;sig2=j2_H3Hcp28-ExC4wxRIxvg&amp;bvm=bv.49405654,d.d2k">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <I>Combinatorial</I>
+                        </FONT>
+                    </FONT>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>Bulletin 2013 - University of Essex</FONT>
+                    </FONT>
+                </A>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        .
+	L. Lovasz, <A HREF="http://www.cs.elte.hu/~lovasz/roma.pdf">Information
+	and complexity (how to measure them?)</A>
+                        . R. L. Cilibras
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            i,
+	P. M. B. Vitanyi, <A HREF="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=01412045">Clustering
+	by compression</A>
+                            , IEEE Trans. Information Theory, 51:4(2005),
+	1523 &ndash;1545. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>B.
+	Litow, N. Deo, Graph compression and the zeros of polynomials.
+	Inform. Process. Lett. 92 (2004), no. 1, 39 &ndash;44. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">P.
+	M. B. Vitanyi, </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Compression-based
+	Similarity, <A HREF="http://arxiv.org/abs/1110.4544">arXiv:1110.4544</A>
+                        [cs.IT]. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">P.
+	M. B. Vitanyi, </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Meaningful
+	information, <A HREF="http://arxiv.org/abs/cs/0111053">arXiv:cs/0111053</A>
+                        [cs.CC] F. Y. Wu, <A HREF="http://yaroslavvb.com/papers/wu-potts2.pdf">Potts
+	model and graph theory</A>
+                        , J. Stat. Phys., 52, no. 1,2 (1988). S.
+	Chen, S. S. Plotkin, <A HREF="http://adsabs.harvard.edu/abs/2013PhRvD..87h4011C">Statistical
+	mechanics of graph models and their implications for emergent
+	manifolds</A>
+                        , Physical Review D, vol. 87, Issue 8, id. 084011. U.
+	Feige, M. Langberg ,G. Schechtman, <A HREF="http://authors.library.caltech.edu/27189/1/FEIsiamjc04.pdf">Graphs
+	with Tiny Vector Chromatic Numbers and Huge Chromatic Numbers</A>
+                        ,
+	SIAM J. COMPUT. 2004 , Vol. 33, No. 6, pp. 1338 &ndash;1368. I like
+	<A HREF="http://en.wikipedia.org/wiki/Graph_kernel">Graph Kernels</A>
+                        .
+	R. Kondor, N. Shervashidze and K. M. B
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">orgwardt,
+	The graphlet spectrum (ICML 2009)</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://people.cs.uchicago.edu/~risi/papers/KondorShervashidzeBorgwardtICML09.pdf">[pdf</A>
+                        ].
+	M. Arzano, T. W. Kephart, Y. J. Ng, From spacetime foam to
+	holographic foam cosmology, <A HREF="http://arxiv.org/abs/gr-qc/0605117">arXiv:gr-qc/0605117</A>
+                        .
+	Halava, Vesa; Karhum &auml;ki, Juhani; Nowotka, Dirk; Rozenberg,
+	Grzegorz Words, graphs, automata, and languages: special issue
+	honoring the 60th birthday of Professor Tero Harju. Fund. Inform.
+	116 (2012), no. 1-4, vii &ndash;viii. 68-06. F. J. Brandenburg, K.
+	Skodinis, Finite graph automata for linear and boundary graph
+	languages. Theoret. Comput. Sci. 332 (2005), no. 1-3, 199 &ndash;232.
+	W. H. Zurek, <A HREF="http://arxiv.org/pdf/quantph/0105127.pdf">Decoherence,
+	einselection, and the quantum origins of the classical</A>
+                        , Rev.
+	Modern Phys. 75 (2003), no. 3, 715 &ndash;775. C. Rigetti, et al.
+	Geometric Approach to Digital Quantum Information,
+	<A HREF="http://arxiv.org/abs/quant-ph/0312196">arXiv:quant-ph/0312196</A>
+                        .
+	(This contains the same graphs of 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            A.
+	Ashikhmin, A. Robert Calderbank, W. Kewlin, <A HREF="http://www.homepages.ucl.ac.uk/~ucapsse/Multidimensional%20Second%20Order%20Reed-Muller%20Codesas%20Grassmannian%20Packings.pdf">Multidimensional
+	Second Order Reed-Muller Codes as Grassmannian Packings</A>
+                            , ISIT
+	2006, Seattle, USA, July 9 14, 2006.). 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Y.
+	Choi and W. Szpankowski, Compression of graphical structures, IEEE
+	Transaction on Information Theory, 58, 2012; also IEEE International
+	Symposium on Information Theory, Seoul, 364 &ndash;368, 2009. Nan Hu,
+	Leonidas Guibas, Spectral Descriptors for Graph Matching,
+	<A HREF="http://arxiv.org/abs/1304.1572">arXiv:1304.1572 [cs.CV]</A>
+                        .
+	
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">I
+	like the problem of finding the length of the minimal
+	superpermutation</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        :
+	N. Johnston, Non-uniqueness of minimal superpermutations. Discrete
+	Math. 313 (2013), no. 14, 1553 &ndash;1557. <A HREF="http://arxiv.org/abs/1303.4150">arXiv:1303.4150</A>
+                        [math.CO] 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://www.cs.ucl.ac.uk/students/student_information/individual_projects/ug_final_year_projects/">Final
+	projects 2013-14 (COMP3091, COMPM091):</A>
+                            1) 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <U>
+                            <SPAN STYLE="font-weight: normal">A
+	new measure of complexity for graphs:</SPAN>
+                        </U>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Perfect
+	graphs form an important family of graphs. In fact, many hard
+	problems can be solved efficiently for perfect graphs by using the
+	ellipsoid method for linear programming or ad hoc combinatorial
+	techniques. Trivially perfect graphs are a subfamily of perfect
+	graphs. The project consists on studying a technique to turn a
+	generic graph into a trivially perfect graph via a sequence of
+	operations. The minimum number of operations can be interpreted as a
+	new measure of graph complexity, with potential applications in the
+	analysis of big data. The project consists on (1) writing a computer
+	programme to implement the operations and (2) classify graphs
+	according to the new measure of complexity. 2) </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <U>
+                            <SPAN STYLE="font-weight: normal">A
+	new measure of similarity for graph:</SPAN>
+                        </U>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Measures
+	of similarity for the vertices of a graph are important because they
+	can help to determine similarity in big data (e.g., members of a
+	social networks, companies in a large economy, biological data,
+	etc.). The project consists on (1) writing a computer programme to
+	implement a new measure of similarity based on a graph distance
+	introduced by Chartrand, Kubicki, and Schultz in late 90s, (2) apply
+	the measure to real world data, and (3) check the performance
+	against other known measures.</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Time-series of matrices: G. Zumbach, The empirical properties of
+	large covariance matrices. <A HREF="http://arxiv.org/abs/0903.1525">arXiv:0903.1525</A>
+                        [q-fin.ST]. H. Wilf, <A HREF="http://www.math.upenn.edu/~wilf/gfologyLinked2.pdf">Generatingfunctionology</A>
+                        .
+	Map of <A HREF="http://www.combinatorics.kr/group">Combinatorics in
+	Korea</A>
+                        . Some notes for the 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <I>Fellowship
+	of the Odd Ring</I>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        (Karol, Michal, Monika, Ravi, et al.): F. Arends, <A HREF="http://www.cs.ox.ac.uk/people/joel.ouaknine/download/arends09.pdf">A
+	Lower Bound on the Size of the Smallest Kochen-Specker Vector System
+	in Three Dimensions</A>
+                        , Master Thesis, Oxford, 2009. (This contains
+	the gadget we are interested on and the proof of minimality.) E. R.
+	Scheinerman, D. H. Ullman, <A HREF="http://www.ams.jhu.edu/~ers/fgt/fgt.pdf">Fractional
+	graph theory</A>
+                        , 2008. (Very detailed overview including the
+	fractional chromatic number.) 
+                    </FONT>
+                </FONT>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="background: transparent">
+                                    V.
+	Lozin, <A HREF="http://homepages.warwick.ac.uk/~masgax/Graph-Theory-notes.pdf">Graph
+	Theory Notes</A>
+                                    , 2012(?). (Great basic intro to graphs.) 
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <U>
+                                    <SPAN STYLE="background: transparent">
+                                        <A HREF="http://www.ifp.illinois.edu/~koetter/NWC/">The
+	Network Coding Home Page</A>
+                                    </SPAN>
+                                </U>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <EM>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN LANG="en-GB">
+                                    <SPAN STYLE="font-style: normal">
+                                        <SPAN STYLE="background: transparent">Hillary
+	S. W. Han, Thomas J. X. Li, Christian M. Reidys, </SPAN>
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </EM>
+                <A HREF="http://www.google.be/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0CDEQFjAA&amp;url=http%3A%2F%2Farxiv.org%2Fabs%2F1112.4151&amp;ei=wUiLUsyfIpKAhAfgnoGYCg&amp;usg=AFQjCNG-U72LrVh3iotQvQpQJjmiQwa9wg&amp;sig2=qMhN-w089us23QogfJQHig">
+                    <EM>
+                        <SPAN STYLE="text-decoration: none">
+                            <FONT FACE="Times New Roman, serif">
+                                <FONT SIZE=3>
+                                    <SPAN LANG="en-GB">
+                                        <SPAN STYLE="font-style: normal">
+                                            <U>
+                                                <SPAN STYLE="background: transparent">Combinatorics
+	of $\ gamma</SPAN>
+                                            </U>
+                                        </SPAN>
+                                    </SPAN>
+                                </FONT>
+                            </FONT>
+                        </SPAN>
+                    </EM>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <U>
+                                    <SPAN STYLE="background: transparent"></SPAN>
+                                </U>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN LANG="en-GB">
+                                    <SPAN STYLE="font-style: normal">
+                                        <U>
+                                            <SPAN STYLE="background: transparent">$-</SPAN>
+                                        </U>
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                    <EM>
+                        <SPAN STYLE="text-decoration: none">
+                            <FONT FACE="Times New Roman, serif">
+                                <FONT SIZE=3>
+                                    <SPAN LANG="en-GB">
+                                        <SPAN STYLE="font-style: normal">
+                                            <U>
+                                                <SPAN STYLE="background: transparent">structures</SPAN>
+                                            </U>
+                                        </SPAN>
+                                    </SPAN>
+                                </FONT>
+                            </FONT>
+                        </SPAN>
+                    </EM>
+                </A>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN LANG="en-GB">
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="background: transparent">
+                                        <SPAN STYLE="font-weight: normal">
+                                            <A HREF="http://www.homepages.ucl.ac.uk/~ucapsse/stronglyregular180812.pdf">This
+	a conjecture</A>
+                                            from: D. Emms, S. Severini, R. Wilson, E. Hancock,
+	A matrix representation of graphs and its spectrum as a graph
+	invariant, The Electronic Journal of Combinatorics, R34, Volume
+	13(1), 2006. <A HREF="http://arxiv.org/pdf/quant-ph/0505026.pdf">arXiv:quant-ph/0505026v2</A>
+                                            [See also K. J. Guo, Quantum Walks on Strongly Regular Graphs,
+	Master Dissertation, University of Waterloo, 2010.] But then there
+	is (at least) this paper by Jamie Smith
+	<A HREF="http://arxiv.org/pdf/1103.0262v1.pdf">http://arxiv.org/pdf/1103.0262v1.pdf</A>
+                                            &ldquo;Cellular Algebras and Graph Invariants Based on Quantum
+	Walks &rdquo;that kills the problem in the general case. Lovasz
+	Conjecture: Every finite connected <A HREF="http://en.wikipedia.org/wiki/Vertex-transitive_graph">vertex-transitive
+	graph</A>
+                                            contains a Hamiltonian path. 
+                                        </SPAN>
+                                    </SPAN>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <SPAN STYLE="text-decoration: none">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="font-weight: normal">
+                                    <SPAN STYLE="background: transparent">
+                                        Positive
+	Semidefinite Minimum Rank (PSMR) Conjecture (for the complement):
+	The PSMR of a graph plus the PSMR of its complement are no larger
+	than the number of vertices plus 2. <A HREF="http://independencenumber.wordpress.com/dynamic-surveys/">The
+	independence number project</A>
+                                        (Craig Larson, Patrick Gaskill).
+	Index Coding: <A HREF="http://arxiv.org/pdf/1301.5359.pdf">Local
+	graph coloring and index coding</A>
+                                        ; <A HREF="http://www2.mta.ac.il/~ishayhav/papers/G_k.pdf">Linear
+	index coding via semidefinite programming</A>
+                                        ; <A HREF="http://www.cs.tau.ac.il/~nogaa/PDFS/witsen.pdf">The
+	rate of index coding</A>
+                                        ;
+                                    </SPAN>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </SPAN>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        R. M. Gray and A. D. Wyner, &ldquo;Source coding for a simple
+	network,&rdquo;Bell System Technical Journal, vol. 53, no. 9, pp.
+	1681 &ndash;1721, November 1974. <A HREF="http://igm.univ-mlv.fr/AlgoB/algoperm2012/07Bouvel.pdf">Perfect
+	sorting by reversals is interesting</A>
+                        (Mathilde Bouvel, Cedric
+	Chauve, Marni Mishna and Dominique Rossin). I like this talk: <A HREF="http://www.math.ucsd.edu/~fan/wp/subgraph.pdf">The
+	giant component of a random subgraph of a given graph</A>
+                        , Linyuan
+	Lu, 2011. <A HREF="http://dabacon.org/pontiff/">The Quantum Pontiff</A>
+                        and other blogs: <A HREF="http://liorpachter.wordpress.com/">Bits of
+	DNA</A>
+                        , <A HREF="http://schroedingersrat.blogspot.co.uk/">Schroedinger's
+	Rat</A>
+                        , <A HREF="http://terrytao.wordpress.com/">What's new</A>
+                        (the Prince of mathematical blogs), <A HREF="http://polymathprojects.org/">The
+	polymath blog</A>
+                        , <A HREF="http://www.scottaaronson.com/blog/?p=304">Shtetl-Optimized</A>
+                        .
+	The <A HREF="http://www.cenedella.com/leonardo-da-vincis-resume/">CV</A>
+                        of Leonardo da Vinci. Open problem: <A HREF="http://mathoverflow.net/questions/156692/minimizing-the-gate-length-in-a-logic-circuit">Minimizing
+	the gate length in a logic circuit</A>
+                        (5/2/14). G. Grimmett, The
+	Random-Cluster Model, 2003. <A HREF="http://arxiv.org/abs/math/0205237v2">arXiv:math/0205237v2</A>
+                        [math.PR]. O. Weiss, M. A. Jimenez-Montano. H. P. Herzel,
+	<A HREF="http://www-lehre.img.bio.uni-goettingen.de/edv/Seminare/ws0304/WeJMHe00.pdf">Information
+	Content of Protein Sequence</A>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <A HREF="http://www-lehre.img.bio.uni-goettingen.de/edv/Seminare/ws0304/WeJMHe00.pdf">s</A>
+                            ,
+	J. Theor. Biol. (2000) 206, 379
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>&mdash;</FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">386.</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            <U>Stringology:</U>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">A.
+	Apostolico and Z. Galil, editors, </SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">Pattern
+	Matching Algorithms</SPAN>
+                        </FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">,
+	Oxford University Press, New York, 1997, 377 pages. M. Crochemore,
+	C. Hancart et T. Lecroq, </SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <A HREF="http://monge.univ-mlv.fr/~mac/CHL/CHL.html">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">Algorithmique
+	du texte</SPAN>
+                            </FONT>
+                        </FONT>
+                    </A>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">,
+	Vuibert, Paris, 2001, 347 pages. M. Crochemore and W. Rytter, </SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <A HREF="http://monge.univ-mlv.fr/~mac/REC/B1.html">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">Text
+	Algorithms</SPAN>
+                            </FONT>
+                        </FONT>
+                    </A>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">,
+	Oxford University Press, New York, 1994, 412 pages. D. Gusfield,
+	</SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">Algorithms
+	on Strings, Trees, and Sequences</SPAN>
+                        </FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">,
+	Cambridge University Press, New York, 1997, 534 pages. W. F. Smyth,
+	</SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">Computing
+	Patterns in Strings</SPAN>
+                        </FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">,
+	Addison-Wesley, 2002. G.A. Stephen, </SPAN>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">String
+	Searching Algorithms</SPAN>
+                        </FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">
+                            ,
+	World Scientific Publishing Co., 1994, 243 pages. J. Spencer, <A HREF="http://www.iecn.u-nancy.fr/~chassain/djvu/SpencerStFlour.pdf">Nine
+	Lectures on Random Graphs</A>
+                            . D. Sculley and Carla E. Brodley,
+	<A HREF="http://www.eecs.tufts.edu/~dsculley/papers/compressionAndVectors.pdf">Compression
+	and Machine Learning: A New Perspective on Feature Space Vectors</A>
+                            .
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <A HREF="http://www.theguardian.com/commentisfree/2013/dec/09/how-journals-nature-science-cell-damage-science">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>How
+	journals like </FONT>
+                    </FONT>
+                    <EM>
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>Nature,
+	Cell</FONT>
+                        </FONT>
+                    </EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>and </FONT>
+                    </FONT>
+                    <EM>
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>Science</FONT>
+                        </FONT>
+                    </EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>are damaging science: The incentives offered by top journals distort
+	science, just as big bonuses distort banking</FONT>
+                    </FONT>
+                </A>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        .
+	P. Di Francesco, <A HREF="http://fr.arxiv.org/pdf/1210.4514">Integrable
+	combinatorics</A>
+                        , ICMP2012. <A HREF="http://www.bioconductor.org/">Bioconductor</A>
+                        ,
+	Open Source Software for Bioinformatics. &quot;A scientist should be
+	judged not by his (papers) prizes or other honours bestowed upon
+	him, but by the quality of the people he has helped to produce. Let
+	these works speak for themselves.&quot;(Brenner); &ldquo;Mathematics
+	is the art of giving the same name to different things: Politics is
+	the art of giving different names to the same thing.&rdquo;(<A HREF="http://en.wikipedia.org/wiki/Francesco_Severi">Severi</A>
+                        ).
+	Mohammad Bavarian, Peter W. Shor, Information Causality,
+	Szemer &eacute;di-Trotter and Algebraic Variants of CHSH,
+	<A HREF="http://arxiv.org/abs/1311.5186">arXiv:1311.5186</A>
+                        [quant-ph]. D. Stahlke, <A HREF="http://www.stahlke.org/dan/publications/phd-thesis.pdf">Entanglement
+	and interference resources in quantum computation and communication</A>
+                        ,
+	PhD Thesis, Carnegie Mellon University, July 2014.
+	(Congratulations!). CP projects at CoMPLEX should be written in
+	LaTeX. A good introduction to LaTeX is <A HREF="http://www.cs.mun.ca/~kol/courses/6743-f07/essential.ps">&quot;Essential
+	LaTeX &quot;</A>
+                        . I like this book: <A HREF="http://web.stanford.edu/~montanar/RESEARCH/book.html">Information,
+	physics, and computation</A>
+                        (2008). <A HREF="http://dl.acm.org/citation.cfm?id=1216372">Compressed
+	full-text indexes</A>
+                        . D. Kovach, The computational theory of
+	intelligence, Dec 2014. <A HREF="http://arxiv.org/abs/1412.7978">arXiv:1412.7978</A>
+                        [cs.AI] (interesting philosophical perspective). M. Laurent,
+	<A HREF="http://homepages.cwi.nl/~monique/lnmb12/Lecture_notes_10_12.pdf">Networks
+	and semidefinite programming</A>
+                        , Lecture notes, 2013. A. Bookatz,
+	<A HREF="http://www.scottaaronson.com/showcase2/report/adam-bookatz.pdf">QMA-complete
+	problems</A>
+                        , 2012. M. Otto, <A HREF="http://www.karlin.mff.cuni.cz/~krajicek/otto.pdf">Finite
+	model theory</A>
+                        , Lecture notes 2005. R. Milo, N. Kashtan, S.
+	Itzkovitz, M. E. J. Newman, U. Alon, On the uniform generation of
+	random graphs with prescribed degree sequences,
+	<A HREF="http://arxiv.org/abs/cond-mat/0312028v2">arXiv:cond-mat/0312028v2</A>
+                        [cond-mat.stat-mech] 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal"><span class="section-header">Computational complexity: learning resources.</span></SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Tim
+	Go</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        wers
+	&ndash;<A HREF="http://sms.cam.ac.uk/collection/545358">Computational
+	Complexity and Quantum Computation</A>
+                        , 12 Graduate Levels Lectures,
+	Cambridge 2009 (video). Luca Trevisan, <A HREF="http://www.cs.berkeley.edu/~luca/notes/complexitynotes02.pdf">Lecture
+	notes on computational complexity</A>
+                        , 2002. <A HREF="http://www.cs.princeton.edu/theory/index.php/Compbook/Draft">Computational
+	Complexity: A Modern Approach</A>
+                        , by Arora and Barak. Moni Naor,
+	<A HREF="http://www.wisdom.weizmann.ac.il/~naor/COURSE/complexity.html">Complexity
+	theory</A>
+                        , 2005. &quot;The sprawling web of known relations among
+	complexity classes &quot;, <A HREF="http://www.complexityzoo.com/">link
+	to the zoo</A>
+                        . Michael Garey and David Johnson: Computers and
+	Intractability - A Guide to the Theory of NP-completeness; Freeman,
+	1979. Hopcroft, Ullman and Mot
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-style: normal">wani,
+	Introduction to Automata Theory, Languages, and Computation (sec</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        ond
+	edition), Addison-Wesley, 2001 <A HREF="http://www-db.stanford.edu/Eullman/ialc.html">website</A>
+                        .
+	<A HREF="http://www.cs.berkeley.edu/~christos/">Christos
+	Papadimitriou,</A>
+                        Elements of the theory of computation
+	(Prentice-Hall 1982, with Harry Lewis, second edition September
+	1997). Lance Fortnow's <A HREF="http://fortnow.com/lance/complog/">Computational
+	Complexity Web Log</A>
+                        . <A HREF="ftp://cs.nyu.edu/pub/local/yap/complexity-bk/">Chee
+	K. Yap: Introduction to Complexity Classes</A>
+                        . 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Antonina
+	Kolokolova <A HREF="http://www.cs.mun.ca/~kol/courses/6743-f07/">lecture
+	notes</A>
+                            . 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <B>Zero-error
+	(reprise):</B>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Xiaodong
+	Xu, Stanis &#322;aw Radziszowski, <A HREF="http://arxiv.org/abs/1201.0304">Bounds
+	on Shannon capacity and Ramsey numbers for products of graphs</A>
+                            ,
+	IEEE Transactions on Information Theory, 59(8) (2013) 4767-4770. A.
+	Vesel, J. Zerovnik, <A HREF="http://www.sciencedirect.com/science/article/pii/S0020019001002290">Improved
+	lower bounds on the Shannon capacity of C_7</A>
+                            ,
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>Information Processing Letters, Volume 81, Issue 5, 16 March 2002,
+	Pages 277 &ndash;282. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Graceful
+	labelings: Kernels: Cubelike graphs: Graph representations: (A
+	fundamental problem of computer science is to determine the relative
+	efficiencies of different data structures for representing a given
+	problem (Rivest &amp;Vuillemin, 1976). Homomorphisms:</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3></FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Graph
+	drawing: Graph limits: Bor</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        gs,
+	Christian; Chayes, Jennifer; Lov &aacute;sz, L &aacute;szl &oacute;;
+	S &oacute;s, Vera T.; Vesztergombi, Katalin Counting graph
+	homomorphisms. Topics in discrete mathematics, 315 &ndash;371,
+	Algorithms Combin., 26, Springer, Berlin, 2006. <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=39645">Borgs,
+	Christian</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=198764">Chayes,
+	Jennifer</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=116260">Lov &aacute;sz,
+	L &aacute;szl &oacute;</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=165035">S &oacute;s,
+	Vera T.</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=612911">Szegedy,
+	Bal &aacute;zs</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=178210">Vesztergombi,
+	Katalin</A>
+                        Graph limits and parameter testing. 
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>STOC'06:
+	Proceedings of the 38th Annual ACM Symposium on Theory of Computing,
+	</FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>261 &ndash;270,
+	</FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>ACM,
+	New York,</FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        2006. <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=57595">Diaconis,
+	Persi</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=605043">Holmes,
+	Susan</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=93655">Janson,
+	Svante</A>
+                        Threshold graph limits and random threshold graphs.
+	
+                    </FONT>
+                </FONT>
+                <EM>
+                    <A HREF="http://www.ams.org/mathscinet/search/journaldoc.html?cn=Internet_Math">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>Internet
+	Math.</FONT>
+                        </FONT>
+                    </A>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=278704">5
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=278704">(2008),
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=278704">no.
+	3,</A>
+                        267 &ndash;320 (2009). <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=116260">Lov &aacute;sz,
+	L &aacute;szl &oacute;</A>
+                        Large networks and graph limits. <A HREF="http://www.ams.org/mathscinet/search/series.html?cn=American_Mathematical_Society_Colloquium_Publications">American
+	Mathematical Society Colloquium Publications, 60.</A>
+                    </FONT>
+                </FONT>
+                <EM>
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>American
+	Mathematical Society, Providence, RI,</FONT>
+                    </FONT>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        2012. <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=38980">Bollob &aacute;s,
+	B &eacute;la</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=93655">Janson,
+	Svante</A>
+                        ; <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=628479">Riordan,
+	Oliver</A>
+                        Monotone graph limits and quasimonotone graphs. 
+                    </FONT>
+                </FONT>
+                <EM>
+                    <A HREF="http://www.ams.org/mathscinet/search/journaldoc.html?cn=Internet_Math">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>Internet
+	Math.</FONT>
+                        </FONT>
+                    </A>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=305713">8
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=305713">(2012),
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=305713">no.
+	3,</A>
+                        187 &ndash;231. <A HREF="http://www.ams.org/mathscinet/search/author.html?mrauthid=93655">Janson,
+	Svante</A>
+                        Quasi-random graphs and graph limits. 
+                    </FONT>
+                </FONT>
+                <EM>
+                    <A HREF="http://www.ams.org/mathscinet/search/journaldoc.html?cn=European_J_Combin">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>European
+	J. Combin.</FONT>
+                        </FONT>
+                    </A>
+                </EM>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=295148">32
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=295148">(2011),
+	</A>
+                        <A HREF="http://www.ams.org/mathscinet/search/publications.html?pg1=ISSI&amp;s1=295148">no.
+	7,</A>
+                        1054 &ndash;1083. A <A HREF="https://video.ias.edu/cga/lovasz">talk</A>
+                        at IAS by Lov &aacute;sz. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">Ramsey
+	numbers:</SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        H. Haanpaa, <A HREF="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.5547&amp;rep=rep1&amp;type=pdf">Computational
+	Methods for Ramsey Numbers</A>
+                        , Helsinki University of Technology
+	Report, 65, 2000. M. Lauria ,P. Pudlak, V. Rodl, N. Thapen, <A HREF="http://download.springer.com/static/pdf/755/chp%3A10.1007%2F978-3-642-39206-1_58.pdf?auth66=1424864347_88f9a24ab637d0d964623a430770422c&amp;ext=.pdf">The
+	complexity of proving that a graph is Ramsey</A>
+                        , ICALP2013. Very
+	nice: G. Brinkmann, K. Coolsaet, J. Goedgebeur, and H. Melot, House
+	of graphs, a database of interesting graphs, Discrete Applied
+	Mathematics, 161 (2013), 311-314. <A HREF="http://hog.grinvin.org/">hog.grinvin.org</A>
+                        .
+	O
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            ther
+	references: A. M. Childs, D. Gosset, Z. Webb, <A HREF="http://arxiv.org/pdf/1311.3297v1.pdf">The
+	Bose-Hubbard model is QMA-complete</A>
+                            , ICALP14. [It also contains a
+	result about the XY Hamiltonian; recall that QMP is a plausible
+	quantum analogue of NP; Arnoldi]. D. Murfet, <A HREF="http://arxiv.org/abs/1407.2650v1">Logic
+	and linear algebra: an introduction</A>
+                            , Jul 2014. A. Alzaga, R.
+	Iglesias, R. Pignol, <A HREF="http://ac.els-cdn.com/S0095895610000729/1-s2.0-S0095895610000729-main.pdf?_tid=1ddeeeb2-bd14-11e4-abf1-00000aab0f01&amp;acdnat=1424885662_ba31c17fbef30ffa6279fd237a1f0703">Spectra
+	of symmetric powers of graphs and the Weisfeiler-Lehman refinements</A>
+                            ,
+	Journal of Combinatorial Theory, Series B 100 (2010), 671-682.
+	<A HREF="http://arxiv.org/abs/0801.2322v1">http://arxiv.org/abs/0801.2322v1</A>
+                            .
+	<A HREF="http://www.cs.ucsc.edu/~kolaitis/talks/essllif.ps">Course
+	on combinatorial games in finite model theory by Phokion Kolaitis</A>
+                            .
+	P. Wocjan, S. Zhang, Several natural BQP-complete problems,
+	<A HREF="http://arxiv.org/abs/quant-ph/0606179">arXiv:quant-ph/0606179</A>
+                            [It shows that QWGT is BQP-complete]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        E.
+	Knill and R. Laflamme,&rdquo;<A HREF="http://arxiv.org/abs/quant-ph/9909094">Quantum
+	Computing and Quadratically Signed Weight Enumerators</A>
+                        &rdquo;,
+	Information Processing Letters 79 (4) pp. 173-1 79, 2001 [It
+	introduces the QWGT &ndash;also it contains a beautiful link
+	between probabilistic and quantum computation. M. Muzychuk and I.
+	Ponomarenko, <A HREF="http://www.math.nsc.ru/conference/isc/2014/lectures/MP1_2014.pdf">Association
+	schemes, Schur rings and the isomorphism problem for circulant
+	graphs</A>
+                        . Part 1. D. Lidar, <A HREF="http://iopscience.iop.org/1367-2630/6/1/167/pdf/1367-2630_6_1_167.pdf">On
+	the quantum computational complexity of the Ising spin glass
+	partition function and of knot invariants</A>
+                        , 2004 New J. Phys. 6
+	167. [Link between the QWGT and the spin-glass partition function]
+	M. Grohe, <A HREF="http://www.automata.rwth-aachen.de/~grohe/pub/gro08b">The
+	quest for a logic capturing PTIME</A>
+                        , 2008. [Fixed points logic
+	with non-deterministic choice operators?]. <A HREF="http://arxiv.org/pdf/quant-ph/0408129v1.pdf">Quantum
+	computing and polynomial equations over Z_2</A>
+                        . Maybe looking at
+	the logic there...K. Eickmeyer, M. Grohe, <A HREF="http://arxiv.org/pdf/1107.3430v2.pdf">Ramdomization
+	and derandomization in descriptive complexity</A>
+                        , LMCS (2011). [An
+	attempt to capture BPP; inexpressibility result for other classes?].
+	R. Fagin, <A HREF="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.48.6819&amp;rep=rep1&amp;type=pdf">Easier
+	ways to win logical games</A>
+                        , 1997. [Use of EF-games to prove
+	inexpressibility results]. This is an interesting logic:
+	<A HREF="http://www.joshuasack.info/papers/qpdsol.pdf">http://www.joshuasack.info/papers/qpdsol.pdf</A>
+                        .
+	Y.-K. Liu, M. Christandl, F. Verstraete, <A HREF="http://arxiv.org/abs/quant-ph/0609125v1">N-representability
+	is QMA-complete</A>
+                        , Phys. Rev. Lett. 98, 110503 (2007) [an
+	interesting QMA-complete problem]. M. Grohe, <A HREF="http://www.automata.rwth-aachen.de/~grohe/pub/gro99a.pdf">Equivalence
+	in finite-variable logics is complete for polynomial time</A>
+                        ,
+	Combinatorica 19:507-532, 1999. [great result about P-completeness
+	of testing equivalence]. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            N.
+	Immerman, E. Lander, <A HREF="http://people.cs.umass.edu/~immerman/pub/canon.pdf">Describing
+	graphs: A first-order approach to graph canonization</A>
+                            , In
+	Complexity Theory Retrospective, pages 59--81. Springer-Verlag,
+	1990. [fundamental result about C_k]. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        M.
+	Grohe, M. Otto, Pebble games and linear equations, <A HREF="http://arxiv.org/abs/1204.1990">arXiv:1204.1990</A>
+                        [cs.LO]. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">R.
+	O &rsquo;Donnell, J. Wright, C. Wu, and </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Y.
+	Zhou. <A HREF="http://arxiv.org/pdf/1401.2436.pdf">Hardness of
+	Robust Graph Isomorphism, Lasserre Gaps, and Asymmetry of Random
+	Graphs</A>
+                        , chapter 120, pages 1659 &ndash;1677. 201. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            Fagin's
+	Theorem: <A HREF="http://www.cl.cam.ac.uk/teaching/0910/L15/handout5.pdf">Anuj
+	Dawar lecture notes</A>
+                            and <A HREF="http://www.karlin.mff.cuni.cz/~krajicek/anuj1.pdf">more
+	general notes</A>
+                            .
+	<A HREF="http://www.csc.kth.se/~lauria/sos14/lecturenotes/lecture9.pdf">http://www.csc.kth.se/~lauria/sos14/lecturenotes/lecture9.pdf</A>
+                            .
+	L. Hella. Logical hierarchies in PTIME. In 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>Proceedings
+	of the 6th IEEE Symposium on Logic in Computer Science pages
+	360 &ndash;368, 1992. </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            M.
+	Mladenov, K. Kirsting, <A HREF="http://www.aaai.org/ocs/index.php/WS/AAAIW13/paper/viewFile/7076/6636">Lifted
+	inference via k-locality</A>
+                            , 2013. [Good description of the links
+	between WL and SA]. M. F &uuml;rer, <A HREF="http://www.sciencedirect.com/science/article/pii/S0024379509003620">On
+	the power of combinatorial and spectral invariants</A>
+                            , Linear
+	Algebra Appl. 432 (2010), no. 9, 2373 &ndash;2380. 
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        Luitpold
+	Babel, Irina V. Chuvaeva, Mikhail Klin, Dmitrii V. Pasechnik,
+	<A HREF="http://arxiv.org/pdf/1002.1921.pdf">Algeb</A>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            <A HREF="http://arxiv.org/pdf/1002.1921.pdf">raic
+	Combinatorics in Mathematical Chemistry. Methods and Algorithms. II.
+	Program Implementation of the Weisfeiler-Leman Algorithm</A>
+                            , 1997.
+	A. Dawar, <A HREF="https://www7.in.tum.de/~schulzef/2014-01-22-Anuj-Dawar.pdf">On
+	tractable approximations of graph isomorphism</A>
+                            , 2014. M. Furer,
+	
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.160.9852&amp;rep=rep1&amp;type=pdf">Weisfeiler-Lehman
+	Renement Requires at Least a Linear Number of Iterations</A>
+                        , ICALP
+	2001. 
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <SPAN STYLE="font-weight: normal">
+                            C.
+	Berkholz, P. Bonsma, M. Grohe, <A HREF="http://www.automata.rwth-aachen.de/~grohe/pub/berbongro13.pdf">Tight
+	Lower and Upper Bounds for the </A>
+                        </SPAN>
+                    </FONT>
+                </FONT>
+                <FONT FACE="Times New Roman, serif">
+                    <FONT SIZE=3>
+                        <A HREF="http://www.automata.rwth-aachen.de/~grohe/pub/berbongro13.pdf">Complexity
+	of Canonical Colour Refinement</A>
+                        , ESA 2013. <A HREF="ftp://ftp.cs.princeton.edu/reports/1986/038.pdf">Coarsest
+	partition problem</A>
+                        . <A HREF="https://www.lpthe.jussieu.fr/~leticia/SEMINARS/santafe04-seminar.pdf">Quantum
+	spin glasses</A>
+                        . <A HREF="https://homepages.warwick.ac.uk/~masgax/Graph-Theory-notes.pdf">Lovely
+	notes on graph theory by Vadim Lozin</A>
+                        . P. Hell, Pavol; J.
+	Ne &scaron;et &#345;il, The core of a graph. Algebraic graph theory
+	(Leibnitz, 1989). Discrete Math. 109 (1992), no. 1-3, 117 &ndash;126.
+	Three problems: color refinement; coarsest equitable partition;
+	floyd algorithm for collisions; VC dimension; graceful labelings;
+	Ulam's reconctruction conjecture:
+	<A HREF="http://www.automata.rwth-aachen.de/~grohe/cap/all.pdf">http://www.automata.rwth-aachen.de/~grohe/cap/all.pdf</A>
+                        <A HREF="http://en.wikipedia.org/wiki/Reconstruction_conjecture">http://en.wikipedia.org/wiki/Reconstruction_conjecture</A>
+                        <A HREF="http://folk.uio.no/taralgs/artikler/hovedfag.pdf">http://folk.uio.no/taralgs/artikler/hovedfag.pdf</A>
+                        <A HREF="http://www.cs.yale.edu/homes/spielman/PAPERS/SGTChapter.pdf">http://www.cs.yale.edu/homes/spielman/PAPERS/SGTChapter.pdf</A>
+                        <A HREF="http://pefmath2.etf.rs/files/117/860.pdf">http://pefmath2.etf.rs/files/117/860.pdf</A>
+                        <A HREF="http://vcp.med.harvard.edu/papers/matrices-2.pdf">http://vcp.med.harvard.edu/papers/matrices-2.pdf</A>
+                        <A HREF="http://www-lp.fmf.uni-lj.si/plestenjak/papers/nicegr.pdf">http://www-lp.fmf.uni-lj.si/plestenjak/papers/nicegr.pdf</A>
+                        <A HREF="http://www.sciencedirect.com/science/article/pii/S0304397501003036">http://www.sciencedirect.com/science/article/pii/S0304397501003036</A>
+                        <A HREF="http://www.jmlr.org/papers/volume12/shervashidze11a/shervashidze11a.pdf">http://www.jmlr.org/papers/volume12/shervashidze11a/shervashidze11a.pdf</A>
+                        .
+	k-e.c. property: <A HREF="http://www.mscs.dal.ca/~abonato/necsurvey.pdf">Bonato's
+	review</A>
+                        . <A HREF="https://ist.ac.at/mfcs13/slides/gi.pdf">GI</A>
+                        (nice). Xiao-Dong Zhang, <A HREF="http://arxiv.org/pdf/1111.2897v1.pdf">A
+	survey of laplacian eigenvalues</A>
+                        . <A HREF="http://mappingignorance.org/2013/10/24/the-history-of-the-crossing-number-of-the-complete-graph/">Crossing
+	numbers of the complete graph: history</A>
+                        . Richter-Salazar,
+	<A HREF="http://www.math.uwaterloo.ca/~brichter/pubs/June2008.pdf">Crossing
+	numbers</A>
+                        (2008). <A HREF="http://www-math.mit.edu/~rstan/transparencies/parking.pdf">Parking
+	functions</A>
+                        , by Richard Stanley. <A HREF="http://www.math.ucla.edu/~pak/lectures/bij-trees-talk1.pdf">Tree
+	bijections</A>
+                        , by Igor Pak. <A HREF="http://www.tristanfletcher.co.uk/SVM%20Explained.pdf">SVM</A>
+                        ,
+	by Tristan Fletcher. Spectacular notes on &ldquo;Quantum Proofs &rdquo;by Vidick and Watrous: <A HREF="https://arxiv.org/pdf/1610.01664v1.pdf">https://arxiv.org/pdf/1610.01664v1.pdf</A>
+                        .
+	Entanglement and non-locality course by Vern Paulsen:
+	<A HREF="http://www.math.uwaterloo.ca/~vpaulsen/EntanglementAndNonlocality_LectureNotes_7.pdf">http://www.math.uwaterloo.ca/~vpaulsen/EntanglementAndNonlocality_LectureNotes_7.pdf</A>
+                        (very useful to learn about games/graphs/non-locality). Good review
+	on the <A HREF="http://www.homepages.ucl.ac.uk/Users/Simone%20Severini/AppData/Local/Temp/sv6kqtkf.tmp/chapter-clique.dvi%20-%20Maximal%20Clique%20Problem.pdf">Clique
+	Problems</A>
+                        . 2016: T. Gartner, <A HREF="http://homepages.rpi.edu/~bennek/class/mmld/papers/p49-gartner.pdf">A
+	survey of kernels for structured data.</A>
+                        R. Hamming, <A HREF="http://www.cs.virginia.edu/~robins/YouAndYourResearch.html">You
+	and your research</A>
+                        . Two beautiful paper: . R. Caianiello,
+	Combinatorics and renormalization in quantum field theory, Frontiers
+	in Physics, W. A. Benjamin, Inc., Reading-London-Amsterdam, 1973. L.
+	Faddeev, Yu. Reshetikhin, Tacktajan, Quantization of Lie groups and
+	Lie algebras, Algebraic analysis, Vol. I, pp. 129 &ndash;139,
+	Academic Press, Boston, MA, 1988. X.-D. Zhang, <A HREF="https://arxiv.org/pdf/1111.2897.pdf">The
+	Laplacian eigenvalues of graphs: a survey</A>
+                        , 2011. S. Bravyi, D.
+	Gosset, <A HREF="http://arxiv.org/pdf/1601.07601v1.pdf">Improved
+	classical simulation of quantum circuits dominated by Clifford
+	gates</A>
+                        , 2016. M. Y. Vardi, <A HREF="http://abiteboul.com/College/1.140312.Vardi.pdf">Database
+	Queries &ndash;Logic and Complexity</A>
+                        . B. Rosgen, <A HREF="http://intractable.ca/bill/talks/hard-problems.pdf">Hard
+	quantum problems</A>
+                        . Very nice review: <A HREF="https://arxiv.org/pdf/1401.3916v4.pdf">Quantum
+	Hamiltonian Complexity</A>
+                        . Nov 2017. <A HREF="https://pdfs.semanticscholar.org/b02d/791913d74ee2b3a4449092919d442c786518.pdf">General
+	purpose computation with neural networks</A>
+                        , <A HREF="https://link.springer.com/chapter/10.1007/3-540-59042-0_85">Optimal
+	simulation of automata by neural nets</A>
+                        , <A HREF="http://www.cs.toronto.edu/~mvolkovs/nips2012_sampling.pdf">Efficient
+	Sampling for Bipartite Matching Problems</A>
+                        , <A HREF="https://arxiv.org/abs/1203.1513">Invariant
+	scattering convolutional networks</A>
+                        , <A HREF="https://www-m5.ma.tum.de/foswiki/pub/M5/Allgemeines/MA4801_2016S/ML_notes_main.pdf">Mathematical
+	Foundations of Supervised Learning</A>
+                        , <A HREF="https://www.cs.cmu.edu/~yuxiangw/docs/Differential%20Privacy.pdf">Differential
+	Privacy: a short tutorial</A>
+                        , <A HREF="http://www.sciencedirect.com/science/article/pii/S0304397512009346">Tighter
+	PAC-Bayes bounds through distribution-dependent priors</A>
+                        . <A HREF="https://arxiv.org/pdf/1310.6343.pdf">Provable
+	Bounds for Learning Some Deep Representations</A>
+                        , <A HREF="https://www.cs.unc.edu/~wliu/papers/GoogLeNet.pdf%20">Going
+	deeper with convolutions</A>
+                        , <A HREF="https://arxiv.org/abs/0712.0248">PAC-Bayesian
+	Supervised Classification: The Thermodynamics of Statistical
+	Learning</A>
+                        , <A HREF="https://arxiv.org/abs/1712.01350">Generalization
+	of Quantum Fourier Transformation</A>
+                        , <A HREF="https://pdfs.semanticscholar.org/6a05/a4fe63e409ba040b890bbf5da0f3b1ca7085.pdf">Determinant
+	versus permanent</A>
+                        , 
+                    </FONT>
+                </FONT>
+                <FONT COLOR="#333333">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <A HREF="http://ieeexplore.ieee.org/document/392248/?denied">Learning
+	in linear neural networks: a survey</A>
+                                , <A HREF="https://arxiv.org/pdf/1505.02290.pdf">Solutions
+	of the Two Dimensional Hubbard Model: Benchmarks and Results from a
+	Wide Range of Numerical Algorithms</A>
+                                , <A HREF="https://www.cis.upenn.edu/~mkearns/papers/dist.pdf">On
+	the learnability of discrete distributions</A>
+                                , <A HREF="https://arxiv.org/pdf/0910.3713.pdf">On
+	Learning Finite-State Quantum Sources</A>
+                                , <A HREF="http://www.math.iitb.ac.in/~niranj/The_Probabilistic_method_Combinatorics.pdf">The
+	probabilistic method in combinatorics</A>
+                                (nice lecture notes),
+	<A HREF="http://madhu.seas.harvard.edu/papers/2007/juba-full.pdf">Universal
+	semantic communication I</A>
+                                , 
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </FONT>
+                <A HREF="javascript:void(0)">
+                    <FONT COLOR="#660099">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <U>
+                                        <SPAN STYLE="font-weight: normal">A
+	global geometric framework for nonlinear dimensionality </SPAN>
+                                    </U>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </FONT>
+                    <FONT COLOR="#660099">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="text-decoration: none">
+                                        <SPAN STYLE="font-weight: normal">reduction</SPAN>
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </FONT>
+                </A>
+                <FONT COLOR="#660099">
+                    <FONT FACE="Times New Roman, serif">
+                        <FONT SIZE=3>
+                            <SPAN STYLE="font-style: normal">
+                                <SPAN STYLE="text-decoration: none">
+                                    <SPAN STYLE="font-weight: normal"></SPAN>
+                                </SPAN>
+                            </SPAN>
+                        </FONT>
+                    </FONT>
+                </FONT>
+                <FONT COLOR="#000000">
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="font-weight: normal">Jan
+	2018. </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </FONT>
+                <FONT COLOR="#333333">
+                    <SPAN STYLE="text-decoration: none">
+                        <FONT FACE="Times New Roman, serif">
+                            <FONT SIZE=3>
+                                <SPAN STYLE="font-style: normal">
+                                    <SPAN STYLE="font-weight: normal">
+                                        <A HREF="https://arxiv.org/pdf/0708.1362.pdf">Physical
+	limits of inference</A>
+                                        , <A HREF="http://csc.ucdavis.edu/~cmg/papers/SAT.complete.pdf">Semantics
+	and Thermodynamics</A>
+                                        , <A HREF="https://arxiv.org/abs/1402.6485">Unitary
+	Evolution Recurrent Neural Networks</A>
+                                        , <A HREF="https://arxiv.org/pdf/1501.01571.pdf">An
+	Introduction to Matrix Concentration Inequalities</A>
+                                        ,
+	<A HREF="http://people.cs.uchicago.edu/~risi/papers/MMCaistats.pdf">Multiresolution
+	Matrix Compression</A>
+                                        , <A HREF="https://arxiv.org/pdf/1710.11298.pdf">Effective
+	Tensor Sketching via Sparsification</A>
+                                        , <A HREF="http://theory.epfl.ch/vishnoi/Publications_files/approx-survey.pdf">Faster
+	Algorithms via Approximation Theory</A>
+                                        , <A HREF="https://arxiv.org/pdf/1711.00386.pdf">Analyzing
+	the Approximation Error of the Fast Graph Fourier Transform</A>
+                                        ,
+	<A HREF="https://arxiv.org/pdf/1602.04145.pdf">Complexity
+	classification of two-qubit commuting hamiltonians</A>
+                                        , <A HREF="https://arxiv.org/pdf/1711.04789.pdf">Quantum
+	Simulation of Electronic Structure with Linear Depth and
+	Connectivity</A>
+                                        , <A HREF="https://arxiv.org/pdf/quant-ph/9807070.pdf">A
+	quantum algorithm providing exponential speed increase for finding
+	eigenvalues and eigenvectors</A>
+                                        , <A HREF="https://arxiv.org/pdf/1707.04397.pdf">Towards
+	quantum simulation with circular Rydberg atoms</A>
+                                        , <A HREF="http://www.maths.manchester.ac.uk/~higham/talks/an16_cvl.pdf">Matrix
+	Exponential</A>
+                                        , <A HREF="https://arxiv.org/pdf/1801.05721.pdf">A
+	compressed classical description of quantum states</A>
+                                        , <A HREF="http://www.cs.princeton.edu/~ehazan/papers/094-HKW.pdf">Learning
+	rotations with little regret</A>
+                                        , <A HREF="https://arxiv.org/pdf/1104.4521v2.pdf">A
+	Metric Between Probability Distributions on Finite Sets of Different
+	Cardinalities and Applications to Order Reduction</A>
+                                        , <A HREF="https://arxiv.org/pdf/1710.05867.pdf">Breaking
+	the 49-Qubit Barrier in the Simulation of Quantum Circuits</A>
+                                        ,
+	<A HREF="https://arxiv.org/pdf/quant-ph/0305008.pdf">Simulation of
+	quantum random walks using interference of classical field</A>
+                                    </SPAN>
+                                </SPAN>
+                            </FONT>
+                        </FONT>
+                    </SPAN>
+                </FONT>
+            </DT>
+        </DL>
+    </div>
+
+    <script>
+        // --- NAVIGATION LOGIC ---
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('is-open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                navMenu.classList.remove('is-open');
+            }
+        });
+    </script>
+</body>
+</html>
+```
